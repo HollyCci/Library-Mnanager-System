@@ -63,7 +63,7 @@ const document: AuthRoute.Route = {
     title: '文档',
     i18nTitle: 'routes.document._value',
     icon: 'mdi:file-document-multiple-outline',
-    order: 2
+    order: 3
   }
 };
 
