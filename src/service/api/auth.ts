@@ -37,5 +37,5 @@ export function fetchUserRoutes(userId: string) {
  * @param refreshToken
  */
 export function fetchUpdateToken(refreshToken: string) {
-  return mockRequest.post<ApiAuth.Token>('/updateToken', { refreshToken });
+  return request.post<ApiAuth.Token>('/updateToken', { refreshToken });
 }
