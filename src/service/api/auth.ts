@@ -14,8 +14,8 @@ export function fetchSmsCode(phone: string) {
  * @param userName - 用户名
  * @param password - 密码
  */
-export function fetchLogin(userName: string, password: string) {
-  return request.post<ApiAuth.Token>('/login', { userName, password });
+export function fetchLogin(tenant: number, userName: string, password: string) {
+  return request.post<ApiAuth.Token>('/login', { tenant, userName, password });
 }
 
 /** 获取用户信息 */

@@ -10,6 +10,8 @@ declare namespace Auth {
 
   /** 用户信息 */
   interface UserInfo {
+    /** 用户所属校区 */
+    tenant: number;
     /** 用户id */
     userId: string;
     /** 用户名 */

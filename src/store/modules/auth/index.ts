@@ -113,9 +113,9 @@ export const useAuthStore = defineStore('auth-store', {
      * @param userName - 用户名
      * @param password - 密码
      */
-    async login(userName: string, password: string) {
+    async login(tenant: number, userName: string, password: string) {
       this.loginLoading = true;
-      const { data } = await fetchLogin(userName, password);
+      const { data } = await fetchLogin(tenant, userName, password);
       if (data) {
         await this.handleActionAfterLogin(data);
       }
@@ -128,22 +128,25 @@ export const useAuthStore = defineStore('auth-store', {
     async updateUserRole(userRole: Auth.RoleType) {
       const { resetRouteStore, initAuthRoute } = useRouteStore();
 
-      const accounts: Record<Auth.RoleType, { userName: string; password: string }> = {
+      const accounts: Record<Auth.RoleType, { tenant: number; userName: string; password: string }> = {
         super: {
+          tenant: 1,
           userName: 'Super',
           password: 'super123'
         },
         admin: {
+          tenant: 1,
           userName: 'Admin',
           password: 'admin123'
         },
         user: {
+          tenant: 1,
           userName: 'User01',
           password: 'user01123'
         }
       };
-      const { userName, password } = accounts[userRole];
-      const { data } = await fetchLogin(userName, password);
+      const { tenant, userName, password } = accounts[userRole];
+      const { data } = await fetchLogin(tenant, userName, password);
       if (data) {
         await this.loginByToken(data);
         resetRouteStore();

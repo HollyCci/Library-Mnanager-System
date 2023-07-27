@@ -172,6 +172,7 @@ const locale: I18nType.Schema = {
   page: {
     login: {
       common: {
+        tenantPlaceholder: 'Please select your campus',
         userNamePlaceholder: 'Please enter user name',
         phonePlaceholder: 'Please enter phone number',
         codePlaceholder: 'Please enter verification code',

@@ -70,6 +70,7 @@ const apis: MockMethod[] = [
         };
       }
       const userInfo: Auth.UserInfo = {
+        tenant: 1,
         userId: '',
         userName: '',
         userRole: 'user'

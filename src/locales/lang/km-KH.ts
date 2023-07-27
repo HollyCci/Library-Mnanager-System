@@ -172,6 +172,7 @@ const locale: I18nType.Schema = {
   page: {
     login: {
       common: {
+        tenantPlaceholder: 'សូម​ជ្រើស​កម្មវិធី​ជំនួយ​របស់​អ្នក',
         userNamePlaceholder: 'ឈ្មោះអ្នកប្រើប្រាស់',
         phonePlaceholder: 'លេខទូរស័ព្ទ',
         codePlaceholder: 'លេខកូដ',

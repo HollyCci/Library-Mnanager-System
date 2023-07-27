@@ -17,6 +17,8 @@ interface CustomFormRules {
   code: FormItemRule[];
   /** 邮箱 */
   email: FormItemRule[];
+  /** 用户名 */
+  username: FormItemRule[];
 }
 
 /** 表单规则 */
@@ -33,7 +35,8 @@ export const formRules: CustomFormRules = {
     createRequiredFormRule('请输入验证码'),
     { pattern: REGEXP_CODE_SIX, message: '验证码格式错误', trigger: 'input' }
   ],
-  email: [{ pattern: REGEXP_EMAIL, message: '邮箱格式错误', trigger: 'blur' }]
+  email: [{ pattern: REGEXP_EMAIL, message: '邮箱格式错误', trigger: 'blur' }],
+  username: [{ required: true, message: '请输入用户名', trigger: 'input' }]
 };
 
 /** 是否为空字符串 */
