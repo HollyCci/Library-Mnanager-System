@@ -1,6 +1,6 @@
 const locale: I18nType.Schema = {
   system: {
-    title: 'SoybeanAdmin'
+    title: 'ZTBU Library'
   },
   common: {
     add: 'Add',
@@ -19,7 +19,8 @@ const locale: I18nType.Schema = {
     dashboard: {
       _value: 'Dashboard',
       analysis: 'Analysis',
-      workbench: 'Workbench'
+      workbench: 'Workbench',
+      'Intelligent recommendation': 'Guess U Like'
     },
     document: {
       _value: 'Document',
@@ -69,26 +70,36 @@ const locale: I18nType.Schema = {
       404: '404',
       500: '500'
     },
-    'multi-menu': {
-      _value: 'Multi Degree Menu',
-      first: {
-        _value: 'First Degree',
-        second: 'Second Degree',
-        'second-new': {
-          _value: 'Second Degree With Children',
-          third: 'Third Degree'
-        }
-      }
-    },
     management: {
       _value: 'System Management',
       route: 'Route',
-      user: 'User'
+      user: 'User',
+      dept: 'Department management',
+      class: 'Class management',
+      notice: 'Notice management',
+      dict: 'Class management'
+    },
+    tenant: {
+      _value: 'Tenant Management',
+      management: 'Tenant List',
+      packages: 'Tenant Package'
+    },
+    book: {
+      _value: 'Book management',
+      books: 'Collected Books',
+      borrow: 'Borrowing management',
+      inventory: 'Inventory management'
+    },
+    reader: {
+      _value: 'Reader Service',
+      borrow: 'Borrow books',
+      info: 'My Borrowing'
     },
     authority: {
-      _value: '权限管理',
-      role: '角色管理',
-      menu: '菜单管理'
+      _value: 'Permission management',
+      role: 'Role management',
+      menu: 'Menu management',
+      token: 'Token management'
     },
     about: 'About'
   },

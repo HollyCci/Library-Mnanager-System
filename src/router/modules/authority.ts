@@ -23,6 +23,16 @@ const authority: AuthRoute.Route = {
         i18nTitle: 'routes.authority.menu',
         icon: 'pepicons-pop:menu'
       }
+    },
+    {
+      name: 'authority_token',
+      path: '/authority/token',
+      component: 'self',
+      meta: {
+        title: '令牌管理',
+        i18nTitle: 'routes.authority.token',
+        icon: 'material-symbols:token'
+      }
     }
   ],
   meta: {

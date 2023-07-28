@@ -24,6 +24,17 @@ const dashboard: AuthRoute.Route = {
         icon: 'icon-park-outline:workbench',
         i18nTitle: 'routes.dashboard.workbench'
       }
+    },
+    {
+      name: 'dashboard_recommend',
+      path: '/dashboard/recommend',
+      component: 'self',
+      meta: {
+        title: '猜你喜欢',
+        requiresAuth: true,
+        icon: 'simple-icons:looker',
+        i18nTitle: 'routes.dashboard.Intelligent recommendation'
+      }
     }
   ],
   meta: {

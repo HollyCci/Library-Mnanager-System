@@ -31,7 +31,7 @@ const authDemo: AuthRoute.Route = {
     title: '权限示例',
     i18nTitle: 'routes.auth-demo._value',
     icon: 'ic:baseline-security',
-    order: 5
+    order: 9
   }
 };
 

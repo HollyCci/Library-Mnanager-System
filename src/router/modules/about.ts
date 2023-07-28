@@ -10,7 +10,7 @@ const about: AuthRoute.Route = {
     singleLayout: 'basic',
     permissions: ['super', 'admin', 'user'],
     icon: 'fluent:book-information-24-regular',
-    order: 10
+    order: 13
   }
 };
 

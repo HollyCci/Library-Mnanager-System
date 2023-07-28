@@ -41,7 +41,7 @@ const component: AuthRoute.Route = {
     title: '组件示例',
     i18nTitle: 'routes.component._value',
     icon: 'cib:app-store',
-    order: 3
+    order: 10
   }
 };
 

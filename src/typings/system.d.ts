@@ -328,6 +328,7 @@ declare namespace I18nType {
         _value: string;
         analysis: string;
         workbench: string;
+        'Intelligent recommendation': string;
       };
       document: {
         _value: string;
@@ -377,26 +378,36 @@ declare namespace I18nType {
         '404': string;
         '500': string;
       };
-      'multi-menu': {
-        _value: string;
-        first: {
-          _value: string;
-          second: string;
-          'second-new': {
-            _value: string;
-            third: string;
-          };
-        };
-      };
       management: {
         _value: string;
         route: string;
         user: string;
+        dept: string;
+        class: string;
+        notice: string;
+        dict: string;
+      };
+      tenant: {
+        _value: string;
+        management: string;
+        packages: string;
+      };
+      book: {
+        _value: string;
+        books: string;
+        borrow: string;
+        inventory: string;
+      };
+      reader: {
+        _value: string;
+        borrow: string;
+        info: string;
       };
       authority: {
         _value: string;
         role: string;
         menu: string;
+        token: string;
       };
       about: string;
     };

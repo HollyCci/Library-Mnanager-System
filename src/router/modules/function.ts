@@ -44,7 +44,7 @@ const functionRoute: AuthRoute.Route = {
     title: '功能',
     i18nTitle: 'routes.function._value',
     icon: 'icon-park-outline:all-application',
-    order: 6
+    order: 9
   }
 };
 

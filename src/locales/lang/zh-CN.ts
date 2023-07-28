@@ -1,6 +1,6 @@
 const locale: I18nType.Schema = {
   system: {
-    title: 'Soybean管理系统'
+    title: '郑州工商学院-图书馆'
   },
   common: {
     add: '添加',
@@ -19,7 +19,8 @@ const locale: I18nType.Schema = {
     dashboard: {
       _value: '仪表盘',
       analysis: '分析页',
-      workbench: '工作台'
+      workbench: '工作台',
+      'Intelligent recommendation': '猜你喜欢'
     },
     document: {
       _value: '文档',
@@ -69,26 +70,36 @@ const locale: I18nType.Schema = {
       404: '404',
       500: '500'
     },
-    'multi-menu': {
-      _value: '多级菜单',
-      first: {
-        _value: '一级菜单',
-        second: '二级菜单',
-        'second-new': {
-          _value: '二级菜单(有子菜单)',
-          third: '三级菜单'
-        }
-      }
-    },
     management: {
       _value: '系统管理',
       route: '路由管理',
-      user: '用户管理'
+      user: '用户管理',
+      dept: '部门管理',
+      class: '班级管理',
+      notice: '通知管理',
+      dict: '字典管理'
+    },
+    tenant: {
+      _value: '租户管理',
+      management: '租户列表',
+      packages: '租户套餐'
+    },
+    book: {
+      _value: '图书管理',
+      books: '馆藏图书',
+      borrow: '借阅管理',
+      inventory: '库存管理'
+    },
+    reader: {
+      _value: '读者服务',
+      borrow: '借阅图书',
+      info: '我的借阅'
     },
     authority: {
       _value: '权限管理',
       role: '角色管理',
-      menu: '菜单管理'
+      menu: '菜单管理',
+      token: '令牌管理'
     },
     about: '关于'
   },

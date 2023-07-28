@@ -41,7 +41,7 @@ const exception: AuthRoute.Route = {
     i18nTitle: 'routes.exception._value',
     title: '异常页',
     icon: 'ant-design:exception-outlined',
-    order: 7
+    order: 9
   }
 };
 
