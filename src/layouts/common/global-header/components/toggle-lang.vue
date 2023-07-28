@@ -24,10 +24,6 @@ const options = [
   {
     label: 'English',
     key: 'en'
-  },
-  {
-    label: 'ភាសាខ្មែរ',
-    key: 'km-KH'
   }
 ];
 const handleSelect = (key: string) => {

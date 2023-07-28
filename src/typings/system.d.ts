@@ -304,7 +304,7 @@ declare namespace App {
 }
 
 declare namespace I18nType {
-  type LangType = 'en' | 'zh-CN' | 'km-KH';
+  type LangType = 'en' | 'zh-CN';
 
   type Schema = {
     system: {
@@ -390,10 +390,13 @@ declare namespace I18nType {
       };
       management: {
         _value: string;
-        auth: string;
-        role: string;
         route: string;
         user: string;
+      };
+      authority: {
+        _value: string;
+        role: string;
+        menu: string;
       };
       about: string;
     };

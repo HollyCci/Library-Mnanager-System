@@ -82,10 +82,13 @@ const locale: I18nType.Schema = {
     },
     management: {
       _value: 'System Management',
-      auth: 'Auth',
-      role: 'Role',
       route: 'Route',
       user: 'User'
+    },
+    authority: {
+      _value: '权限管理',
+      role: '角色管理',
+      menu: '菜单管理'
     },
     about: 'About'
   },
