@@ -37,11 +37,11 @@ interface TableData {
 }
 
 const timelines: TimelineData[] = [
-  { type: 'default', title: '啊', content: '', time: '2021-10-10 20:46' },
-  { type: 'success', title: '成功', content: '哪里成功', time: '2021-10-10 20:46' },
-  { type: 'error', title: '错误', content: '哪里错误', time: '2021-10-10 20:46' },
-  { type: 'warning', title: '警告', content: '哪里警告', time: '2021-10-10 20:46' },
-  { type: 'info', title: '信息', content: '是的', time: '2021-10-10 20:46' }
+  { type: 'default', title: '啊', content: '', time: '2023-10-10 20:46' },
+  { type: 'success', title: '成功', content: '哪里成功', time: '2023-10-10 20:46' },
+  { type: 'error', title: '错误', content: '哪里错误', time: '2023-10-10 20:46' },
+  { type: 'warning', title: '警告', content: '哪里警告', time: '2023-10-10 20:46' },
+  { type: 'info', title: '信息', content: '是的', time: '2023-10-10 20:46' }
 ];
 
 const columns = [
