@@ -13,7 +13,6 @@ export const views: Record<
   about: () => import('./about/index.vue'),
   'auth-demo_permission': () => import('./auth-demo/permission/index.vue'),
   'auth-demo_super': () => import('./auth-demo/super/index.vue'),
-  authority_auth: () => import('./authority/auth/index.vue'),
   authority_menu: () => import('./authority/menu/index.vue'),
   authority_role: () => import('./authority/role/index.vue'),
   authority_token: () => import('./authority/token/index.vue'),

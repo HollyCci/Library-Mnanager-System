@@ -11,7 +11,7 @@
           <n-gradient-text type="danger" class="text-17px font-bold">
             <icon-twemoji:growing-heart />
             <icon-twemoji:growing-heart />
-            $t
+            永远热爱郑州工商学院~
           </n-gradient-text>
         </template>
       </n-select>
