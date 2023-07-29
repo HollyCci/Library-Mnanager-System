@@ -50,3 +50,17 @@ declare namespace ApiUserManagement {
     userStatus: '1' | '2' | '3' | '4' | null;
   }
 }
+
+declare namespace ApiSystem {
+  interface COSTmpSecret {
+    expiredTime: number;
+    expiration: string;
+    credentials: {
+      tmpSecretId: string;
+      tmpSecretKey: string;
+      sessionToken: string;
+    };
+    requestId: string;
+    startTime: number;
+  }
+}

@@ -371,6 +371,7 @@ declare namespace I18nType {
       function: {
         _value: string;
         tab: string;
+        upload_image: string;
       };
       exception: {
         _value: string;

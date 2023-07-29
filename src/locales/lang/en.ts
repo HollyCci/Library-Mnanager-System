@@ -62,7 +62,8 @@ const locale: I18nType.Schema = {
     },
     function: {
       _value: 'Function',
-      tab: 'System Tab'
+      tab: 'System Tab',
+      upload_image: 'Upload Image'
     },
     exception: {
       _value: 'Exception',

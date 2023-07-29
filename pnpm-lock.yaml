@@ -34,6 +34,9 @@ dependencies:
   colord:
     specifier: 2.9.3
     version: 2.9.3
+  cos-js-sdk-v5:
+    specifier: ^1.4.18
+    version: 1.4.18
   crypto-js:
     specifier: 4.1.1
     version: 4.1.1
@@ -3427,6 +3430,11 @@ packages:
       - supports-color
     dev: true
 
+  /@xmldom/xmldom@0.8.10:
+    resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
+    engines: {node: '>=10.0.0'}
+    dev: false
+
   /abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
     dev: true
@@ -4430,6 +4438,12 @@ packages:
       object-assign: 4.1.1
       vary: 1.1.2
     dev: true
+
+  /cos-js-sdk-v5@1.4.18:
+    resolution: {integrity: sha512-vTy8p59qnEoNJH/1chBSU8lSJDEcKV5PeOlAngmPbmHEwoMNJmKmA71nnquGIWHI4KpR4n57yC+RKP6RZkgsBg==}
+    dependencies:
+      '@xmldom/xmldom': 0.8.10
+    dev: false
 
   /cross-env@7.0.3:
     resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
@@ -6680,6 +6694,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: true

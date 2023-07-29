@@ -36,6 +36,7 @@ export const views: Record<
   'function_tab-detail': () => import('./function/tab-detail/index.vue'),
   'function_tab-multi-detail': () => import('./function/tab-multi-detail/index.vue'),
   function_tab: () => import('./function/tab/index.vue'),
+  'function_upload-image': () => import('./function/upload-image/index.vue'),
   function_websocket: () => import('./function/websocket/index.vue'),
   management_class: () => import('./management/class/index.vue'),
   management_dept: () => import('./management/dept/index.vue'),

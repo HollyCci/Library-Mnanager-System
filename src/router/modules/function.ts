@@ -38,6 +38,17 @@ const functionRoute: AuthRoute.Route = {
         activeMenu: 'function_tab',
         icon: 'ic:round-tab'
       }
+    },
+    {
+      name: 'function_upload-image',
+      path: '/function/upload-image',
+      component: 'self',
+      meta: {
+        title: '上传图片',
+        i18nTitle: 'routes.function.upload_image',
+        requiresAuth: true,
+        icon: 'ic:round-tab'
+      }
     }
   ],
   meta: {

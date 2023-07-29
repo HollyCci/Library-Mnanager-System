@@ -62,7 +62,8 @@ const locale: I18nType.Schema = {
     },
     function: {
       _value: '功能',
-      tab: 'Tab页签'
+      tab: 'Tab页签',
+      upload_image: '上传图片'
     },
     exception: {
       _value: '异常页',
