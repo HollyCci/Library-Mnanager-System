@@ -49,6 +49,27 @@
           Upload
         </button>
       </div>
+
+      <div id="image-scroll-container" style="overflow: auto; display: flex; gap: 8px; flex-wrap: wrap">
+        <div v-for="(src, index) in images" :key="index">
+          <div style="cursor: pointer" @click="handleCopy(src)">复制链接</div>
+          <n-image
+            width="100"
+            height="100"
+            lazy
+            :src="src"
+            :intersection-observer-options="{
+              root: '#image-scroll-container'
+            }"
+          >
+            <template #placeholder>
+              <div style="width: 100px; height: 100px; display: flex; align-items: center; background-color: #0001">
+                Loading
+              </div>
+            </template>
+          </n-image>
+        </div>
+      </div>
     </main>
   </n-space>
 </template>
@@ -58,22 +79,23 @@ defineOptions({ name: 'UploadCard' });
 import { ref, reactive, onMounted } from 'vue';
 import { useMessage } from 'naive-ui';
 import COS from 'cos-js-sdk-v5';
+import { useClipboard } from '@vueuse/core';
 import { fetchCOSSecretTmp } from '@/service';
 
 const message = useMessage();
 const file = ref(null);
-const images = reactive([]);
+const images = reactive<string[]>([]);
 const previewImage = ref();
 const progress = ref(0);
 const cosRef = ref<COS>();
+const { copy } = useClipboard();
+const domain = 'https://static.lihaha.cn/';
 
 const initCOSTmpSecret = () => {
   cosRef.value = new COS({
     getAuthorization(_options, callback) {
-      // console.log('_options', _options);
       fetchCOSSecretTmp()
         .then(({ data }) => {
-          console.log('fetchCOSSecretTmp-data', data);
           const credentials = data?.credentials;
           if (!data || !credentials) {
             message.error(`credentials invalid:\n${JSON.stringify(data, null, 2)}`);
@@ -99,7 +121,6 @@ const handleFileUpload = () => {
 
   const cos = cosRef.value;
 
-  const domain = 'https://static.lihaha.cn/';
   const UUID = crypto.randomUUID();
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -114,31 +135,27 @@ const handleFileUpload = () => {
       SliceSize: 1024 * 1024 * 3,
       onProgress(info) {
         const percent = parseInt(`${info.percent * 10000}`, 10) / 100;
-        const speed = parseInt(`${(info.speed / 1024 / 1024) * 100}`, 10) / 100;
+        // const speed = parseInt(`${(info.speed / 1024 / 1024) * 100}`, 10) / 100;
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        message.info(`进度：${percent}%; 速度：${speed}Mb/s;`, info);
+        // message.info(`进度：${percent}%; 速度：${speed}Mb/s;`, info);
         progress.value = percent;
       },
-      onTaskReady(taskId) {
-        message.info(taskId);
-      },
+      // onTaskReady(taskId) {
+      //   message.info(taskId);
+      // },
       onFileFinish(err, _data, options) {
         message.info(`${options.Key}上传${err ? '失败' : '完成'}`);
       }
     },
     (err, _data) => {
       if (err) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        message.error(err);
+        message.error(`${err}`);
       } else {
-        // images.push(`${domain}${Key}`);
-        // localStorage.setItem('local-images', JSON.stringify(images));
-        // mutation.mutate();
+        images.push(`${domain}${Key}`);
+        localStorage.setItem('local-images', JSON.stringify(images));
         file.value = null;
         previewImage.value = null;
-        message.info(`${domain}${Key}`);
       }
     }
   );
@@ -162,9 +179,15 @@ const handleInputChange = (event: Event) => {
   reader.readAsDataURL(selectedFile);
 };
 
+const handleCopy = (key: string) => {
+  copy(key).then(() => {
+    message.success('复制成功');
+  });
+};
+
 onMounted(() => {
   if (!images.length) {
-    // images.push(...JSON.parse(localStorage.getItem('local-images') || '[]'));
+    images.push(...JSON.parse(localStorage.getItem('local-images') || '[]'));
   }
 
   initCOSTmpSecret();
