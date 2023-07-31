@@ -83,8 +83,8 @@ const formRef = ref<HTMLElement & FormInst>();
 
 const model = reactive({
   tenant: 1,
-  userName: 'Soybean',
-  password: 'soybean123'
+  userName: 'admin',
+  password: 'admin123'
 });
 
 const options = [
