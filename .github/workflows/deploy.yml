@@ -33,11 +33,6 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
-
       - name: Upload to CentOS
         uses: appleboy/scp-action@master
         with:
@@ -47,6 +42,11 @@ jobs:
           source: "dist/*"
           target: "/home/ccweb/Library-System-Mnanager"
           rm: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
       - name: Setup pnpm cache
         uses: actions/cache@v3
