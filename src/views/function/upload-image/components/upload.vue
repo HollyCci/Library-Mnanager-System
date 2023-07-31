@@ -80,6 +80,7 @@ import { ref, reactive, onMounted } from 'vue';
 import { useMessage } from 'naive-ui';
 import COS from 'cos-js-sdk-v5';
 import { useClipboard } from '@vueuse/core';
+import { nanoid } from 'nanoid';
 import { fetchCOSSecretTmp } from '@/service';
 
 const message = useMessage();
@@ -121,7 +122,7 @@ const handleFileUpload = () => {
 
   const cos = cosRef.value;
 
-  const UUID = crypto.randomUUID();
+  const UUID = nanoid(36);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const Key = `images/${UUID}${file.value.name.slice(file.value.name.lastIndexOf('.'))}`;
