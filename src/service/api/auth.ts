@@ -15,12 +15,12 @@ export function fetchSmsCode(phone: string) {
  * @param password - 密码
  */
 export function fetchLogin(tenant: number, username: string, password: string) {
-  return request.post<ApiAuth.Token>('/system/auth/login', { tenant, username, password });
+  return request.post<ApiAuth.Token>('/admin-api/system/auth/login', { tenant, username, password });
 }
 
 /** 获取用户信息 */
 export function fetchUserInfo() {
-  return request.get<ApiAuth.UserInfo>('/getUserInfo');
+  return request.get<ApiAuth.UserInfoVO>('/admin-api/system/auth/get-permission-info');
 }
 
 /**
@@ -28,7 +28,7 @@ export function fetchUserInfo() {
  * @param userId - 用户id
  * @description 后端根据用户id查询到对应的角色类型，并将路由筛选出对应角色的路由数据返回前端
  */
-export function fetchUserRoutes(userId: string) {
+export function fetchUserRoutes(userId: number) {
   return request.post<ApiRoute.Route>('/getUserRoutes', { userId });
 }
 

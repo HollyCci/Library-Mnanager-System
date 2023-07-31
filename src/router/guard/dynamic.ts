@@ -12,7 +12,7 @@ export async function createDynamicRouteGuard(
   next: NavigationGuardNext
 ) {
   const route = useRouteStore();
-  const isLogin = Boolean(localStg.get('token'));
+  const isLogin = Boolean(localStg.get('accessToken'));
 
   // 初始化权限路由
   if (!route.isInitAuthRoute) {

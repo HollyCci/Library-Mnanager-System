@@ -4,11 +4,17 @@
 declare namespace ApiAuth {
   /** 返回的token和刷新token */
   interface Token {
-    token: string;
+    /** 用户编号  */
+    userId: number;
+    /** 授权token凭证 */
+    accessToken: string;
+    /** 刷新token凭证 */
     refreshToken: string;
+    /** 授权token凭证过期时间 */
+    expiresTime: string;
   }
   /** 返回的用户信息 */
-  type UserInfo = Auth.UserInfo;
+  type UserInfoVO = Auth.UserInfoVO;
 }
 
 /** 后端返回的路由相关类型 */

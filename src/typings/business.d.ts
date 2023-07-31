@@ -6,7 +6,7 @@ declare namespace Auth {
    * - admin: 管理员
    * - user: 用户
    */
-  type RoleType = 'super' | 'admin' | 'user';
+  type RoleType = 'super_admin' | 'admin' | 'common' | 'user';
 
   /** 用户信息 */
   interface UserInfo {
@@ -18,6 +18,26 @@ declare namespace Auth {
     userName: string;
     /** 用户角色类型 */
     userRole: RoleType;
+  }
+
+  /** 用户小信息 */
+  interface UserVo {
+    /** 用户id */
+    id: number;
+    /** 用户头像url */
+    avatar: string;
+    /** 用户姓名 */
+    nickname: string;
+  }
+
+  /** 用户基本信息 */
+  interface UserInfoVO {
+    /** 用户权限操作信息 */
+    permissions: string[];
+    /** 用户角色信息 */
+    roles: string[];
+    /** 用户小信息 */
+    user: UserVo;
   }
 }
 

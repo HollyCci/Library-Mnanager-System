@@ -22,10 +22,12 @@ export async function createPermissionGuard(
   }
 
   const auth = useAuthStore();
-  const isLogin = Boolean(localStg.get('token'));
+  const isLogin = Boolean(localStg.get('accessToken'));
   const permissions = to.meta.permissions || [];
   const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
-  const hasPermission = !permissions.length || permissions.includes(auth.userInfo.userRole);
+  // const hasPermission = !permissions.length || permissions.includes(auth.userInfoVO.userRole);
+  // 默认第一个角色
+  const hasPermission = !permissions.length || permissions.includes(auth.userInfoVO.roles[0] as Auth.RoleType);
 
   const actions: Common.StrategyAction[] = [
     // 已登录状态跳转登录页，跳转至首页

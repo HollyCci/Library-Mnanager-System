@@ -11,23 +11,23 @@ import { getToken, getUserInfo, clearAuthStorage } from './helpers';
 
 interface AuthState {
   /** 用户信息 */
-  userInfo: Auth.UserInfo;
+  userInfoVO: Auth.UserInfoVO;
   /** 用户token */
-  token: string;
+  accessToken: string;
   /** 登录的加载状态 */
   loginLoading: boolean;
 }
 
 export const useAuthStore = defineStore('auth-store', {
   state: (): AuthState => ({
-    userInfo: getUserInfo(),
-    token: getToken(),
+    userInfoVO: getUserInfo(),
+    accessToken: getToken(),
     loginLoading: false
   }),
   getters: {
     /** 是否登录 */
     isLogin(state) {
-      return Boolean(state.token);
+      return Boolean(state.accessToken);
     }
   },
   actions: {
@@ -70,7 +70,7 @@ export const useAuthStore = defineStore('auth-store', {
         if (route.isInitAuthRoute) {
           window.$notification?.success({
             title: $t('page.login.common.loginSuccess'),
-            content: $t('page.login.common.welcomeBack', { userName: this.userInfo.userName }),
+            content: $t('page.login.common.welcomeBack', { userName: this.userInfoVO.user.nickname }),
             duration: 3000
           });
         }
@@ -89,19 +89,19 @@ export const useAuthStore = defineStore('auth-store', {
       let successFlag = false;
 
       // 先把token存储到缓存中(后面接口的请求头需要token)
-      const { token, refreshToken } = backendToken;
-      localStg.set('token', token);
+      const { accessToken, refreshToken } = backendToken;
+      localStg.set('accessToken', accessToken);
       localStg.set('refreshToken', refreshToken);
 
       // 获取用户信息
       const { data } = await fetchUserInfo();
       if (data) {
         // 成功后把用户信息存储到缓存中
-        localStg.set('userInfo', data);
+        localStg.set('userInfoVO', data);
 
         // 更新状态
-        this.userInfo = data;
-        this.token = token;
+        this.userInfoVO = data;
+        this.accessToken = accessToken;
 
         successFlag = true;
       }
@@ -129,7 +129,7 @@ export const useAuthStore = defineStore('auth-store', {
       const { resetRouteStore, initAuthRoute } = useRouteStore();
 
       const accounts: Record<Auth.RoleType, { tenant: number; userName: string; password: string }> = {
-        super: {
+        super_admin: {
           tenant: 1,
           userName: 'Super',
           password: 'super123'
@@ -143,6 +143,11 @@ export const useAuthStore = defineStore('auth-store', {
           tenant: 1,
           userName: 'User01',
           password: 'user01123'
+        },
+        common: {
+          tenant: 1,
+          userName: 'Common01',
+          password: 'common123'
         }
       };
       const { tenant, userName, password } = accounts[userRole];

@@ -57,7 +57,8 @@ export default class CustomAxiosInstance {
           const contentType = handleConfig.headers['Content-Type'] as UnionKey.ContentType;
           handleConfig.data = await transformRequestData(handleConfig.data, contentType);
           // 设置token
-          handleConfig.headers.Authorization = localStg.get('token') || '';
+
+          handleConfig.headers.Authorization = `Bearer ${localStg.get('accessToken')}`;
         }
         return handleConfig;
       },

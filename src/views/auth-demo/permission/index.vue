@@ -2,10 +2,11 @@
   <div class="h-full">
     <n-card title="权限切换" :bordered="false" class="h-full rounded-8px shadow-sm">
       <div class="pb-12px">
-        <n-gradient-text type="primary" :size="20">当前用户的权限：{{ auth.userInfo.userRole }}</n-gradient-text>
+        <n-gradient-text type="primary" :size="20">当前用户的权限：{{ auth.userInfoVO.roles[0] }}</n-gradient-text>
       </div>
+      <!-- 这里显示第一个角色，后期需要再更改 -->
       <n-select
-        :value="auth.userInfo.userRole"
+        :value="auth.userInfoVO.roles[0]"
         class="w-120px"
         size="small"
         :options="options"
@@ -23,7 +24,7 @@
         <n-gradient-text type="primary" :size="20">权限函数 hasPermission</n-gradient-text>
       </div>
       <n-space>
-        <n-button v-if="hasPermission('super')">super可见</n-button>
+        <n-button v-if="hasPermission('super_admin')">super可见</n-button>
         <n-button v-if="hasPermission('admin')">admin可见</n-button>
         <n-button v-if="hasPermission(['admin', 'user'])">admin和user可见</n-button>
       </n-space>
@@ -45,7 +46,7 @@ const { hasPermission } = usePermission();
 const options: SelectOption[] = userRoleOptions;
 
 watch(
-  () => auth.userInfo.userRole,
+  () => auth.userInfoVO.roles,
   async () => {
     app.reloadPage();
   }
