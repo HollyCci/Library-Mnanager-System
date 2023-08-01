@@ -108,6 +108,7 @@ export const useAuthStore = defineStore('auth-store', {
 
       return successFlag;
     },
+
     /**
      * 登录
      * @param userName - 用户名
@@ -115,11 +116,16 @@ export const useAuthStore = defineStore('auth-store', {
      */
     async login(tenant: number, userName: string, password: string) {
       this.loginLoading = true;
+
+      window.$message?.loading('登录中....请耐心等待☕', {
+        duration: 500
+      });
       const { data } = await fetchLogin(tenant, userName, password);
       if (data) {
         await this.handleActionAfterLogin(data);
       }
       this.loginLoading = false;
+      //
     },
     /**
      * 更换用户权限(切换账号)

@@ -7,6 +7,7 @@ import {
   handleBackendError,
   handleResponseError,
   handleServiceResult,
+  handleAuthorized,
   transformRequestData
 } from '@/utils';
 import { handleRefreshToken } from './helpers';
@@ -36,7 +37,7 @@ export default class CustomAxiosInstance {
     backendConfig: Service.BackendResultConfig = {
       codeKey: 'code',
       dataKey: 'data',
-      msgKey: 'message',
+      msgKey: 'msg',
       successCode: 200
     }
   ) {
@@ -72,7 +73,7 @@ export default class CustomAxiosInstance {
         const { status, config } = response;
         if (status === 200 || status < 300 || status === 304) {
           const backend = response.data;
-          const { codeKey, dataKey, successCode } = this.backendConfig;
+          const { codeKey, dataKey, msgKey, successCode } = this.backendConfig;
           // 请求成功
           if (backend[codeKey] === successCode) {
             return handleServiceResult(null, backend[dataKey]);
@@ -96,6 +97,11 @@ export default class CustomAxiosInstance {
               }
               this.retryQueues = [];
               this.isRefreshing = false;
+            }
+            if (backend[msgKey] === '刷新令牌已过期') {
+              this.retryQueues = [];
+              this.isRefreshing = false;
+              return handleAuthorized();
             }
             return originRequest;
           }

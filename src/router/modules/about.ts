@@ -8,7 +8,7 @@ const about: AuthRoute.Route = {
     requiresAuth: true,
     keepAlive: true,
     singleLayout: 'basic',
-    permissions: ['super_admin', 'admin', 'user', 'common'],
+    // permissions: ['super_admin', 'admin', 'user', 'common'],
     icon: 'fluent:book-information-24-regular',
     order: 13
   }

@@ -27,6 +27,7 @@ const locale: I18nType.Schema = {
       vue: 'Vue文档',
       vite: 'Vite文档',
       naive: 'NaiveUI文档',
+      ldoc: '程序员知识库',
       project: '项目文档',
       'project-link': '项目文档(外链)'
     },

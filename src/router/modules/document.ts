@@ -37,6 +37,17 @@ const document: AuthRoute.Route = {
       }
     },
     {
+      name: 'document_lihaha',
+      path: '/document/lihaha',
+      component: 'self',
+      meta: {
+        title: '程序员知识库',
+        i18nTitle: 'routes.document.ldoc',
+        requiresAuth: true,
+        icon: 'logos:active-campaign-icon'
+      }
+    },
+    {
       name: 'document_project',
       path: '/document/project',
       component: 'self',

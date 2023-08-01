@@ -335,6 +335,7 @@ declare namespace I18nType {
         vue: string;
         vite: string;
         naive: string;
+        ldoc: string;
         project: string;
         'project-link': string;
       };

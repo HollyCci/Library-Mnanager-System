@@ -37,5 +37,13 @@ export function fetchUserRoutes(userId: number) {
  * @param refreshToken
  */
 export function fetchUpdateToken(refreshToken: string) {
-  return request.post<ApiAuth.Token>('/updateToken', { refreshToken });
+  return request.post<ApiAuth.Token>(`/admin-api/system/auth/refresh-token?refreshToken=${refreshToken}`);
+}
+
+/**
+ * 登出
+ * @returns 后端boolean，前端待改
+ */
+export function loginOut() {
+  return request.post('/admin-api/system/auth/logout');
 }

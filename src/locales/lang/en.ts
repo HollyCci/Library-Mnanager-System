@@ -27,6 +27,7 @@ const locale: I18nType.Schema = {
       vue: 'Vue Document',
       vite: 'Vite Document',
       naive: 'NaiveUI Document',
+      ldoc: 'Knowledge Base Document',
       project: 'Project Document',
       'project-link': 'Project Document(href)'
     },

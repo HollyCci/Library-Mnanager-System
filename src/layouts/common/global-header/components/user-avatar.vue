@@ -9,6 +9,7 @@
 
 <script lang="ts" setup>
 import type { DropdownOption } from 'naive-ui';
+import { loginOut } from '@/service';
 import { useAuthStore, useThemeStore } from '@/store';
 import { useIconRender } from '@/composables';
 
@@ -45,7 +46,8 @@ function handleDropdown(optionKey: string) {
       content: '您确定要退出登录吗？',
       positiveText: '确定',
       negativeText: '取消',
-      onPositiveClick: () => {
+      onPositiveClick: async () => {
+        await loginOut();
         auth.resetAuthStore();
       }
     });
