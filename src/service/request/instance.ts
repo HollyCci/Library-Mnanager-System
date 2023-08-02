@@ -14,6 +14,13 @@ import { handleRefreshToken } from './helpers';
 
 type RefreshRequestQueue = (config: AxiosRequestConfig) => void;
 
+const tenantEnable = import.meta.env.VITE_APP_TENANT_ENABLE;
+// 需要忽略的提示。忽略后，自动 Promise.reject('error')
+const ignoreMsgs = [
+  '无效的刷新令牌', // 刷新令牌被删除时，不用提示
+  '刷新令牌已过期' // 使用刷新令牌，刷新获取新的访问令牌时，结果因为过期失败，此时需要忽略。否则，会导致继续 401，无法跳转到登出界面
+];
+
 /**
  * 封装axios请求类
  * @author Soybean<honghuangdc@gmail.com>
@@ -58,8 +65,14 @@ export default class CustomAxiosInstance {
           const contentType = handleConfig.headers['Content-Type'] as UnionKey.ContentType;
           handleConfig.data = await transformRequestData(handleConfig.data, contentType);
           // 设置token
-
           handleConfig.headers.Authorization = `Bearer ${localStg.get('accessToken')}`;
+          // 设置租户
+          if (tenantEnable && tenantEnable === true) {
+            const tenantId = localStg.get('tenantId');
+            if (tenantId) {
+              handleConfig.headers['tenant-id'] = tenantId;
+            }
+          }
         }
         return handleConfig;
       },
@@ -98,7 +111,7 @@ export default class CustomAxiosInstance {
               this.retryQueues = [];
               this.isRefreshing = false;
             }
-            if (backend[msgKey] === '刷新令牌已过期') {
+            if (ignoreMsgs.indexOf(backend[msgKey]) !== -1) {
               this.retryQueues = [];
               this.isRefreshing = false;
               return handleAuthorized();

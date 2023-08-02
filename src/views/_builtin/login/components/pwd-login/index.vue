@@ -72,7 +72,7 @@ import type { FormInst, FormRules } from 'naive-ui';
 import { loginModuleLabels } from '@/constants';
 import { useAuthStore } from '@/store';
 import { useRouterPush } from '@/composables';
-import { formRules } from '@/utils';
+import { formRules, localStg } from '@/utils';
 // import { OtherAccount } from './components';
 
 const auth = useAuthStore();
@@ -110,6 +110,7 @@ async function handleSubmit() {
 
   const { tenant, userName, password } = model;
 
+  localStg.set('tenantId', tenant);
   login(tenant, userName, password);
 }
 

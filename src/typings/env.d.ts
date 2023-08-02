@@ -47,6 +47,9 @@ interface ImportMetaEnv {
    * - 例如：icon-local
    */
   readonly VITE_ICON_LOCAL_PREFIX: string;
+  /** 租户开关 */
+  readonly VITE_APP_TENANT_ENABLE: boolean;
+
   /** 后端服务的环境类型 */
   readonly VITE_SERVICE_ENV?: ServiceEnvType;
   /** 开启请求代理 */

@@ -19,5 +19,7 @@ declare namespace StorageInterface {
     multiTabRoutes: App.GlobalTabRoute[];
     /** 本地语言缓存 */
     lang: I18nType.LangType;
+    /** 租户id */
+    tenantId: number;
   }
 }

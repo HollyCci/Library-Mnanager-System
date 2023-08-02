@@ -4,13 +4,13 @@ type ServiceEnv = Record<ServiceEnvType, ServiceEnvConfig>;
 /** 不同请求服务的环境配置 */
 const serviceEnv: ServiceEnv = {
   dev: {
-    url: 'http://localhost:8849'
+    url: 'http://localhost:8849/admin-api'
   },
   test: {
-    url: 'http://t.lihaha.cn/api'
+    url: 'http://t.lihaha.cn/api/admin-api'
   },
   prod: {
-    url: 'http://t.lihaha.cn/api'
+    url: 'http://t.lihaha.cn/api/admin-api'
   }
 };
 

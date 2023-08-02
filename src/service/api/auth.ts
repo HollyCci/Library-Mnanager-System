@@ -15,12 +15,12 @@ export function fetchSmsCode(phone: string) {
  * @param password - 密码
  */
 export function fetchLogin(tenant: number, username: string, password: string) {
-  return request.post<ApiAuth.Token>('/admin-api/system/auth/login', { tenant, username, password });
+  return request.post<ApiAuth.Token>('/system/auth/login', { tenant, username, password });
 }
 
 /** 获取用户信息 */
 export function fetchUserInfo() {
-  return request.get<ApiAuth.UserInfoVO>('/admin-api/system/auth/get-permission-info');
+  return request.get<ApiAuth.UserInfoVO>('/system/auth/get-permission-info');
 }
 
 /**
@@ -29,7 +29,7 @@ export function fetchUserInfo() {
  * @description 后端根据用户id查询到对应的角色类型，并将路由筛选出对应角色的路由数据返回前端
  */
 export function fetchUserRoutes(userId: number) {
-  return request.post<ApiRoute.Route>('/getUserRoutes', { userId });
+  return request.post<ApiRoute.Route>('/system/getUserRoutes', { userId });
 }
 
 /**
@@ -37,7 +37,7 @@ export function fetchUserRoutes(userId: number) {
  * @param refreshToken
  */
 export function fetchUpdateToken(refreshToken: string) {
-  return request.post<ApiAuth.Token>(`/admin-api/system/auth/refresh-token?refreshToken=${refreshToken}`);
+  return request.post<ApiAuth.Token>(`/system/auth/refresh-token?refreshToken=${refreshToken}`);
 }
 
 /**
@@ -45,5 +45,5 @@ export function fetchUpdateToken(refreshToken: string) {
  * @returns 后端boolean，前端待改
  */
 export function loginOut() {
-  return request.post('/admin-api/system/auth/logout');
+  return request.post('/system/auth/logout');
 }
