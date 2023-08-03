@@ -28,8 +28,15 @@ export function fetchUserInfo() {
  * @param userId - 用户id
  * @description 后端根据用户id查询到对应的角色类型，并将路由筛选出对应角色的路由数据返回前端
  */
-export function fetchUserRoutes(userId: number) {
-  return request.post<ApiRoute.Route>('/system/getUserRoutes', { userId });
+// export function fetchUserRoutes(userId: number) {
+//   return request.post<ApiRoute.Route>('/system/getUserRoutes', { userId });
+// }
+
+/**
+ * 获取用户路由数据，无需参数传入，后端根据上下文获取
+ */
+export function fetchUserRoutes() {
+  return request.get<ApiRoute.Route>('/system/auth/list-menus');
 }
 
 /**

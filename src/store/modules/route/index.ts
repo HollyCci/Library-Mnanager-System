@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import { ROOT_ROUTE, constantRoutes, router, routes as staticRoutes } from '@/router';
 import { fetchUserRoutes } from '@/service';
 import {
-  localStg,
   filterAuthRoutesByUserPermission,
   getCacheRoutes,
   getConstantRouteNames,
@@ -110,13 +109,13 @@ export const useRouteStore = defineStore('route-store', {
       const { resetAuthStore } = useAuthStore();
       const { initHomeTab } = useTabStore();
 
-      const { user } = localStg.get('userInfoVO') || {};
-      const userId = user?.id;
-      if (!userId) {
-        throw new Error('userId 不能为空!');
-      }
+      // const { user } = localStg.get('userInfoVO') || {};
+      // const userId = user?.id;
+      // if (!userId) {
+      //   throw new Error('userId 不能为空!');
+      // }
 
-      const { error, data } = await fetchUserRoutes(userId);
+      const { error, data } = await fetchUserRoutes();
 
       if (!error) {
         this.routeHomeName = data.home;
