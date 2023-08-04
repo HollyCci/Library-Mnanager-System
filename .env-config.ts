@@ -4,7 +4,7 @@ type ServiceEnv = Record<ServiceEnvType, ServiceEnvConfig>;
 /** 不同请求服务的环境配置 */
 const serviceEnv: ServiceEnv = {
   dev: {
-    url: 'http://localhost:8849/admin-api'
+    url: 'http://t.lihaha.cn/api/admin-api'
   },
   test: {
     url: 'http://t.lihaha.cn/api/admin-api'
@@ -19,7 +19,7 @@ const serviceEnv: ServiceEnv = {
  * @param env 环境
  */
 export function getServiceEnvConfig(env: ImportMetaEnv): ServiceEnvConfigWithProxyPattern {
-  const { VITE_SERVICE_ENV = 'dev' } = env;
+  const { VITE_SERVICE_ENV = 'prod' } = env;
 
   const config = serviceEnv[VITE_SERVICE_ENV];
 

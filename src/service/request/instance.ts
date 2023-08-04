@@ -67,7 +67,7 @@ export default class CustomAxiosInstance {
           // 设置token
           handleConfig.headers.Authorization = `Bearer ${localStg.get('accessToken')}`;
           // 设置租户
-          if (tenantEnable && tenantEnable === true) {
+          if (tenantEnable && tenantEnable === 'true') {
             const tenantId = localStg.get('tenantId');
             if (tenantId) {
               handleConfig.headers['tenant-id'] = tenantId;

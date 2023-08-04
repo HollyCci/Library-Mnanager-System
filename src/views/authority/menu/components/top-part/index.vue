@@ -77,8 +77,10 @@
 </template>
 <script lang="ts" setup>
 defineOptions({ name: 'TopPart' });
-import { ref, reactive } from 'vue';
-import type { FormInst, DataTableColumns } from 'naive-ui';
+import { ref, reactive, onMounted } from 'vue';
+import { type FormInst, type DataTableColumns, useMessage } from 'naive-ui';
+import { fetchUserRoutes } from '~/src/service';
+const message = useMessage();
 
 // const list = ref<any>([]); // 列表的数据
 const queryParams = reactive({
@@ -87,6 +89,7 @@ const queryParams = reactive({
 });
 const queryFormRef = ref<HTMLElement & FormInst>(); // 搜索的表单
 const isExpandAll = ref(false); // 是否展开，默认全部折叠
+
 // const refreshTable = ref(true); // 重新渲染表格状态
 
 const DictOptions = [
@@ -100,15 +103,40 @@ const DictOptions = [
   }
 ];
 
-const columns: DataTableColumns = [{ type: 'selection' }, { key: 'example', title: 'Example' }];
-const dataRef = ref([
-  { key: 'p1', example: 'p1', isLeaf: false },
-  { key: 'p2', example: 'p2', isLeaf: false },
-  { key: 'p3', example: 'p3', isLeaf: false }
-]);
+const columns: DataTableColumns = [
+  { key: 'meta.title', title: '菜单管理' },
+  {
+    key: 'meta.icon',
+    title: '图标',
+    width: 80
+    // render: record => h('span', { class: `iconify ${record.meta.icon}` })
+  },
+  { key: 'meta.order', title: '排序' },
+  { key: 'example', title: '权限标识' },
+  { key: 'path', title: '组件路径', width: 150 },
+  { key: 'meta.title', title: '组件名称' },
+  { key: 'meta.activeMenu', title: '状态' },
+  { key: 'id', title: '操作' }
+];
+
+const dataRef = ref<AuthRoute.Route[]>([]);
 
 /** 搜索按钮操作 */
 const handleQuery = () => {
   // getList();
 };
+
+const fetchDeptData = async () => {
+  const { error, data } = await fetchUserRoutes();
+  if (error) {
+    message.error(error.msg);
+    return;
+  }
+
+  dataRef.value = data?.routes;
+};
+
+onMounted(() => {
+  fetchDeptData();
+});
 </script>
