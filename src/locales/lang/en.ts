@@ -77,6 +77,7 @@ const locale: I18nType.Schema = {
       route: 'Route',
       user: 'User',
       dept: 'Department management',
+      post: 'Position management',
       class: 'Class management',
       notice: 'Notice management',
       dict: 'Class management'

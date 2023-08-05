@@ -385,6 +385,7 @@ declare namespace I18nType {
         route: string;
         user: string;
         dept: string;
+        post: string;
         class: string;
         notice: string;
         dict: string;

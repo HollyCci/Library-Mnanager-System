@@ -37,6 +37,17 @@ const management: AuthRoute.Route = {
       }
     },
     {
+      name: 'management_post',
+      path: '/management/post',
+      component: 'self',
+      meta: {
+        title: '岗位管理',
+        i18nTitle: 'routes.management.post',
+        requiresAuth: true,
+        icon: 'fluent:text-position-line-24-filled'
+      }
+    },
+    {
       name: 'management_dict',
       path: '/management/dict',
       component: 'self',

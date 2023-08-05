@@ -43,6 +43,7 @@ export const views: Record<
   management_dept: () => import('./management/dept/index.vue'),
   management_dict: () => import('./management/dict/index.vue'),
   management_notice: () => import('./management/notice/index.vue'),
+  management_post: () => import('./management/post/index.vue'),
   management_route: () => import('./management/route/index.vue'),
   management_user: () => import('./management/user/index.vue'),
   plugin_charts_antv: () => import('./plugin/charts/antv/index.vue'),
