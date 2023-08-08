@@ -20,7 +20,7 @@ declare namespace Auth {
     userRole: RoleType;
   }
 
-  /** 用户小信息 */
+  /** 用户简单信息 */
   interface UserVo {
     /** 用户id */
     id: number;
@@ -36,7 +36,7 @@ declare namespace Auth {
     permissions: string[];
     /** 用户角色信息 */
     roles: string[];
-    /** 用户小信息 */
+    /** 用户简单信息 */
     user: UserVo;
   }
 }

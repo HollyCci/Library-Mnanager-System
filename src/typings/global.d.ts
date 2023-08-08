@@ -13,6 +13,17 @@ interface Document {
   startViewTransition?: (callback: () => Promise<void> | void) => ViewTransition;
 }
 
+interface PageParam {
+  pageSize?: number;
+  pageNo?: number;
+}
+
+interface Tree {
+  id: number;
+  name: string;
+  children?: Tree[] | any[];
+}
+
 /** 通用类型 */
 declare namespace Common {
   /**

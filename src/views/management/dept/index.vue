@@ -1,5 +1,9 @@
 <template>
   <n-space :vertical="true" :size="16">
-    <n-gradient-text type="info" :size="16">展示给管理员->部门管理</n-gradient-text>
+    <main-part />
   </n-space>
 </template>
+
+<script lang="ts" setup>
+import { MainPart } from './components';
+</script>

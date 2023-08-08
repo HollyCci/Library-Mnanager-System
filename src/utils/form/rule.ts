@@ -19,6 +19,14 @@ interface CustomFormRules {
   email: FormItemRule[];
   /** 用户名 */
   username: FormItemRule[];
+  /** 上级部门 */
+  dept: FormItemRule[];
+  /** 部门名称 */
+  deptName: FormItemRule[];
+  /** 排序设计 */
+  sort: FormItemRule[];
+  /** 状态 */
+  status: FormItemRule[];
 }
 
 /** 表单规则 */
@@ -36,7 +44,33 @@ export const formRules: CustomFormRules = {
     { pattern: REGEXP_CODE_SIX, message: '验证码格式错误', trigger: 'input' }
   ],
   email: [{ pattern: REGEXP_EMAIL, message: '邮箱格式错误', trigger: 'blur' }],
-  username: [{ required: true, message: '请输入用户名', trigger: 'input' }]
+  username: [{ required: true, message: '请输入用户名', trigger: 'input' }],
+
+  dept: [
+    {
+      type: 'number',
+      required: true,
+      trigger: ['blur', 'change'],
+      message: '请选择上级部门'
+    }
+  ],
+  deptName: [{ required: true, trigger: ['blur', 'input'], message: '请输入部门名称' }],
+  sort: [
+    {
+      type: 'number',
+      required: true,
+      trigger: ['blur', 'change'],
+      message: '部门显示排序不能为空'
+    }
+  ],
+  status: [
+    {
+      type: 'number',
+      required: true,
+      trigger: ['blur', 'change'],
+      message: '请选择部门状态'
+    }
+  ]
 };
 
 /** 是否为空字符串 */
