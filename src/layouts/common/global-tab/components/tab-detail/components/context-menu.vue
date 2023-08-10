@@ -59,14 +59,8 @@ function hide() {
   dropdownVisible.value = false;
 }
 
-type DropdownKey =
-  | 'full-content'
-  | 'reload-current'
-  | 'close-current'
-  | 'close-other'
-  | 'close-left'
-  | 'close-right'
-  | 'close-all';
+type DropdownKey = 'full-content' | 'reload-current' | 'close-current' | 'close-other' | 'close-left' | 'close-right';
+// | 'close-all';
 type Option = DropdownOption & {
   key: DropdownKey;
 };
@@ -90,11 +84,6 @@ const options = computed<Option[]>(() => [
     icon: iconRender({ icon: 'ant-design:close-outlined' })
   },
   {
-    label: '关闭其他',
-    key: 'close-other',
-    icon: iconRender({ icon: 'ant-design:column-width-outlined' })
-  },
-  {
     label: '关闭左侧',
     key: 'close-left',
     icon: iconRender({ icon: 'mdi:format-horizontal-align-left' })
@@ -105,10 +94,16 @@ const options = computed<Option[]>(() => [
     icon: iconRender({ icon: 'mdi:format-horizontal-align-right' })
   },
   {
-    label: '关闭所有',
-    key: 'close-all',
-    icon: iconRender({ icon: 'ant-design:line-outlined' })
+    label: '关闭其他',
+    key: 'close-other',
+    icon: iconRender({ icon: 'ant-design:column-width-outlined' })
   }
+  // ,
+  // {
+  //   label: '关闭所有',
+  //   key: 'close-all',
+  //   icon: iconRender({ icon: 'ant-design:line-outlined' })
+  // }
 ]);
 
 const actionMap = new Map<DropdownKey, () => void>([
@@ -147,13 +142,14 @@ const actionMap = new Map<DropdownKey, () => void>([
     () => {
       tab.clearRightTab(props.currentPath);
     }
-  ],
-  [
-    'close-all',
-    () => {
-      tab.clearAllTab();
-    }
   ]
+  // ,
+  // [
+  //   'close-all',
+  //   () => {
+  //     tab.clearAllTab();
+  //   }
+  // ]
 ]);
 
 function handleDropdown(optionKey: string) {

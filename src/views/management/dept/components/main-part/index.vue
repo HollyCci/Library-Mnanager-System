@@ -75,12 +75,12 @@
         :columns="columns"
         :data="list"
         :default-expand-all="isExpandAll"
-      />
+      ></n-data-table>
     </n-card>
 
     <!-- 新增/修改弹窗 -->
     <n-modal v-model:show="fromShow" transform-origin="center">
-      <n-card style="width: 600px" title="新增部门" :bordered="false" size="huge" role="dialog" aria-modal="true">
+      <n-card style="width: 600px" title="部门信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
         <template #header-extra><icon-line-md:close class="text-20px" @click="close" /></template>
 
         <n-form
@@ -243,7 +243,7 @@ const columns: DataTableColumns<RowData> = [
   },
   {
     key: 'action',
-    title: 'Action',
+    title: '操作',
     align: 'center',
     render: (row: any) => {
       return (

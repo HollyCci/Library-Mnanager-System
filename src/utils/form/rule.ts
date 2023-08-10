@@ -27,6 +27,18 @@ interface CustomFormRules {
   sort: FormItemRule[];
   /** 状态 */
   status: FormItemRule[];
+  /** 租户名称 */
+  tenantName: FormItemRule[];
+  /** 租户套餐 */
+  packageId: FormItemRule[];
+  /** 联系人名称 */
+  contactName: FormItemRule[];
+  /** 租户额度 */
+  accountCount: FormItemRule[];
+  /** 过期时间 */
+  expireTime: FormItemRule[];
+  /** 绑定域名 */
+  domain: FormItemRule[];
 }
 
 /** 表单规则 */
@@ -68,7 +80,33 @@ export const formRules: CustomFormRules = {
       type: 'number',
       required: true,
       trigger: ['blur', 'change'],
-      message: '请选择部门状态'
+      message: '状态设置不能为空'
+    }
+  ],
+  tenantName: [{ required: true, message: '请输入租户名称', trigger: 'input' }],
+  packageId: [
+    {
+      type: 'number',
+      required: true,
+      trigger: ['blur', 'change'],
+      message: '请选择租户套餐'
+    }
+  ],
+  contactName: [{ required: true, message: '联系人姓名不能为空', trigger: 'input' }],
+  accountCount: [
+    {
+      type: 'number',
+      required: true,
+      trigger: ['blur', 'change'],
+      message: '租户额度不能为空'
+    }
+  ],
+  expireTime: [{ type: 'number', required: true, trigger: ['blur', 'change'], message: '请选择过期时间' }],
+  domain: [
+    {
+      required: true,
+      message: '绑定域名不能为空',
+      trigger: 'input'
     }
   ]
 };

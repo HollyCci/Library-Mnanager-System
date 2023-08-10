@@ -74,6 +74,33 @@ export default class CustomAxiosInstance {
             }
           }
         }
+        /* eslint-disable */
+				//  解决CORS错误
+        const params = handleConfig.params || {};
+        if (handleConfig.method?.toUpperCase() === 'GET' && params) {
+          let url = `${handleConfig.url}?`;
+          for (const propName of Object.keys(params)) {
+            const value = params[propName];
+						if (value !== void 0 && value !== null && typeof value !== 'undefined') {
+              if (typeof value === 'object') {
+                for (const val of Object.keys(value)) {
+                  const param = `${propName}[${val}]`;
+                  const subPart = `${encodeURIComponent(param)}=`;
+                  url += `${subPart + encodeURIComponent(value[val])}&`;
+                }
+              } else {
+                url += `${propName}=${encodeURIComponent(value)}&`;
+              }
+            }
+          }
+          // 给 get 请求加上时间戳参数，避免从缓存中拿数据
+          // const now = new Date().getTime()
+          // params = params.substring(0, url.length - 1) + `?_t=${now}`
+          url = url.slice(0, -1);
+          handleConfig.params = {};
+          handleConfig.url = url;
+        }
+
         return handleConfig;
       },
       (axiosError: AxiosError) => {

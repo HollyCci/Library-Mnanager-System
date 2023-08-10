@@ -81,10 +81,20 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
     return asyncRequest<T>({ url, method: 'delete', axiosConfig: config });
   }
 
+  /**
+   * download请求
+   * @param url - 请求地址
+   * @param config - axios配置
+   */
+  function download<T>(url: string, config?: AxiosRequestConfig) {
+    return asyncRequest<T>({ url, method: 'get', axiosConfig: { ...config, responseType: 'blob' } });
+  }
+
   return {
     get,
     post,
     put,
+    download,
     delete: handleDelete
   };
 }
@@ -181,11 +191,20 @@ export function createHookRequest(axiosConfig: AxiosRequestConfig, backendConfig
     return useRequest<T>({ url, method: 'delete', axiosConfig: config });
   }
 
+  /**
+   * download请求
+   * @param url - 请求地址
+   * @param config - axios配置
+   */
+  function download<T>(url: string, config?: AxiosRequestConfig) {
+    return useRequest<T>({ url, method: 'get', axiosConfig: { ...config, responseType: 'blob' } });
+  }
   return {
     get,
     post,
     put,
-    delete: handleDelete
+    delete: handleDelete,
+    download
   };
 }
 
