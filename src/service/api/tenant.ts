@@ -38,7 +38,7 @@ export interface TenantExportReqVO {
  * @returns TenantVO[]
  */
 export function fetchTenantPage(params: TenantPageReqVO) {
-  return request.get('/system/tenant/page', { params });
+  return request.get<any>('/system/tenant/page', { params });
 }
 
 /**
@@ -83,5 +83,5 @@ export function deleteTenant(id: number) {
  * @returns
  */
 export function exportTenant(params: TenantExportReqVO) {
-  return request.download('/system/tenant/export-excel', params);
+  return request.download('/system/tenant/export-excel', { params });
 }

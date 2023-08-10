@@ -18,7 +18,7 @@ export interface TenantPackageVO {
  * @returns TenantPackageVO[]
  */
 export function fetchTenantPackagePage(params: PageParam) {
-  return request.get('/system/tenant-package/page', params);
+  return request.get('/system/tenant-package/page', { params });
 }
 
 /**
