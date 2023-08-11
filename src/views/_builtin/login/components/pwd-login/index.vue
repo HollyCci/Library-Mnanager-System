@@ -53,6 +53,10 @@
         {{ $t('page.login.common.confirm') }}
       </n-button>
       <div class="flex-y-center justify-between">
+        <n-button type="primary" class="flex-1" :block="true" @click="toLoginModule('wechat-login')">
+          {{ loginModuleLabels['wechat-login'] }}
+        </n-button>
+        <div class="w-12px"></div>
         <n-button class="flex-1" :block="true" @click="toLoginModule('code-login')">
           {{ loginModuleLabels['code-login'] }}
         </n-button>

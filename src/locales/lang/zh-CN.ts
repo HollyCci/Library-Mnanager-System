@@ -213,6 +213,9 @@ const locale: I18nType.Schema = {
         admin: '管理员',
         user: '普通用户'
       },
+      weChatLogin: {
+        title: '微信登录'
+      },
       codeLogin: {
         title: '验证码登录',
         getCode: '获取验证码',

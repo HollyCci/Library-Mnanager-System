@@ -1,6 +1,7 @@
 import { useRouter } from 'vue-router';
 import type { RouteLocationRaw } from 'vue-router';
 import { router as globalRouter, routeName } from '@/router';
+import { DEFAULT_LOGIN } from '../config/auth';
 
 /**
  * 路由跳转
@@ -43,7 +44,7 @@ export function useRouterPush(inSetup = true) {
    * @param redirectUrl - 重定向地址(登录成功后跳转的地址),默认undefined表示取当前地址为重定向地址
    */
   function toLogin(loginModule?: UnionKey.LoginModule, redirectUrl?: string) {
-    const module: UnionKey.LoginModule = loginModule || 'pwd-login';
+    const module: UnionKey.LoginModule = loginModule || DEFAULT_LOGIN;
     const routeLocation: RouteLocationRaw = {
       name: routeName('login'),
       params: { module }

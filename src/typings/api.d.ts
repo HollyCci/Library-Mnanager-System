@@ -11,10 +11,16 @@ declare namespace ApiAuth {
     /** 刷新token凭证 */
     refreshToken: string;
     /** 授权token凭证过期时间 */
-    expiresTime: string;
+    expiresTime?: string;
   }
   /** 返回的用户信息 */
   type UserInfoVO = Auth.UserInfoVO;
+
+  /** 获取微信二维码 */
+  type WeChatTicket = Auth.WeChatQrCode;
+
+  /** 微信轮训登录 */
+  type WeChatPoll = Auth.WeChatPoll & Omit<Token, 'expiresTime'>;
 }
 
 /** 后端返回的路由相关类型 */

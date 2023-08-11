@@ -39,6 +39,17 @@ declare namespace Auth {
     /** 用户简单信息 */
     user: UserVo;
   }
+
+  /** 获取微信二维码 */
+  interface WeChatQrCode {
+    ticket: string;
+    uuid: string;
+  }
+
+  /** 微信轮训登录 */
+  interface WeChatPoll {
+    type: number;
+  }
 }
 
 declare namespace UserManagement {

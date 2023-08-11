@@ -213,6 +213,9 @@ const locale: I18nType.Schema = {
         admin: 'Administrator',
         user: 'Ordinary User'
       },
+      weChatLogin: {
+        title: 'WeChat Login'
+      },
       codeLogin: {
         title: 'Verification Code Login',
         getCode: 'Get verification code',
