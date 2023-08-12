@@ -16,7 +16,7 @@
       <n-button type="primary" size="large" :block="true" :round="true" @click="handleSubmit">
         {{ $t('page.login.common.confirm') }}
       </n-button>
-      <n-button size="large" :block="true" :round="true" @click="toLoginModule('pwd-login')">
+      <n-button size="large" :block="true" :round="true" @click="toLoginModule(DEFAULT_LOGIN)">
         {{ $t('page.login.common.back') }}
       </n-button>
     </n-space>
@@ -30,6 +30,7 @@ import { useRouterPush } from '@/composables';
 import { useSmsCode } from '@/hooks';
 import { formRules } from '@/utils';
 import { $t } from '@/locales';
+import { DEFAULT_LOGIN } from '~/src/config';
 
 const { toLoginModule } = useRouterPush();
 const { label, isCounting, loading: smsLoading, getSmsCode } = useSmsCode();

@@ -521,6 +521,9 @@ declare namespace I18nType {
           admin: string;
           user: string;
         };
+        weChatLogin: {
+          title: string;
+        };
         codeLogin: {
           title: string;
           getCode: string;

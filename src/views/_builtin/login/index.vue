@@ -32,7 +32,7 @@ import { loginModuleLabels } from '@/constants';
 import { useThemeStore } from '@/store';
 import { getColorPalette, mixColor } from '@/utils';
 import { $t } from '@/locales';
-import { BindWechat, CodeLogin, LoginBg, PwdLogin, Register, ResetPwd } from './components';
+import { BindWechat, CodeLogin, LoginBg, PwdLogin, Register, ResetPwd, WeChatLogin } from './components';
 
 interface Props {
   /** 登录模块分类 */
@@ -52,6 +52,7 @@ interface LoginModule {
 const modules: LoginModule[] = [
   { key: 'pwd-login', label: loginModuleLabels['pwd-login'], component: PwdLogin },
   { key: 'code-login', label: loginModuleLabels['code-login'], component: CodeLogin },
+  { key: 'wechat-login', label: loginModuleLabels['wechat-login'], component: WeChatLogin },
   { key: 'register', label: loginModuleLabels.register, component: Register },
   { key: 'reset-pwd', label: loginModuleLabels['reset-pwd'], component: ResetPwd },
   { key: 'bind-wechat', label: loginModuleLabels['bind-wechat'], component: BindWechat }

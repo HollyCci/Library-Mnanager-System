@@ -6,7 +6,8 @@ export const loginModuleLabels: Record<UnionKey.LoginModule, string> = {
   'code-login': $t('page.login.codeLogin.title'),
   register: $t('page.login.register.title'),
   'reset-pwd': $t('page.login.resetPwd.title'),
-  'bind-wechat': $t('page.login.bindWeChat.title')
+  'bind-wechat': $t('page.login.bindWeChat.title'),
+  'wechat-login': $t('page.login.weChatLogin.title')
 };
 
 export const userRoleLabels: Record<Auth.RoleType, string> = {

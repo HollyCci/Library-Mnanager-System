@@ -23,6 +23,16 @@ export function fetchUserInfo() {
   return request.get<ApiAuth.UserInfoVO>('/system/auth/get-permission-info');
 }
 
+/** 获取微信二维码 */
+export function fetchWeChatTicket() {
+  return request.get<ApiAuth.WeChatTicket>('/system/auth/wechat-ticket');
+}
+
+/** 微信轮训登录 */
+export function fetchWeChatPoll(params: { uuid: string }) {
+  return request.get<ApiAuth.WeChatPoll>('/system/auth/wechat-poll', { params });
+}
+
 /**
  * 获取用户路由数据
  * @param userId - 用户id

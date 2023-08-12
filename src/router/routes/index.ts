@@ -1,4 +1,5 @@
 import { getLoginModuleRegExp } from '@/utils';
+import { DEFAULT_LOGIN } from '~/src/config/auth';
 
 /** 根路由: / */
 export const ROOT_ROUTE: AuthRoute.Route = {
@@ -18,7 +19,7 @@ export const constantRoutes: AuthRoute.Route[] = [
     path: '/login',
     component: 'self',
     props: route => {
-      const moduleType = (route.params.module as UnionKey.LoginModule) || 'pwd-login';
+      const moduleType = (route.params.module as UnionKey.LoginModule) || DEFAULT_LOGIN;
       return {
         module: moduleType
       };
