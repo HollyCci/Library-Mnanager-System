@@ -15,6 +15,8 @@ export const REGEXP_CODE_SIX = /^\d{6}$/;
 /** 4位数字验证码正则 */
 export const REGEXP_CODE_FOUR = /^\d{4}$/;
 
+/** 路由组件路径正则 */
+export const REGEXP_ROUTER_PATH = /^\//;
 /** url链接正则 */
 export const REGEXP_URL =
   /(((^https?:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)$/;

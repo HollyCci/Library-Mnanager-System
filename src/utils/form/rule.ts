@@ -1,6 +1,6 @@
 import type { Ref } from 'vue';
 import type { FormItemRule } from 'naive-ui';
-import { REGEXP_CODE_SIX, REGEXP_EMAIL, REGEXP_PHONE, REGEXP_PWD } from '@/config';
+import { REGEXP_CODE_SIX, REGEXP_EMAIL, REGEXP_PHONE, REGEXP_PWD, REGEXP_ROUTER_PATH } from '@/config';
 
 /** 创建自定义错误信息的必填表单规则 */
 export const createRequiredFormRule = (message = '不能为空'): FormItemRule => ({ required: true, message });
@@ -39,6 +39,9 @@ interface CustomFormRules {
   expireTime: FormItemRule[];
   /** 绑定域名 */
   domain: FormItemRule[];
+  /** 路由路径 */
+  routerPath: FormItemRule[];
+  radioStatus: FormItemRule[];
 }
 
 /** 表单规则 */
@@ -107,6 +110,16 @@ export const formRules: CustomFormRules = {
       required: true,
       message: '绑定域名不能为空',
       trigger: 'input'
+    }
+  ],
+  routerPath: [
+    createRequiredFormRule('路由地址不能为空'),
+    { pattern: REGEXP_ROUTER_PATH, message: '路由地址必须以/开头', trigger: 'input' }
+  ],
+  radioStatus: [
+    {
+      trigger: 'blur',
+      message: '请选择对应状态'
     }
   ]
 };
