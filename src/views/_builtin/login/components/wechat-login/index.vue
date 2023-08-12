@@ -1,7 +1,7 @@
 <template>
   <n-space :vertical="true" :size="24">
-    <div class="w-360px h-360px">
-      <n-spin v-if="!weChatTicket" class="w-360px h-360px" size="large" />
+    <div class="w-full min-h-full">
+      <n-spin v-if="!weChatTicket" class="w-full h-360px" size="large" />
       <n-image v-if="weChatTicket" object-fit="fill" :preview-disabled="true" :src="loginSrc()" />
     </div>
     <div class="flex-y-center justify-between">
