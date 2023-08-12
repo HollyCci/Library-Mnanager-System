@@ -318,7 +318,9 @@ const columns: DataTableColumns<RowData> = [
       return <NTag type="primary">{row.accountCount}</NTag>;
     }
   },
-  { key: 'expireTime', title: '到期时间', align: 'center', width: 180 },
+  { key: 'expireTime', title: '到期时间', align: 'center', width: 180 ,    render: (row: any) => {
+      return formatDate(row.createTime);
+    }},
   { key: 'domain', title: '绑定域名', align: 'center', width: 200 },
   {
     key: 'status',
@@ -498,7 +500,6 @@ async function openForm(type: string, id?: number) {
     formLoading.value = true;
     try {
       const { data } = await TenantApi.fetchTenant(id);
-      console.log();
       if (data) {
         /* eslint-disable */
       // @ts-ignore
