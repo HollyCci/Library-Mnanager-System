@@ -1,5 +1,9 @@
 <template>
   <n-space :vertical="true" :size="16">
-    <n-gradient-text type="info" :size="16">展示给管理员-角色管理：可以增删改查角色</n-gradient-text>
+    <main-part />
   </n-space>
 </template>
+
+<script setup lang="ts">
+import { MainPart } from './components';
+</script>

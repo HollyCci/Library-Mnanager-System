@@ -76,6 +76,7 @@
     "qs": "6.11.2",
     "socket.io-client": "4.7.1",
     "swiper": "10.0.4",
+    "tdesign-vue-next": "^1.4.2",
     "ua-parser-js": "1.0.35",
     "vditor": "3.9.4",
     "vue": "3.3.4",
