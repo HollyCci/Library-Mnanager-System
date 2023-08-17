@@ -35,6 +35,11 @@ export function assignRoleDataScope(data: PermissionAssignRoleDataScopeReqVO) {
 export function getUserRoleList(userId: number) {
   return request.get(`/system/permission/list-user-roles?userId=${userId}`);
 }
+
+// 查询用户拥有的角色的精简信息
+export function getSimpleUserRoleList(userId: number) {
+  return request.get(`/system/permission/list-simple-user-role?userId=${userId}`);
+}
 // 赋予用户角色
 export function assignUserRole(data: PermissionAssignUserRoleReqVO) {
   return request.post('/system/permission/assign-user-role', data);

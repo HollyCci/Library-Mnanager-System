@@ -114,8 +114,16 @@
           </n-button>
         </n-space>
       </n-card>
-      <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
-        <n-data-table :loading="loading" remote :data="list" :columns="columns" :pagination="pagination" />
+      <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable style="width: 1300px">
+        <n-data-table
+          :loading="loading"
+          remote
+          :data="list"
+          :row-key="rowKey"
+          :columns="columns"
+          :pagination="pagination"
+          :scroll-x="1400"
+        />
       </n-card>
     </n-space>
   </n-space>
@@ -246,7 +254,7 @@
 defineOptions({ name: 'MainPart' });
 // 引入需要的 Vue 3 模块和组件
 import { reactive, ref,  onMounted } from 'vue';
-import { NSpace, NButton,  NDropdown, NInput, NModal } from 'naive-ui';
+import { NSpace, NButton,  NDropdown, NInput, NModal, NDescriptions, NDescriptionsItem } from 'naive-ui';
 import type { DataTableColumns, FormRules, FormInst } from 'naive-ui';
 import { formatDate } from '@/utils/common/formatTime';
 // import download from '@/utils/common/download';
@@ -349,28 +357,64 @@ const buttonOptions = [
 	}
 ]
 
-
-
+// 定义数据表格key
+const rowKey = (rowData:any)=>{
+	return rowData.id;
+}
 const columns: DataTableColumns<RowData> = [
+	{
+      type: 'expand',
+      renderExpand: (rowData) => {
+        return (
+					<NDescriptions labelPlacement='left' bordered column={1} size='small' labelAlign='center' labelStyle={'width:200px;text:center'}>
+						<NDescriptionsItem label='备注' >
+							{rowData.remark?<t-tag theme="primary" variant="outline">{rowData.remark}</t-tag>:<t-tag theme="warning" variant="outline">无任何信息</t-tag>}
+						</NDescriptionsItem>
+						<NDescriptionsItem label='最后登录IP'>
+							{rowData.loginIp?<t-tag theme="primary" variant="outline">{rowData.loginIp}</t-tag>:<t-tag theme="warning" variant="outline">从未登陆过</t-tag>}
+						</NDescriptionsItem>
+						<NDescriptionsItem label='最后登录时间'>
+							{rowData.loginDate?<t-tag theme="primary" variant="outline">{rowData.loginDate}</t-tag>:<t-tag theme="warning" variant="outline">从未登陆过</t-tag>}
+						</NDescriptionsItem>
+					</NDescriptions>
+				)
+      }
+    },
 	{ key: 'id', title: '用户编号', align: 'center' },
 	{ key: 'username', title: '用户名称', align: 'center' },
 	{ key: 'nickname', title: '用户昵称', align: 'center' },
+	{ key:'sex',
+		title:'性别',
+		render:(row:any)=>{
+			if (row.sex === 1){
+				return '男'
+			}
+			if (row.sex === 2){
+				return '女'
+			}
+			return '未知'
+		}
+	},
 	{ key: 'sclass.name', title: '班级', align: 'center' },
 	{ key: 'dept.name', title: '部门', align: 'center' },
 	{ key: 'mobile', title: '手机号码', align: 'center' },
-	{ key: 'status',
-	title: '状态',
-	align: 'center',
-	render(row){
+	{
+		key: 'status',
+		title: '状态',
+		align: 'center',
+		render(row){
 		return <n-switch value={row.status===0} onChange={(value:boolean) => handleStatusChange(row,value)}/>
-	} },
+		}
+	},
+	{ key:'email',title:'电子邮箱',align:'center'},
 	{ key: 'createTime',
 	 title: '创建时间',
 	 align: 'center' ,
     width: 180,
     render: (row: any) => {
       return formatDate(row.createTime);
-    }},
+    }
+	},
 	{
     key: 'action',
     title: '操作',
@@ -401,7 +445,8 @@ const columns: DataTableColumns<RowData> = [
 					</NDropdown>
 				</NSpace>
 			)
-		}
+		},
+		fixed:'right'
 	}
 ]
 
@@ -707,7 +752,7 @@ const handleRole = async (row:any)=>{
 	formLoading.value = true;
 	try{
 		const {data} = await PermissionApi.getUserRoleList(row.id);
-			// @ts-ignore
+		// @ts-ignore
 		formRoleData.value.roleIds = data;
 	}finally{
 		formLoading.value=false;
