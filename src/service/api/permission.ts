@@ -37,5 +37,5 @@ export function getUserRoleList(userId: number) {
 }
 // 赋予用户角色
 export function assignUserRole(data: PermissionAssignUserRoleReqVO) {
-  return request.post('/system/permission/assign-user-role', { data });
+  return request.post('/system/permission/assign-user-role', data);
 }

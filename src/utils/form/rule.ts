@@ -41,6 +41,7 @@ interface CustomFormRules {
   domain: FormItemRule[];
   /** 路由路径 */
   routerPath: FormItemRule[];
+  /** 通用单选 */
   radioStatus: FormItemRule[];
 }
 
