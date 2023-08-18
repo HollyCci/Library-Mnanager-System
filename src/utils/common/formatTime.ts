@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
  * @param format 可选的日期格式字符串。如果未提供，默认为 'YYYY-MM-DD HH:mm:ss'。
  * @returns 格式化后的日期字符串。
  */
-export function formatDate(date: Date, format?: string): string {
+export function formatDate(date: any, format?: string): string {
   // 日期不存在，返回空字符串
   if (!date) {
     return '';

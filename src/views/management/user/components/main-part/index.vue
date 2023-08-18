@@ -3,18 +3,22 @@
     <n-space :vertical="true" :size="16">
       <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
         <n-input-group>
-          <n-input v-model:value="filterText" placeholder="搜索" style="margin-bottom: 20px" @change="onFilterInput">
+          <n-input v-model:value="filterText" placeholder="搜索部门" style="margin-bottom: 20px" @input="onFilterInput">
             <template #prefix>
               <icon-uil-search class="text-20px" />
             </template>
           </n-input>
-          <n-button type="primary" ghost @click="onFilterInput">搜索</n-button>
+          <!-- <n-button type="primary" ghost @click="resetQuery">重置</n-button> -->
         </n-input-group>
+        <!-- <t-input-adornment>
+          <t-input v-model="filterText" @change="onFilterInput" />
+        </t-input-adornment> -->
         <t-tree
           ref="treeRef"
           :data="deptList"
           expand-on-click-node
           :keys="deptTreeProp"
+          :filter="handleFilterByText"
           hover
           @click="handleNodeClick"
         ></t-tree>
@@ -329,11 +333,11 @@ type RowData = {
 }
 
 const deptList = ref([]) // 树形结构
+const handleFilterByText = ref();
 const classList = ref([]) // 树形结构
 const postList = ref([])
 const treeRef = ref()
 const filterText=ref('');
-// const handleFilterByText = ref(null);
 
 const deptTreeProp = {
 	value:'id',
@@ -361,6 +365,7 @@ const buttonOptions = [
 const rowKey = (rowData:any)=>{
 	return rowData.id;
 }
+
 const columns: DataTableColumns<RowData> = [
 	{
       type: 'expand',
@@ -374,7 +379,7 @@ const columns: DataTableColumns<RowData> = [
 							{rowData.loginIp?<t-tag theme="primary" variant="outline">{rowData.loginIp}</t-tag>:<t-tag theme="warning" variant="outline">从未登陆过</t-tag>}
 						</NDescriptionsItem>
 						<NDescriptionsItem label='最后登录时间'>
-							{rowData.loginDate?<t-tag theme="primary" variant="outline">{rowData.loginDate}</t-tag>:<t-tag theme="warning" variant="outline">从未登陆过</t-tag>}
+							{rowData.loginDate?<t-tag theme="primary" variant="outline">{formatDate(rowData.loginDate)}</t-tag>:<t-tag theme="warning" variant="outline">从未登陆过</t-tag>}
 						</NDescriptionsItem>
 					</NDescriptions>
 				)
@@ -471,6 +476,7 @@ const getTree = async () => {
 	deptList.value = []
 	// @ts-ignore
 	deptList.value.push(...handleTree(data))
+	console.log(deptList.value);
 }
 
 const handleStatusChange = async (row:any,value:boolean) =>{
@@ -603,8 +609,12 @@ const handleChange = (value:string)=>{
 }
 
 const onFilterInput = () =>{
-	window.$message?.info("功能等待开发...")
+	console.log(66);
+	// @ts-ignore
+	handleFilterByText.value = node => node.data.name.indexOf(filterText.value) >= 0;
 }
+
+
 
 const handleExport = async ()=>{
 	try{
