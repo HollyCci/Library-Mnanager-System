@@ -104,6 +104,10 @@ const locale: I18nType.Schema = {
       menu: '菜单管理',
       token: '令牌管理'
     },
+    bmapgl: {
+      _value: '地图功能',
+      show_info: '我的位置'
+    },
     about: '关于'
   },
   layout: {

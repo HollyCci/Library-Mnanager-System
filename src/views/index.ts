@@ -4,6 +4,7 @@ export const views: Record<
   PageRoute.LastDegreeRouteKey,
   RouteComponent | (() => Promise<{ default: RouteComponent }>)
 > = {
+  BMapGL_showInfo: () => import('./BMapGL/showInfo/index.vue'),
   403: () => import('./_builtin/403/index.vue'),
   404: () => import('./_builtin/404/index.vue'),
   500: () => import('./_builtin/500/index.vue'),

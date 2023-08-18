@@ -16,6 +16,8 @@ declare namespace PageRoute {
    * @translate 页面路由
    */
   type RouteKey =
+    | 'BMapGL'
+    | 'BMapGL_showInfo'
     | '403'
     | '404'
     | '500'
@@ -93,6 +95,7 @@ declare namespace PageRoute {
    */
   type LastDegreeRouteKey = Extract<
     RouteKey,
+    | 'BMapGL_showInfo'
     | '403'
     | '404'
     | '500'

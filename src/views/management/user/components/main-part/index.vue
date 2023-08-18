@@ -118,7 +118,7 @@
           </n-button>
         </n-space>
       </n-card>
-      <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable style="width: 1300px">
+      <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable style="width: 1330px">
         <n-data-table
           :loading="loading"
           remote
@@ -609,7 +609,6 @@ const handleChange = (value:string)=>{
 }
 
 const onFilterInput = () =>{
-	console.log(66);
 	// @ts-ignore
 	handleFilterByText.value = node => node.data.name.indexOf(filterText.value) >= 0;
 }

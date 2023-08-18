@@ -104,6 +104,10 @@ const locale: I18nType.Schema = {
       menu: 'Menu management',
       token: 'Token management'
     },
+    bmapgl: {
+      _value: 'Map function',
+      show_info: 'My Location'
+    },
     about: 'About'
   },
   layout: {

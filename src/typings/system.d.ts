@@ -412,6 +412,10 @@ declare namespace I18nType {
         menu: string;
         token: string;
       };
+      bmapgl: {
+        _value: string;
+        show_info: string;
+      };
       about: string;
     };
     layout: {
