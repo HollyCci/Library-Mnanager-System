@@ -91,7 +91,16 @@ const locale: I18nType.Schema = {
       _value: 'Book management',
       books: 'Collected Books',
       borrow: 'Borrowing management',
+      category: 'Category management',
+      stack: 'StackRoom management',
       inventory: 'Inventory management'
+    },
+    'analyze-data': {
+      _value: 'analyze Data',
+      'book-data': 'Book data',
+      'borrow-data': 'Borrow data',
+      'stack-data': 'Stack data',
+      'user-data': 'User data'
     },
     reader: {
       _value: 'Reader Service',

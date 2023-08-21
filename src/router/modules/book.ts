@@ -15,6 +15,17 @@ const book: AuthRoute.Route = {
       }
     },
     {
+      name: 'book_stack',
+      path: '/book/stack',
+      component: 'self',
+      meta: {
+        title: '书库管理',
+        i18nTitle: 'routes.book.stack',
+        requiresAuth: true,
+        icon: 'fa6-solid:warehouse'
+      }
+    },
+    {
       name: 'book_inventory',
       path: '/book/inventory',
       component: 'self',
@@ -23,6 +34,17 @@ const book: AuthRoute.Route = {
         i18nTitle: 'routes.book.inventory',
         requiresAuth: true,
         icon: 'material-symbols:inventory-2'
+      }
+    },
+    {
+      name: 'book_category',
+      path: '/book/category',
+      component: 'self',
+      meta: {
+        title: '分类管理',
+        i18nTitle: 'routes.book.category',
+        requiresAuth: true,
+        icon: 'mingcute:classify-2-fill'
       }
     },
     {

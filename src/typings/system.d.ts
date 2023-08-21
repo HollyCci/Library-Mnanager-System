@@ -399,7 +399,16 @@ declare namespace I18nType {
         _value: string;
         books: string;
         borrow: string;
+        category: string;
+        stack: string;
         inventory: string;
+      };
+      'analyze-data': {
+        _value: string;
+        'book-data': string;
+        'borrow-data': string;
+        'stack-data': string;
+        'user-data': string;
       };
       reader: {
         _value: string;

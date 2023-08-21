@@ -90,8 +90,17 @@ const locale: I18nType.Schema = {
     book: {
       _value: '图书管理',
       books: '馆藏图书',
+      category: '分类管理',
       borrow: '借阅管理',
+      stack: '书库管理',
       inventory: '库存管理'
+    },
+    'analyze-data': {
+      _value: '数据分析',
+      'book-data': '图书数据',
+      'borrow-data': '借阅数据',
+      'stack-data': '库存数据',
+      'user-data': '用户数据'
     },
     reader: {
       _value: '读者服务',

@@ -24,11 +24,13 @@ export const NETWORK_ERROR_MSG = '网络不可用~';
 
 /** 请求不成功各种状态的错误 */
 export const ERROR_STATUS = {
-  400: '400: 请求出现语法错误~',
-  401: '401: 用户未授权~',
-  403: '403: 服务器拒绝访问~',
-  404: '404: 请求的资源不存在~',
-  405: '405: 请求方法未允许~',
+  400: '400: 请求参数不正确',
+  401: '401: 用户未登录',
+  403: '403: 没有该操作权限~',
+  404: '404: 请求未找到~',
+  405: '405: 请求方法不正确~',
+  423: '423: 请求失败，请稍后重试',
+  429: '429: 请求过于频繁，请稍后重试',
   408: '408: 网络请求超时~',
   500: '500: 服务器内部错误~',
   501: '501: 服务器未实现请求功能~',
@@ -36,6 +38,7 @@ export const ERROR_STATUS = {
   503: '503: 服务不可用~',
   504: '504: 网关超时~',
   505: '505: http版本不支持该请求~',
+  900: '重复请求，请稍后充实',
   [DEFAULT_REQUEST_ERROR_CODE]: DEFAULT_REQUEST_ERROR_MSG
 };
 
@@ -43,4 +46,4 @@ export const ERROR_STATUS = {
 export const NO_ERROR_MSG_CODE: (string | number)[] = [];
 
 /** token失效需要刷新token的code(这里的66666只是个例子，需要将后端表示token过期的code填进来) */
-export const REFRESH_TOKEN_CODE: (string | number)[] = [401];
+export const REFRESH_TOKEN_CODE: (string | number)[] = [401, 400];
