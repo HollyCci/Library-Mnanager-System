@@ -126,7 +126,7 @@
           :row-key="rowKey"
           :columns="columns"
           :pagination="pagination"
-          :scroll-x="1400"
+          :scroll-x="1650"
         />
       </n-card>
     </n-space>
@@ -258,7 +258,7 @@
 defineOptions({ name: 'MainPart' });
 // 引入需要的 Vue 3 模块和组件
 import { reactive, ref,  onMounted } from 'vue';
-import { NSpace, NButton,  NDropdown, NInput, NModal, NDescriptions, NDescriptionsItem } from 'naive-ui';
+import { NSpace, NButton, NAvatar, NDropdown, NInput, NModal, NDescriptions, NDescriptionsItem } from 'naive-ui';
 import type { DataTableColumns, FormRules, FormInst } from 'naive-ui';
 import { formatDate } from '@/utils/common/formatTime';
 // import download from '@/utils/common/download';
@@ -385,11 +385,19 @@ const columns: DataTableColumns<RowData> = [
 				)
       }
     },
-	{ key: 'id', title: '用户编号', align: 'center' },
-	{ key: 'username', title: '用户名称', align: 'center' },
-	{ key: 'nickname', title: '用户昵称', align: 'center' },
+	{ key: 'id', title: '用户编号', align: 'center',width:100 },
+	{ key: 'username', title: '用户名称', align: 'center',width:150 },
+	{ key:'avatar',
+		title:'用户头像',
+		align:'center',
+		width:80,
+	 	render(row){
+			return<NAvatar src={row.avatar?row.avatar:'https://tdesign.gtimg.com/site/avatar.jpg'}></NAvatar>
+		}},
+	{ key: 'nickname', title: '用户昵称', align: 'center',width:100 },
 	{ key:'sex',
 		title:'性别',
+		width:60,
 		render:(row:any)=>{
 			if (row.sex === 1){
 				return '男'
@@ -400,9 +408,9 @@ const columns: DataTableColumns<RowData> = [
 			return '未知'
 		}
 	},
-	{ key: 'sclass.name', title: '班级', align: 'center' },
-	{ key: 'dept.name', title: '部门', align: 'center' },
-	{ key: 'mobile', title: '手机号码', align: 'center' },
+	{ key: 'sclass.name', title: '班级', align: 'center',width:200 },
+	{ key: 'dept.name', title: '部门', align: 'center',width:180 },
+	{ key: 'mobile', title: '手机号码', align: 'center' ,width:120},
 	{
 		key: 'status',
 		title: '状态',
@@ -411,19 +419,21 @@ const columns: DataTableColumns<RowData> = [
 		return <n-switch value={row.status===0} onChange={(value:boolean) => handleStatusChange(row,value)}/>
 		}
 	},
-	{ key:'email',title:'电子邮箱',align:'center'},
+	{ key:'email',title:'电子邮箱',align:'center',width:185},
 	{ key: 'createTime',
 	 title: '创建时间',
 	 align: 'center' ,
     width: 180,
     render: (row: any) => {
       return formatDate(row.createTime);
-    }
+    },
+
 	},
 	{
     key: 'action',
     title: '操作',
     align: 'center',
+		width:150,
 		render:(row:any)=>{
 			return(
 				<NSpace justify={'center'}>

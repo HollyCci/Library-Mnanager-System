@@ -61,7 +61,6 @@ export const formRules: CustomFormRules = {
   ],
   email: [{ pattern: REGEXP_EMAIL, message: '邮箱格式错误', trigger: 'blur' }],
   username: [{ required: true, message: '请输入用户名', trigger: 'input' }],
-
   dept: [
     {
       type: 'number',
@@ -76,7 +75,7 @@ export const formRules: CustomFormRules = {
       type: 'number',
       required: true,
       trigger: ['blur', 'change'],
-      message: '部门显示排序不能为空'
+      message: '显示排序不能为空'
     }
   ],
   status: [
