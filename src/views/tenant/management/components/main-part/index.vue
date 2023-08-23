@@ -446,7 +446,6 @@ const handleExport = async () => {
         exportLoading.value = true;
         // @ts-ignore
         const data = await TenantApi.exportTenant(queryParams);
-        console.log(data);
         // @ts-ignore
         download.excel(data, '租户列表.xlsx');
       }

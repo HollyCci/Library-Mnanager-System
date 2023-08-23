@@ -261,7 +261,7 @@ import { reactive, ref,  onMounted } from 'vue';
 import { NSpace, NButton, NAvatar, NDropdown, NInput, NModal, NDescriptions, NDescriptionsItem } from 'naive-ui';
 import type { DataTableColumns, FormRules, FormInst } from 'naive-ui';
 import { formatDate } from '@/utils/common/formatTime';
-// import download from '@/utils/common/download';
+import download from '@/utils/common/download';
 import { formRules } from '~/src/utils';
 import { handleTree } from '@/utils/common/tree';
 import * as DeptApi from '@/service/api/dept';
@@ -634,10 +634,9 @@ const handleExport = async ()=>{
       negativeText: '取消',
       onPositiveClick: async () => {
 				exportLoading.value=true
-				// const data = await UserApi.exportUser(queryParams)
-				// 开发功能请先取消import download 的注释
-				MessagePlugin.loading('功能等待开发...')
-				// download.excel(data,'用户数据.xls');
+				const data = await UserApi.exportUser(queryParams)
+				// @ts-ignore
+				download.excel(data,'用户数据.xls');
       }
     });
 	}finally{

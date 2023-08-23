@@ -458,7 +458,6 @@ const handleExport = async () => {
         exportLoading.value = true;
         // @ts-ignore
         const data = await  RoleApi.exportRole(queryParams)
-        console.log(data);
         // @ts-ignore
         download.excel(data, '角色列表.xls');
       }

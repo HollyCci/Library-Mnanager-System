@@ -57,6 +57,17 @@ const book: AuthRoute.Route = {
         requiresAuth: true,
         icon: 'pepicons-pop:book'
       }
+    },
+    {
+      name: 'book_subject',
+      path: '/book/subject',
+      component: 'self',
+      meta: {
+        title: '主题词管理',
+        i18nTitle: 'routes.book.subject',
+        requiresAuth: true,
+        icon: 'maki:terminal'
+      }
     }
   ],
   meta: {

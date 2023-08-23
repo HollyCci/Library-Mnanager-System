@@ -18,6 +18,7 @@
             class="!w-240px"
             clearable
             placeholder="请输入套餐名"
+            @clear="resetQuery"
             @keyup.enter="handleQuery"
           />
         </n-form-item>

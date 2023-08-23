@@ -108,9 +108,17 @@ export default class CustomAxiosInstance {
         return handleServiceResult(error, null);
       }
     );
+		// 响应拦截器
     this.instance.interceptors.response.use(
       (async response => {
         const { status, config } = response;
+				// 二进制文件直接返回
+				if(
+					response.request.responseType === 'blob' ||
+					response.request.responseType === 'arraybuffer'
+				){
+					return response.data;
+				}
         if (status === 200 || status < 300 || status === 304) {
           const backend = response.data;
           const { codeKey, dataKey, msgKey, successCode } = this.backendConfig;

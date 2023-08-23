@@ -90,6 +90,7 @@ const locale: I18nType.Schema = {
     book: {
       _value: '图书管理',
       books: '馆藏图书',
+      subject: '主题词管理',
       category: '分类管理',
       borrow: '借阅管理',
       stack: '书库管理',

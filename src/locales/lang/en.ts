@@ -90,6 +90,7 @@ const locale: I18nType.Schema = {
     book: {
       _value: 'Book management',
       books: 'Collected Books',
+      subject: 'subject management',
       borrow: 'Borrowing management',
       category: 'Category management',
       stack: 'StackRoom management',

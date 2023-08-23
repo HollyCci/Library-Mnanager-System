@@ -18,6 +18,7 @@
             class="!w-240px"
             clearable
             placeholder="请输入分类名称"
+            @clear="resetQuery"
             @keyup.enter="handleQuery"
           />
         </n-form-item>
@@ -100,7 +101,6 @@
             <n-tree-select
               v-model:value="fromData.parentId"
               :options="deptTree"
-              check-strategy="child"
               label-field="name"
               key-field="id"
               children-field="children"

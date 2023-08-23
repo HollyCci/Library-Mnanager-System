@@ -401,6 +401,7 @@ declare namespace I18nType {
         borrow: string;
         category: string;
         stack: string;
+        subject: string;
         inventory: string;
       };
       'analyze-data': {

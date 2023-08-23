@@ -26,6 +26,7 @@ export const views: Record<
   book_category: () => import('./book/category/index.vue'),
   book_inventory: () => import('./book/inventory/index.vue'),
   book_stack: () => import('./book/stack/index.vue'),
+  book_subject: () => import('./book/subject/index.vue'),
   component_button: () => import('./component/button/index.vue'),
   component_card: () => import('./component/card/index.vue'),
   component_table: () => import('./component/table/index.vue'),
