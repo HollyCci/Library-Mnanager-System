@@ -11,13 +11,23 @@
         label-width="60px"
         label-placement="left"
       >
-        <!-- 主题词名称搜索框 -->
-        <n-form-item label="主题词名称" path="name" label-width="90px">
+        <!-- 书库名称搜索框 -->
+        <n-form-item label="书库名称" path="name" label-width="90px">
           <n-input
             v-model:value="queryParams.name"
             class="!w-240px"
             clearable
-            placeholder="请输入主题词名称"
+            placeholder="请输入书库名称"
+            @clear="resetQuery"
+            @keyup.enter="handleQuery"
+          />
+        </n-form-item>
+        <n-form-item label="书库代码" path="core" label-width="90px">
+          <n-input
+            v-model:value="queryParams.core"
+            class="!w-240px"
+            clearable
+            placeholder="请输入书库代码"
             @clear="resetQuery"
             @keyup.enter="handleQuery"
           />
@@ -28,7 +38,7 @@
             v-model:value="queryParams.status"
             class="!w-240px"
             clearable
-            placeholder="请选择主题词状态"
+            placeholder="请选择书库状态"
             :options="DictOptions"
           />
         </n-form-item>
@@ -85,12 +95,12 @@
         :columns="columns"
         :data="list"
         :max-height="540"
-      ></n-data-table>
+      />
     </n-card>
 
     <!-- 新增/修改弹窗 -->
     <n-modal v-model:show="fromShow" transform-origin="center">
-      <n-card style="width: 600px" title="主题词信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
+      <n-card style="width: 600px" title="书库信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
         <template #header-extra><icon-line-md:close class="text-20px" @click="close" /></template>
 
         <n-form
@@ -101,13 +111,16 @@
           label-placement="left"
           label-width="80px"
         >
-          <!-- 主题词名称输入框 -->
-          <n-form-item label="主题词名称" path="name" label-width="100">
-            <n-input v-model:value="fromData.name" placeholder="请输入主题词名称" />
+          <!-- 书库名称输入框 -->
+          <n-form-item label="书库名称" path="name" label-width="100">
+            <n-input v-model:value="fromData.name" placeholder="请输入书库名称" />
           </n-form-item>
-          <!-- 主题词状态选择 -->
-          <n-form-item label="主题词状态" path="status" style="width: 50%" label-width="100">
-            <n-select v-model:value="fromData.status" clearable placeholder="请选择主题词状态" :options="DictOptions" />
+          <n-form-item label="书库代码" path="core" label-width="100">
+            <n-input v-model:value="fromData.core" placeholder="请输入书库名称" />
+          </n-form-item>
+          <!-- 书库状态选择 -->
+          <n-form-item label="书库状态" path="status" style="width: 50%" label-width="100">
+            <n-select v-model:value="fromData.status" clearable placeholder="请选择书库状态" :options="DictOptions" />
           </n-form-item>
         </n-form>
         <!-- 弹窗底部按钮 -->
@@ -124,7 +137,7 @@
       v-model:show="uploadShow"
       transform-origin="center"
       preset="dialog"
-      title="主题词导入"
+      title="书库导入"
       positive-text="确认"
       negative-text="取消"
       @positive-click="submitForm"
@@ -175,15 +188,17 @@ import { NSpace, NButton, NPopconfirm, NTag ,NTime} from 'naive-ui';
 import type { DataTableColumns, MessageReactive,FormRules, FormInst } from 'naive-ui';
 // 引入其他自定义的工具函数、API等
 import { getServiceEnvConfig } from '~/.env-config';
-import * as SubjectApi from '@/service/api/subject';
+import * as StackApi from '@/service/api/stack';
 import { formatDate } from '@/utils/common/formatTime';
 import { formRules } from '~/src/utils';
 import download from '~/src/utils/common/download';
 
-// 定义主题词树形数据列表使用的数据类型
+// 定义书库树形数据列表使用的数据类型
 type RowData = {
   id: number;
   name: string;
+	picUrl:string;
+	core:string;
 	creator:number;
 	count:number;
 	updater:number;
@@ -195,7 +210,7 @@ type RowData = {
 // 定义分类树形数据列表使用的响应式变量
 const loading = ref(true); // 列表的加载中
 const exportLoading = ref(false) // 导出的加载中
-const list = ref<SubjectApi.SubjectVO[]>([]); // 列表的数据
+const list = ref([]); // 列表的数据
 const queryFormRef = ref(); // 搜索的表单
 const refreshTable = ref(true); // 重新渲染表格状态
 const pageCount = ref(0);
@@ -216,15 +231,17 @@ const DictOptions = [
 const queryParams = reactive({
   name: null,
   status: null,
+	core:null,
   pageNo: 1,
   pageSize: 15
 });
 
 // 定义表格的列及其渲染函数
 const columns: DataTableColumns<RowData> = [
-  { key: 'id', title: '主题词ID',align:'center'},
-  { key: 'name', title: '主题词名称名称',align:'center'},
-  { key: 'count', title: '主题下图书数目',align:'center' },
+  { key: 'id', title: '书库ID',align:'center'},
+  { key: 'name', title: '书库名称名称',align:'center'},
+	{ key:'core',title:'书库代码',align:'center',render(row){return <NTag type="primary">{row.core}</NTag>}},
+  { key: 'count', title: '书库下图书数目',align:'center' },
   {
     key: 'status',
     title: '状态',
@@ -302,7 +319,7 @@ const columns: DataTableColumns<RowData> = [
 const getList = async () => {
   loading.value = true;
   try {
-    const {data} = await SubjectApi.fetchSubjectPage(queryParams);
+    const {data} = await StackApi.fetchStackPage(queryParams);
 		// @ts-ignore
     const subjectData = data.list;
 		pagination.page = queryParams.pageNo;
@@ -354,6 +371,7 @@ function handleQuery() {
 function resetQuery() {
   queryParams.pageNo = 1;
   queryParams.name = null;
+	queryParams.core = null;
   queryParams.status = null;
   handleQuery();
 }
@@ -361,7 +379,7 @@ function resetQuery() {
 async function handleDelete(id: number) {
   try {
     // 发起删除
-    await SubjectApi.deleteSubject(id);
+    await StackApi.deleteStack(id);
     window.$message?.success('删除成功');
     // 刷新列表
     await getList();
@@ -381,9 +399,9 @@ const handleExport = async ()=>{
       negativeText: '取消',
       onPositiveClick: async () => {
 				exportLoading.value=true
-				const data = await SubjectApi.exportSubject(queryParams)
+				const data = await StackApi.exportStack(queryParams)
 				// @ts-ignore
-				download.excel(data,'主题词数据.xls');
+				download.excel(data,'书库数据.xls');
       }
     });
 	}finally{
@@ -402,13 +420,14 @@ const formRef = ref<HTMLElement & FormInst>(); // 表单的引用
 const fromData = ref({
   // 分类新增/修改中表单的数据
   id: undefined,
+	core:undefined,
   name: undefined,
   status: 0
 });
 // 表单的校验规则
 const rules: FormRules = {
 
-  name: [{ required: true, trigger: ['blur', 'input'], message: '请输入主题词名称' }],
+  name: [{ required: true, trigger: ['blur', 'input'], message: '请输入书库名称' }],
   status: formRules.status
 };
 
@@ -420,7 +439,7 @@ async function openForm(type: string, id?: number) {
   // 如果是修改时设置数据
   if (type === 'update' && id) {
     formLoading.value = true;
-    const { error, data } = await SubjectApi.fetchSubject(id);
+    const { error, data } = await StackApi.fetchStack(id);
     if (error) {
       window.$message?.error(error.msg);
     }
@@ -442,15 +461,15 @@ async function submitFrom() {
   formLoading.value = true;
   try {
     // 从表单中获取数据并转换为接口需要的数据格式
-    const param = fromData.value as unknown as SubjectApi.SubjectVO;
+    const param = fromData.value as unknown as StackApi.StackVO;
     if (formType.value === 'create') {
-      await SubjectApi.createSubject(param);
+      await StackApi.createStack(param);
       window.$message?.success('添加成功');
       // 关闭弹窗并刷新列表
       close();
       await getList();
     } else if (formType.value === 'update') {
-      const { data } = await SubjectApi.updateSubject(param);
+      const { data } = await StackApi.updateStack(param);
       if (data === true) {
         window.$message?.success('修改成功');
         // 关闭弹窗并刷新列表
@@ -468,6 +487,7 @@ function close() {
   fromShow.value = false;
   fromData.value = {
     id: undefined,
+		core:undefined,
     name: undefined,
     status: 0
   };
@@ -477,7 +497,7 @@ function close() {
 import {localStg} from '@/utils';
 const uploadShow = ref(false); // 上传弹窗的显示状态
 const {url} = getServiceEnvConfig(import.meta.env);
-const importUrl = url + '/library/subject/import'; // 上传的地址
+const importUrl = url + '/library/stack/import'; // 上传的地址
 const updateSupport = ref(0) // 是否更新已经存在的数据
 const uploadHeaders = ref() // 上传 Header 头
 const uploadRef = ref()
@@ -568,10 +588,10 @@ const closeForm = ()=>{
 }
 /** 下载模板操作 */
 const importTemplate = async () => {
-  const res = await SubjectApi.importSubjectTemplate()
+  const res = await StackApi.importStackTemplate()
 	window.$message?.info("正在下载模板，请稍等...");
 	// @ts-ignore
-  download.excel(res, '主题词导入模版.xls')
+  download.excel(res, '书库导入模版.xls')
 }
 
 onBeforeMount(async () => {
