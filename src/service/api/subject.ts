@@ -47,7 +47,7 @@ export function fetchSimpleSubjectList() {
 /**
  * 添加主题词
  * @param data SubjectVO
- * @returns
+ * @returns 主题词ID
  */
 export function createSubject(data: SubjectVO) {
   return request.post('/library/subject/create', data);
@@ -56,7 +56,7 @@ export function createSubject(data: SubjectVO) {
 /**
  * 修改主题词信息
  * @param params SubjectVO
- * @returns
+ * @returns Boolean
  */
 export function updateSubject(params: SubjectVO) {
   return request.put('/library/subject/update', params);

@@ -68,6 +68,32 @@ const book: AuthRoute.Route = {
         requiresAuth: true,
         icon: 'maki:terminal'
       }
+    },
+    {
+      name: 'book_bookInfo',
+      path: '/book/bookInfo',
+      component: 'self',
+      meta: {
+        title: '图书详情',
+        requiresAuth: true,
+        hide: true,
+        multiTab: true,
+        activeMenu: 'book_books',
+        icon: 'pajamas:details-block'
+      }
+    },
+    {
+      name: 'book_bookCreate',
+      path: '/book/bookCreate',
+      component: 'self',
+      meta: {
+        title: '图书新增',
+        requiresAuth: true,
+        hide: true,
+        multiTab: true,
+        activeMenu: 'book_books',
+        icon: 'pajamas:details-block'
+      }
     }
   ],
   meta: {

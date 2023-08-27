@@ -465,45 +465,51 @@ const columns: DataTableColumns<RowData> = [
 	}
 ]
 
+/** 获取用户列表 */
 const getList = async () => {
-	loading.value = true
-	await getTree();
-	try{
-		const {data} = await UserApi.getUserPage(queryParams)
-		list.value = data.list
-		pagination.page = queryParams.pageNo;
+  loading.value = true;
+
+  // 先获取部门树
+  await getTree();
+
+  try {
+    const { data } = await UserApi.getUserPage(queryParams);
+    list.value = data.list;
+    pagination.page = queryParams.pageNo;
     pagination.pageSize = queryParams.pageSize;
     pagination.itemCount = data.total;
     pageCount.value = Math.ceil(pagination.itemCount / pagination.pageSize);
-	}finally{
-		loading.value = false
-	}
-}
+  } finally {
+    loading.value = false;
+  }
+};
 
-
+/** 获取部门树 */
 const getTree = async () => {
-	const {data} = await DeptApi.fetchSimpleDeptList()
-	deptList.value = []
-	// @ts-ignore
-	deptList.value.push(...handleTree(data))
-	console.log(deptList.value);
-}
+  const { data } = await DeptApi.fetchSimpleDeptList();
+  deptList.value = [];
+  // @ts-ignore
+  deptList.value.push(...handleTree(data));
+  console.log(deptList.value);
+};
 
-const handleStatusChange = async (row:any,value:boolean) =>{
-	const text = value ? '启用' : '停用'
-	window.$dialog?.info({
-      title: '提示',
-      content: '您确定要'+text+'"'+row.nickname+'"用户吗?',
-      positiveText: '确定',
-      negativeText: '取消',
-      onPositiveClick: async () => {
-				await UserApi.updateUserStatus(row.id,value?0:1)
-				await getList()
-      }
-    });
-}
+/** 处理用户状态变化 */
+const handleStatusChange = async (row: any, value: boolean) => {
+  const text = value ? '启用' : '停用';
+  window.$dialog?.info({
+    title: '提示',
+    content: '您确定要' + text + '"' + row.nickname + '"用户吗?',
+    positiveText: '确定',
+    negativeText: '取消',
+    onPositiveClick: async () => {
+      await UserApi.updateUserStatus(row.id, value ? 0 : 1);
+      await getList();
+    }
+  });
+};
+
+
 // 定义分页参数
-
 const pagination = reactive({
   page: queryParams.pageNo,
   pageCount: pageCount.value,
@@ -552,6 +558,7 @@ const resetQuery = () => {
   queryParams.createTime = null;
 	getList();
 };
+
 /** 操作分发 */
 const handleCommand = ( row: any,key: string) => {
   switch (key) {
@@ -572,41 +579,50 @@ const handleCommand = ( row: any,key: string) => {
 /** 删除按钮操作 */
 const handleDelete = async (id: number) => {
   try {
-		window.$dialog?.info({
-			title: '提示',
-			content: '您确定要删除该用户吗?',
-			positiveText: '确定',
-			negativeText: '取消',
-			onPositiveClick: async () => {
-				await UserApi.deleteUser(id)
-				window.$message?.success('删除成功')
-				await getList()
-			}
-		});
+    window.$dialog?.info({
+      title: '提示',
+      content: '您确定要删除该用户吗?',
+      positiveText: '确定',
+      negativeText: '取消',
+      onPositiveClick: async () => {
+        await UserApi.deleteUser(id);
+        window.$message?.success('删除成功');
+        await getList();
+      }
+    });
   } catch {}
-}
-const password = ref('');
-const passwordLoading = ref(false);
+};
+
+const password = ref(''); // 存储新密码
+const passwordLoading = ref(false); // 密码重置的加载状态
+
 /** 重置密码 */
 const handleResetPwd = async (row: UserApi.UserVO) => {
   try {
-    window.$message?.warning("提示：您正在更改"+row.nickname+"的密码，请在文本框输入新的密码。");
+    window.$message?.warning("提示：您正在更改" + row.nickname + "的密码，请在文本框输入新的密码。");
     window.$dialog?.info({
       title: '系统提示',
       content: () => {
         return (
-						<NInput loading={passwordLoading.value} type='password' onInput={handleChange} allow-input="noSideSpace" clearable placeholder={"请输入新密码"}></NInput>
-				);
+          <NInput
+            loading={passwordLoading.value}
+            type='password'
+            onInput={handleChange}
+            allow-input="noSideSpace"
+            clearable
+            placeholder={"请输入新密码"}>
+          </NInput>
+        );
       },
       positiveText: '确定',
       negativeText: '取消',
       onPositiveClick: async () => {
         passwordLoading.value = true;
-        const{data} = await UserApi.resetUserPwd(row.id, password.value)
-				if(data){
-					window.$message?.success('密码重置成功')
-				}
-				passwordLoading.value = true;
+        const { data } = await UserApi.resetUserPwd(row.id, password.value);
+        if (data) {
+          window.$message?.success('密码重置成功');
+        }
+        passwordLoading.value = true;
       }
     });
   } catch (error) {
@@ -614,39 +630,41 @@ const handleResetPwd = async (row: UserApi.UserVO) => {
   }
 };
 
-const handleChange = (value:string)=>{
-  password.value = value;
-}
+const handleChange = (value: string) => {
+  password.value = value; // 更新新密码
+};
 
-const onFilterInput = () =>{
-	// @ts-ignore
-	handleFilterByText.value = node => node.data.name.indexOf(filterText.value) >= 0;
-}
+/** 过滤输入操作 */
+const onFilterInput = () => {
+  // @ts-ignore
+  handleFilterByText.value = node => node.data.name.indexOf(filterText.value) >= 0;
+};
 
-
-
-const handleExport = async ()=>{
-	try{
-		window.$dialog?.info({
+/** 导出数据操作 */
+const handleExport = async () => {
+  try {
+    window.$dialog?.info({
       title: '系统提示',
       content: '是否确认导出数据项',
       positiveText: '确定',
       negativeText: '取消',
       onPositiveClick: async () => {
-				exportLoading.value=true
-				const data = await UserApi.exportUser(queryParams)
-				// @ts-ignore
-				download.excel(data,'用户数据.xls');
+        exportLoading.value = true;
+        const data = await UserApi.exportUser(queryParams);
+        // @ts-ignore
+        download.excel(data, '用户数据.xls');
       }
     });
-	}finally{
-		exportLoading.value=false;
-	}
-}
+  } finally {
+    exportLoading.value = false;
+  }
+};
 
+/** 导入数据操作（待开发） */
 const handleImport = () => {
-	MessagePlugin.loading('功能等待开发...')
-}
+  MessagePlugin.loading('功能等待开发...');
+};
+
 
 // =================================
 const fromShow = ref(false); // 表单的显示状态
@@ -655,7 +673,7 @@ const formLoading = ref(false); // 表单的加载中：1）修改时的数据�
 const formType = ref(''); // 表单的类型：create - 新增；update - 修改
 const formData = ref({
   nickname: '',
-	classId:'',
+  classId: '',
   deptId: '',
   mobile: '',
   email: '',
@@ -665,56 +683,60 @@ const formData = ref({
   sex: undefined,
   postIds: [],
   remark: '',
-  status:0,
+  status: 0,
   roleIds: []
-})
-const rules:FormRules = {
-	nickname: [{ required: true, message: '用户昵称不能为空', trigger: 'blur' }],
-	mobile:formRules.phone,
-	email:formRules.email,
-	username:formRules.username,
-	password:formRules.pwd,
-}
+}); // 表单的数据
+
+const rules: FormRules = {
+  nickname: [{ required: true, message: '用户昵称不能为空', trigger: 'blur' }],
+  mobile: formRules.phone,
+  email: formRules.email,
+  username: formRules.username,
+  password: formRules.pwd
+}; // 表单的校验规则
+
 async function openForm(type: string, id?: number) {
-	fromShow.value = true;
-  formType.value = type;
+  fromShow.value = true; // 打开表单弹窗
+  formType.value = type; // 设置表单类型
 
   // 如果是修改时设置数据
   if (type === 'update' && id) {
-    formLoading.value = true;
+    formLoading.value = true; // 开始数据加载
     try {
-      const { data } = await UserApi.getUser(id);
+      const { data } = await UserApi.getUser(id); // 获取用户数据
       if (data) {
-      // @ts-ignore
-      formData.value = data;
+        // @ts-ignore
+        formData.value = data; // 设置表单数据
+      }
+    } finally {
+      formLoading.value = false; // 结束数据加载
     }
-		}finally{
-			formLoading.value = false;
-		}
   }
 
-	// 加载班级列表
-const{data} = await ClassApi.fetchSimpleClassList();
-	// @ts-ignore
-	classList.value = data;
-	// 加载岗位列表
-	const res= await PostApi.getSimplePostList();
-	// @ts-ignore
-	postList.value = res.data;
+  // 加载班级列表
+  const { data } = await ClassApi.fetchSimpleClassList();
+  // @ts-ignore
+  classList.value = data;
+
+  // 加载岗位列表
+  const res = await PostApi.getSimplePostList();
+  // @ts-ignore
+  postList.value = res.data;
 }
+
 
 // 提交表单
 async function submitFrom() {
-	if (!formRef.value) return;
-	// 校验表单，验证不通过不会执行后续
-	await formRef.value?.validate();
-	// 提交表单
-	formLoading.value = true;
-	try {
+  if (!formRef.value) return;
+  // 校验表单，验证不通过不会执行后续
+  await formRef.value?.validate();
+  // 提交表单
+  formLoading.value = true;
+  try {
     // 从表单中获取数据并转换为接口需要的数据格式
     const param = formData.value as unknown as UserApi.UserVO;
     if (formType.value === 'create') {
-      await UserApi.createUser(param)
+      await UserApi.createUser(param);
       window.$message?.success('添加成功');
       // 关闭弹窗并刷新列表
       close();
@@ -732,88 +754,100 @@ async function submitFrom() {
     formLoading.value = false;
   }
 }
-function close(){
-	fromShow.value = false;
-	formData.value = {
-	nickname: '',
-	classId:'',
-  deptId: '',
-  mobile: '',
-  email: '',
-  id: undefined,
-  username: '',
-  password: '',
-  sex: undefined,
-  postIds: [],
-  remark: '',
-  status:0,
-  roleIds: []
-	}
+
+// 关闭表单弹窗
+function close() {
+  fromShow.value = false; // 关闭表单弹窗
+  formData.value = {
+    nickname: '',
+    classId: '',
+    deptId: '',
+    mobile: '',
+    email: '',
+    id: undefined,
+    username: '',
+    password: '',
+    sex: undefined,
+    postIds: [],
+    remark: '',
+    status: 0,
+    roleIds: []
+  }; // 重置表单数据
 }
 
-// =======================
-const formRoleRef = ref() // 表单 Ref
-const fromRoleShow = ref(false)
-const roleList = ref([]) // 角色的列表
+
+// 声明表单引用
+const formRoleRef = ref(); // 表单 Ref
+
+// 角色分配弹窗的显示状态
+const fromRoleShow = ref(false);
+
+// 角色列表
+const roleList = ref([]);
+
+// 角色分配表单数据
 const formRoleData = ref({
-  id: undefined,
-  nickname: '',
-  username: '',
-  roleIds: []
-})
+  id: undefined, // 用户ID
+  nickname: '', // 用户昵称
+  username: '', // 用户名
+  roleIds: [] // 角色ID数组
+});
 
-const handleRole = async (row:any)=>{
-	fromRoleShow.value=true;
-	formRoleData.value.id = row.id;
-	formRoleData.value.username = row.username;
-	formRoleData.value.nickname = row.nickname;
-	formLoading.value = true;
-	try{
-		const {data} = await PermissionApi.getUserRoleList(row.id);
-		// @ts-ignore
-		formRoleData.value.roleIds = data;
-	}finally{
-		formLoading.value=false;
-	}
-	// 获取角色列表
-	const res= await RoleApi.fetchSimpleRoleList()
-		// @ts-ignore
-	roleList.value = res.data
-
+// 处理角色分配操作
+const handleRole = async (row: any) => {
+  fromRoleShow.value = true; // 打开角色分配弹窗
+  formRoleData.value.id = row.id; // 设置用户ID
+  formRoleData.value.username = row.username; // 设置用户名
+  formRoleData.value.nickname = row.nickname; // 设置用户昵称
+  formLoading.value = true; // 开始加载数据
+  try {
+    const { data } = await PermissionApi.getUserRoleList(row.id); // 调用接口获取用户拥有的角色数组
+    // @ts-ignore
+    formRoleData.value.roleIds = data; // 设置角色分配表单的角色ID数组
+  } finally {
+    formLoading.value = false; // 结束加载数据
+  }
+  // 获取角色列表
+  const res = await RoleApi.fetchSimpleRoleList(); // 调用接口获取角色列表
+  // @ts-ignore
+  roleList.value = res.data; // 设置角色列表数据
 }
 
-const submitRole = async ()=>{
-	if (!formRoleRef.value) return;
-	formLoading.value=true;
-	try{
-
-		const {data} = await PermissionApi.assignUserRole({
+// 提交角色分配表单
+const submitRole = async () => {
+  if (!formRoleRef.value) return; // 如果角色分配表单引用不存在，直接返回
+  formLoading.value = true; // 开始提交，设置加载状态为 true
+  try {
+    const { data } = await PermissionApi.assignUserRole({
 			// @ts-ignore
-			userId:formRoleData.value.id,
-			roleIds:formRoleData.value.roleIds
-		})
-		if(data){
-			window.$message?.info('更新成功')
-		}
-		closeRole()
-		await getList()
-	}finally{
-		formLoading.value=false;
-	}
+      userId: formRoleData.value.id, // 获取角色分配表单中的用户ID
+      roleIds: formRoleData.value.roleIds // 获取角色分配表单中的角色ID数组
+    });
+
+    if (data) {
+      window.$message?.info('更新成功'); // 显示更新成功的提示信息
+    }
+    closeRole(); // 关闭角色分配弹窗
+    await getList(); // 更新列表数据
+  } finally {
+    formLoading.value = false; // 结束提交，设置加载状态为 false
+  }
 }
 
-const closeRole = ()=>{
-	fromRoleShow.value=false;
-	formRoleData.value = {
-	id: undefined,
-  nickname: '',
-  username: '',
-  roleIds: []
-	}
+// 关闭角色分配弹窗
+const closeRole = () => {
+  fromRoleShow.value = false; // 将角色分配弹窗的显示状态设置为 false
+  formRoleData.value = {
+    id: undefined,
+    nickname: '',
+    username: '',
+    roleIds: []
+  }; // 重置角色分配表单的数据
 }
+
 // 在组件挂载时获取列表数据和租户套餐列表
 onMounted(async () => {
-  await getList();
+  await getList(); // 获取列表数据
 });
 
 

@@ -21,6 +21,8 @@ export const views: Record<
   authority_menu: () => import('./authority/menu/index.vue'),
   authority_role: () => import('./authority/role/index.vue'),
   authority_token: () => import('./authority/token/index.vue'),
+  book_bookCreate: () => import('./book/bookCreate/index.vue'),
+  book_bookInfo: () => import('./book/bookInfo/index.vue'),
   book_books: () => import('./book/books/index.vue'),
   book_borrow: () => import('./book/borrow/index.vue'),
   book_category: () => import('./book/category/index.vue'),

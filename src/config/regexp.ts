@@ -17,6 +17,13 @@ export const REGEXP_CODE_FOUR = /^\d{4}$/;
 
 /** 路由组件路径正则 */
 export const REGEXP_ROUTER_PATH = /^\//;
+
+/** 条形码正则 5-50字符 */
+export const REGEXP_BAR_CODE = /^.{5,50}$/;
+
+/** 图书ISBN正则，10位或13位 */
+export const REGEXP_BOOK_ISBN = /^(978|979)-\d{1,5}-\d{1,7}-\d{1,6}-\d$|^\d{1,5}-\d{1,4}-\d{1,4}-[\dX]$/;
+
 /** url链接正则 */
 export const REGEXP_URL =
   /(((^https?:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)$/;

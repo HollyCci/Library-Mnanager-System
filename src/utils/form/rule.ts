@@ -1,6 +1,14 @@
 import type { Ref } from 'vue';
 import type { FormItemRule } from 'naive-ui';
-import { REGEXP_CODE_SIX, REGEXP_EMAIL, REGEXP_PHONE, REGEXP_PWD, REGEXP_ROUTER_PATH } from '@/config';
+import {
+  REGEXP_BAR_CODE,
+  REGEXP_BOOK_ISBN,
+  REGEXP_CODE_SIX,
+  REGEXP_EMAIL,
+  REGEXP_PHONE,
+  REGEXP_PWD,
+  REGEXP_ROUTER_PATH
+} from '@/config';
 
 /** 创建自定义错误信息的必填表单规则 */
 export const createRequiredFormRule = (message = '不能为空'): FormItemRule => ({ required: true, message });
@@ -43,6 +51,10 @@ interface CustomFormRules {
   routerPath: FormItemRule[];
   /** 通用单选 */
   radioStatus: FormItemRule[];
+  /** 条形码 */
+  barCode: FormItemRule[];
+  /** ISBN */
+  isbn: FormItemRule[];
 }
 
 /** 表单规则 */
@@ -121,6 +133,14 @@ export const formRules: CustomFormRules = {
       trigger: 'blur',
       message: '请选择对应状态'
     }
+  ],
+  barCode: [
+    createRequiredFormRule('条形码不能为空'),
+    { pattern: REGEXP_BAR_CODE, message: '条形码格式不正确', trigger: 'input' }
+  ],
+  isbn: [
+    createRequiredFormRule('ISBN不能为空'),
+    { pattern: REGEXP_BOOK_ISBN, message: 'ISBN格式不正确', trigger: 'input' }
   ]
 };
 
