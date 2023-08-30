@@ -426,6 +426,17 @@ declare namespace I18nType {
         _value: string;
         show_info: string;
       };
+      facility: {
+        _value: string;
+        'scheduled-tasks': string;
+        mysql: string;
+        redis: string;
+        apiLog: string;
+        accessLog: string;
+        exceptionLog: string;
+        'database-documents': string;
+        'api-interface-documents': string;
+      };
       about: string;
     };
     layout: {

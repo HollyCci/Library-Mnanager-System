@@ -118,6 +118,17 @@ const locale: I18nType.Schema = {
       _value: 'Map function',
       show_info: 'My Location'
     },
+    facility: {
+      _value: 'System facilities',
+      'scheduled-tasks': 'Scheduled tasks',
+      'api-interface-documents': 'Scheduled tasks',
+      'database-documents': 'Database documents',
+      apiLog: 'API Log',
+      accessLog: 'Access Log',
+      exceptionLog: 'Access Log',
+      mysql: 'MySQL monitoring',
+      redis: 'Redis monitoring'
+    },
     about: 'About'
   },
   layout: {

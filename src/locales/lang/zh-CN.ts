@@ -118,6 +118,17 @@ const locale: I18nType.Schema = {
       _value: '地图功能',
       show_info: '我的位置'
     },
+    facility: {
+      _value: '系统设施',
+      'scheduled-tasks': '定时任务',
+      'api-interface-documents': '系统接口',
+      'database-documents': '数据库文档',
+      apiLog: 'API日志',
+      accessLog: '访问日志',
+      exceptionLog: '异常日志',
+      mysql: 'MySQL监控',
+      redis: 'Redis监控'
+    },
     about: '关于'
   },
   layout: {
