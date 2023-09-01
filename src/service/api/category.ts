@@ -5,6 +5,7 @@ export interface CategoryVO {
   id?: number;
   name: string;
   picUrl: string;
+  count: number;
   parentId: number;
   status: number;
   sort: number;

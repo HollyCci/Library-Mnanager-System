@@ -154,6 +154,7 @@ type RowData = {
   id: number;
   name: string;
   parentId: number;
+	count:number;
   sort: number;
 	picUrl:string;
 	status:number;
@@ -199,6 +200,7 @@ const columns: DataTableColumns<RowData> = [
 			return<NAvatar src={row.picUrl?row.picUrl:'https://tdesign.gtimg.com/site/avatar.jpg'}></NAvatar>
 		}
 	},
+	{ key:"count",title:"图书数量"},
   { key: 'sort', title: '排序' },
   {
     key: 'status',
