@@ -12,6 +12,7 @@ export interface UserVO {
   mobile: string;
   sex: number;
   avatar: string;
+  borrowedCount: number;
   loginIp: string;
   status: number;
   remark: string;

@@ -94,7 +94,7 @@
           label-placement="left"
           label-width="93px"
         >
-          <!-- 租户名称输入框 -->
+          <!-- 角色名称输入框 -->
           <n-form-item label="角色名称" path="name" required>
             <n-input v-model:value="formData.name" placeholder="请输入角色名称" style="width: 50%" />
           </n-form-item>
@@ -103,6 +103,14 @@
           </n-form-item>
           <n-form-item label="显示排序" path="sort" required>
             <n-input-number v-model:value="formData.sort" placeholder="请输入显示排序" style="width: 50%" min="0" />
+          </n-form-item>
+          <n-form-item label="借阅额度" path="borrowCount" required>
+            <n-input-number
+              v-model:value="formData.borrowCount"
+              placeholder="请输入借阅额度"
+              style="width: 50%"
+              min="0"
+            />
           </n-form-item>
           <n-form-item label="角色状态" path="status" required>
             <n-select
@@ -293,6 +301,7 @@ type RowData = {
 	name:string;
 	remark:string;
 	sort:number;
+	borrowCount:number;
 	status:number;
 	tenantId:number;
 	type:number
@@ -323,8 +332,15 @@ const columns: DataTableColumns<RowData> = [
 	{ key: 'type', title: '角色类型', align: 'center' },
 	{ key: 'code', title: '角色标识', align: 'center',render(row){
 	return <NTag type='primary'>{row.code}</NTag>
-}},
+	}},
 	{ key: 'sort', title: '显示顺序', align: 'center' },
+	{ key: 'borrowCount',
+		title:"借阅额度",
+		align: 'center',
+		render(row){
+			return <NTag type='primary'>{row.borrowCount}</NTag>
+		}
+	},
 	{ key: 'remark', title: '备注', align: 'center' },
 	{
 		key: 'status',
@@ -502,6 +518,7 @@ const formData = ref({
   code: '',
   sort: null,
   status: 0,
+	borrowCount:null,
   remark: ''
 })
 
@@ -559,6 +576,7 @@ function close(){
 	fromShow.value = false;
 	formData.value={
 		id: undefined,
+		borrowCount:null,
 		name: '',
   	code: '',
  	  sort: null,

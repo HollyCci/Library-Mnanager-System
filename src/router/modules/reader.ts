@@ -24,6 +24,18 @@ const reader: AuthRoute.Route = {
         requiresAuth: true,
         icon: 'line-md:calendar'
       }
+    },
+    {
+      name: 'reader_bookInfo',
+      path: '/reader/bookInfo',
+      component: 'self',
+      meta: {
+        title: '图书详情',
+        requiresAuth: true,
+        hide: true,
+        activeMenu: 'reader_borrow',
+        icon: 'pajamas:details-block'
+      }
     }
   ],
   meta: {

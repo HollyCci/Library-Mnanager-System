@@ -319,6 +319,7 @@ type RowData = {
 	sex:number;
 	avatar:string;
 	status:number;
+	borrowedCount:number;
 	loginIp:string;
 	loginDate:string;
 	createTime:number;
@@ -374,6 +375,9 @@ const columns: DataTableColumns<RowData> = [
 					<NDescriptions labelPlacement='left' bordered column={1} size='small' labelAlign='center' labelStyle={'width:200px;text:center'}>
 						<NDescriptionsItem label='备注' >
 							{rowData.remark?<t-tag theme="primary" variant="outline">{rowData.remark}</t-tag>:<t-tag theme="warning" variant="outline">无任何信息</t-tag>}
+						</NDescriptionsItem>
+						<NDescriptionsItem label='借阅额度已使用'>
+							<t-tag theme="primary" variant="outline">{rowData.borrowedCount}次</t-tag>
 						</NDescriptionsItem>
 						<NDescriptionsItem label='最后登录IP'>
 							{rowData.loginIp?<t-tag theme="primary" variant="outline">{rowData.loginIp}</t-tag>:<t-tag theme="warning" variant="outline">从未登陆过</t-tag>}
@@ -662,7 +666,7 @@ const handleExport = async () => {
 
 /** 导入数据操作（待开发） */
 const handleImport = () => {
-  MessagePlugin.loading('功能等待开发...');
+  MessagePlugin.loading('导入数据功能暂未开放');
 };
 
 

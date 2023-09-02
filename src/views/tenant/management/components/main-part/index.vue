@@ -519,8 +519,6 @@ async function openForm(type: string, id?: number) {
 
 // 提交表单
 async function submitFrom(){
-	console.log(packageList.value);
-	console.log(formData.value);
 	if (!formRef.value) return;
   // 校验表单，验证不通过不会执行后续
   await formRef.value?.validate();
