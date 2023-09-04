@@ -20,7 +20,7 @@ export interface ClassVO {
  * @returns 分页数据
  */
 export function fetchClassPage(params: PageParam) {
-  return request.get('/system/class/list', { params });
+  return request.get('/system/class/page', { params });
 }
 
 /**
@@ -65,4 +65,13 @@ export function createClass(data: ClassVO) {
  */
 export function updateClass(params: ClassVO) {
   return request.put('/system/class/update', params);
+}
+
+/**
+ * 导出班级数据
+ * @param params 参数
+ * @returns Blob
+ */
+export function exportClass(params: any) {
+  return request.download('/system/class/export', params);
 }

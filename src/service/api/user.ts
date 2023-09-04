@@ -39,6 +39,15 @@ export function getUser(id: number) {
 }
 
 /**
+ * 根据username获取用户详情
+ * @param id 用户ID
+ * @returns 用户详情数据
+ */
+export function getUserByUsername(username: string) {
+  return request.get(`/system/user/get-username?username=${username}`);
+}
+
+/**
  * 创建用户
  * @param data 用户数据
  * @returns 创建结果
