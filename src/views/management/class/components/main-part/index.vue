@@ -239,6 +239,7 @@ type RowData = {
   createTime: number;
 };
 
+
 // 获取列表数据并更新分页信息
 const getList = async () => {
   loading.value = true;
@@ -261,7 +262,6 @@ const getList = async () => {
           value: item.leaderUser.id
         };
       });
-    console.log(LeaderUserOptions.value);
   } catch (error) {
     console.log(error);
   } finally {
@@ -531,7 +531,6 @@ async function openForm(type: string, id?: number, row?: any) {
 			if(row.leaderUser){
 				formData.value.leaderUsername = row.leaderUser.username;
 			}
-			console.log(formData.value);
 
     }
 		}finally{
@@ -566,7 +565,6 @@ async function submitFrom(){
 			await ClassApi.createClass(param);
 			window.$message?.success('添加班级：'+param.name+' 成功');
 		}else if (formType.value === 'update') {
-			console.log(param);
       const { data } = await ClassApi.updateClass(param);
       if (data === true) {
         window.$message?.success('修改班级：'+param.name+' 信息成功');

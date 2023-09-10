@@ -36,6 +36,18 @@ const reader: AuthRoute.Route = {
         activeMenu: 'reader_borrow',
         icon: 'pajamas:details-block'
       }
+    },
+    {
+      name: 'reader_borrowDetail',
+      path: '/reader/borrowDetail',
+      component: 'self',
+      meta: {
+        title: '借阅详情',
+        requiresAuth: true,
+        hide: true,
+        activeMenu: 'reader_info',
+        icon: 'pajamas:details-block'
+      }
     }
   ],
   meta: {

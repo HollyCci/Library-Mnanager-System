@@ -54,5 +54,5 @@ export interface UserProfileVO {
  * @returns 登录用户信息
  */
 export function getUserProfile() {
-  return request.get('/system/user/profile/get');
+  return request.get<any>('/system/user/profile/get');
 }

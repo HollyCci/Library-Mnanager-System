@@ -75,6 +75,7 @@ export const views: Record<
   plugin_video: () => import('./plugin/video/index.vue'),
   reader_bookInfo: () => import('./reader/bookInfo/index.vue'),
   reader_borrow: () => import('./reader/borrow/index.vue'),
+  reader_borrowDetail: () => import('./reader/borrowDetail/index.vue'),
   reader_info: () => import('./reader/info/index.vue'),
   tenant_management: () => import('./tenant/management/index.vue'),
   tenant_packages: () => import('./tenant/packages/index.vue')

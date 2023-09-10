@@ -28,6 +28,18 @@ export interface borrowBookReqVO {
   returnTime: Date;
 }
 
+export interface borrowReturnReqVO {
+  id: number;
+  serialNumber: string;
+}
+
+export interface renewalBookReqVO {
+  id: number;
+  serialNumber: string;
+  newReturnTime: Date;
+  remark: string;
+}
+
 /**
  * 获取图书列表
  * @param params 分页参数
@@ -44,4 +56,49 @@ export function getReaderBookSkuPage(params: PageParam) {
  */
 export function borrowBook(params: borrowBookReqVO) {
   return request.post('/library/reader/book-borrow', params);
+}
+
+/**
+ * 获取借阅列表
+ * @param params 查询参数
+ * @returns 借阅列表
+ */
+export function getReaderBorrowPage(params: PageParam) {
+  return request.get<any>('/library/reader/borrow-page', { params });
+}
+
+/**
+ * 归还图书
+ * @param data 图书归还参数
+ * @returns Boolean
+ */
+export function returnReaderBorrowBook(data: borrowReturnReqVO) {
+  return request.post('/library/reader/book-return', data);
+}
+
+/**
+ * 确认取书
+ * @param data 参数
+ * @returns Boolean
+ */
+export function verifyTakeBook(data: borrowReturnReqVO) {
+  return request.post('/library/reader/verify-take-book', data);
+}
+
+/**
+ * 续借图书
+ * @param data 续借参数
+ * @returns Boolean
+ */
+export function renewalBook(data: renewalBookReqVO) {
+  return request.post('/library/reader/book-renewal', data);
+}
+
+/**
+ * 获取用户借阅详情
+ * @param serialNumber 订单号
+ * @returns 借阅详情
+ */
+export function getReaderBorrowDetail(serialNumber: string) {
+  return request.get(`/library/reader/borrow-detail?serialNumber=${serialNumber}`);
 }
