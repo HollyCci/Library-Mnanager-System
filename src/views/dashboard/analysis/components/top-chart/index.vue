@@ -6,13 +6,13 @@
           <h3 class="text-16px font-bold">Dashboard</h3>
           <p class="text-#aaa">Overview Of Lasted Month</p>
           <h3 class="pt-32px text-24px font-bold">
-            <count-to prefix="$" :start-value="0" :end-value="7754" />
+            <count-to :start-value="0" :end-value="2475" />
           </h3>
-          <p class="text-#aaa">Current Month Earnings</p>
+          <p class="text-#aaa">Current Month borrowed</p>
           <h3 class="pt-32px text-24px font-bold">
-            <count-to :start-value="0" :end-value="1234" />
+            <count-to :start-value="0" :end-value="3458" />
           </h3>
-          <p class="text-#aaa">Current Month Sales</p>
+          <p class="text-#aaa">Current Month borrowed</p>
           <n-button class="mt-24px whitespace-pre-wrap" type="primary">Last Month Summary</n-button>
         </div>
       </n-card>
@@ -48,7 +48,7 @@ const lineOptions = ref<ECOption>({
     }
   },
   legend: {
-    data: ['下载量', '注册数']
+    data: ['入馆量', '借阅数']
   },
   grid: {
     left: '3%',
@@ -71,7 +71,7 @@ const lineOptions = ref<ECOption>({
   series: [
     {
       color: '#8e9dff',
-      name: '下载量',
+      name: '入馆量',
       type: 'line',
       smooth: true,
       stack: 'Total',
@@ -101,7 +101,7 @@ const lineOptions = ref<ECOption>({
     },
     {
       color: '#26deca',
-      name: '注册数',
+      name: '借阅数',
       type: 'line',
       smooth: true,
       stack: 'Total',

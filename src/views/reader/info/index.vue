@@ -77,7 +77,7 @@
     <n-card title="我的借阅" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
       <n-grid x-gap="12" y-gap="12" :cols="4">
         <n-gi v-for="borrow in borrowedList" :key="borrow.id">
-          <t-card :title="borrow.book.title" :subtitle="borrow.book.author" class="rounded-8px shadow-sm" hover-shadow>
+          <t-card :subtitle="borrow.book.author" class="rounded-8px shadow-sm" hover-shadow style="height: 320px">
             <!-- 图书封面 -->
             <template #avatar>
               <t-avatar
@@ -100,6 +100,11 @@
                   <icon-fa6-solid:warehouse class="text-20px mr1" />
                 </template>
               </n-tag>
+            </template>
+            <template #title>
+              <n-ellipsis style="width: 150px">
+                {{ borrow.book.title }}
+              </n-ellipsis>
             </template>
             <!-- 主体内容 -->
             <p>借阅单号：{{ borrow.serialNumber }}</p>
@@ -320,7 +325,7 @@ const getUserInfo = async () => {
   // @ts-ignore
   userInfo.value = data;
   if (data !== null && data.nickname !== null) {
-    if (data.overReadCount > 1) {
+    if (data.overReadCount >= 1) {
       titleTip.value = `您已经阅读了 ${data.overReadCount} 本书，不错的成绩！`;
     }
     if (data.overReadCount === 0) {
@@ -329,6 +334,7 @@ const getUserInfo = async () => {
     }
   }
 
+	// 随机从loveRead获取一个
   window.$message?.info(loveRead[Math.floor(Math.random() * loveRead.length)], {
     showIcon: false,
     closable: true,
