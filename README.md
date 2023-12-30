@@ -7,7 +7,9 @@
 
 ## 简介
 
-[Soybean Admin](https://github.com/honghuangdc/soybean-admin) 是一个基于 Vue3、Vite3、TypeScript、NaiveUI、Pinia 和 UnoCSS 的清新优雅的中后台模版，它使用了最新流行的前端技术栈，内置丰富的主题配置，有着极高的代码规范，基于文件的路由系统以及基于 Mock 的动态权限路由，开箱即用的中后台前端解决方案，也可用于学习参考。
+[Soybean Admin](https://github.com/honghuangdc/soybean-admin) 是一个基于 Vue3、Vite3、TypeScript、NaiveUI、Pinia 和 UnoCSS 的高校图书管理系统，以郑州工商学院的高校图书馆设施实际应用为背景， 旨在探索如何将大量读者行为数据可视化， 并开发一个高可用性、实时互动的在线管理平台，为用户提供个性化服务，解决信息过载问题。
+高校图书管理系统以高校和用户为中心，旨在为不同高校的图书馆提供一个高可用、高互动的在线平台， 打破学生与图书馆之间的时间和空间限制，消除学生与图书馆之间的信息差， 提高图书馆资源的利用率，解决图书馆信息过载问题；为学生提供线上方便、个性化的图书馆相关服务
+
 
 ## 特性
 
@@ -49,14 +51,6 @@
 | 精简版         | [精简版](https://github.com/honghuangdc/soybean-admin/tree/thin)              | [精简版](https://gitee.com/honghuangdc/soybean-admin/tree/thin)              |                                                           |
 | 集成 fast-crud | [集成 fast-crud](https://github.com/honghuangdc/soybean-admin/tree/fast-crud) | [集成 fast-crud](https://gitee.com/honghuangdc/soybean-admin/tree/fast-crud) | [预览](http://fast-crud.docmirror.cn/soybean/#/crud/demo) |
 
-## 更新日志
-
-[CHANGELOG](./CHANGELOG.md)
-
-## 后端服务
-
-- [soybean-admin-java](https://github.com/honghuangdc/soybean-admin-java)
-
 ## 项目示例图
 
 ![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
@@ -96,10 +90,6 @@
 
 - 克隆代码
 
-```bash
-git clone https://github.com/honghuangdc/soybean-admin.git
-```
-
 - 安装依赖
 
 ```bash
@@ -130,51 +120,8 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 
 打开本地浏览器访问`http://localhost`
 
-## 如何贡献
-
-非常欢迎您的加入！[提一个 Issue](https://github.com/honghuangdc/soybean-admin/issues/new) 或者提交一个 Pull Request。
-
 ## Git 贡献提交规范
 
 项目已经内置 Angular 提交规范，直接执行 commit 命令即可生成符合 Angular 提交规范的 commit。
 
 项目已用 simple-git-hooks 代替了 husky, 旧版本用了 husky，执行 pnpm soy init-git-hooks 进行初始化配置
-
-## 浏览器支持
-
-本地开发推荐使用`Chrome 90+` 浏览器
-
-支持现代浏览器, 不支持 IE
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt="IE" width="24px" height="24px"  />](http://godban.github.io/browsers-support-badges/)IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)Safari |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                                                                not support                                                                                                                |                                                                                          last 2 versions                                                                                          |                                                                                               last 2 versions                                                                                                |                                                                                             last 2 versions                                                                                              |                                                                                             last 2 versions                                                                                              |
-
-## 开源作者
-
-[@Soybean](https://github.com/honghuangdc)
-
-## 交流
-
-`Soybean Admin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
-
-  <div style="display:flex;">
-  	<div style="padding-right:24px;">
-  		<p>QQ交流群</p>
-      <img src="https://i.loli.net/2021/11/24/1J6REWXiHomU2kM.jpg" style="width:200px" />
-  	</div>
-		<div>
-			<p>添加本人微信，欢迎来技术交流，业务咨询</p>
-			<img src="https://s2.loli.net/2023/06/07/sVyCUFBvzQ9f5b7.jpg" style="width:200px" />
-		</div>
-  </div>
-
-## 捐赠
-
-如果你觉得这个项目对你有帮助，可以请 Soybean 喝杯饮料表示支持，Soybean 开源的动力离不开各位的支持和鼓励。
-
-![赞助](https://s2.loli.net/2022/01/24/i9cpq7lTCrKUoFf.png)
-
-## License
-
-本项目基于[MIT © Soybean-2021](./LICENSE) 协议，仅供参考学习，商用时请保留作者的版权信息，作者不对软件做担保和负责。
