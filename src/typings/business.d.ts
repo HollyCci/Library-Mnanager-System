@@ -48,6 +48,7 @@ declare namespace Auth {
 
   /** 微信轮训登录 */
   interface WeChatPoll {
+    status: number;
     type: number;
   }
 }

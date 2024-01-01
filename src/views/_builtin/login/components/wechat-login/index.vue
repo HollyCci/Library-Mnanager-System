@@ -42,11 +42,19 @@ const sleep = (time: number) =>
     setTimeout(resolve, time);
   });
 
+/**
+ * 轮询状态枚举()
+ * 0. 初始化二维码(未扫码)
+ * 1. 扫码成功
+ * 2. 登录成功
+ * 3. 未绑定平台
+ * 4. 二维码失效
+ */
 const pollWeChatLogin = async () => {
   try {
     const data = await fetchWeChatPoll({ uuid: pollId.value });
 
-    if (data.data?.type === 6) {
+    if (data.data?.status === 2) {
       const { accessToken, refreshToken, userId } = data.data;
       await auth.handleActionAfterLogin({
         accessToken,
