@@ -72,6 +72,8 @@ export default class CustomAxiosInstance {
             if (tenantId) {
               handleConfig.headers['tenant-id'] = tenantId;
             }
+            // 未登录时，租户id设置为-1，用于解决部分请求的header中无租户id，后端报错的问题
+            handleConfig.headers['tenant-id'] = -1;
           }
         }
         /* eslint-disable */

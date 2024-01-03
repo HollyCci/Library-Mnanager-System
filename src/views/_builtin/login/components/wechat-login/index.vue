@@ -17,80 +17,104 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useMessage } from 'naive-ui';
-import { loginModuleLabels } from '@/constants';
-import { useRouterPush } from '@/composables';
-import { fetchWeChatPoll, fetchWeChatTicket } from '~/src/service';
-import { useAuthStore, useRouteStore } from '~/src/store';
+/* eslint-disable */
+import { ref, onMounted } from "vue";
+import { useMessage } from "naive-ui";
+import { loginModuleLabels } from "@/constants";
+import { useRouterPush } from "@/composables";
+import { fetchWeChatPoll, fetchWeChatTicket } from "~/src/service";
+import { useAuthStore, useRouteStore } from "~/src/store";
 
 const message = useMessage();
 const { toLoginModule } = useRouterPush();
 const { resetRouteStore, initAuthRoute } = useRouteStore();
 const auth = useAuthStore();
-const pollId = ref<string>('');
+const pollId = ref<string>("");
 const weChatTicket = ref<string>();
 
-const showQrCodeUrl = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=';
-
+const showQrCodeUrl = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=";
 const loginSrc = () => {
-  return `${showQrCodeUrl}${weChatTicket.value}`;
+	return `${showQrCodeUrl}${weChatTicket.value}`;
+};
+
+const pollStatusEnum = {
+	// 初始化二维码(未扫码)
+	init: 0,
+	// 扫码成功
+	scanSuccess: 1,
+	// 登录成功
+	loginSuccess: 2,
+	// 未绑定平台
+	unBind: 3,
+	// 二维码失效
+	invalid: 4,
 };
 
 const sleep = (time: number) =>
-  new Promise(resolve => {
-    setTimeout(resolve, time);
-  });
+	new Promise((resolve) => {
+		setTimeout(resolve, time);
+	});
 
-/**
- * 轮询状态枚举()
- * 0. 初始化二维码(未扫码)
- * 1. 扫码成功
- * 2. 登录成功
- * 3. 未绑定平台
- * 4. 二维码失效
- */
+const pollFlag = ref<boolean>(false); // 轮询标志
+let retryCount = 0; // 失败轮询次数
+const MAX_RETRY_COUNT = 5; // 失败轮询次数
+// 轮训微信QR状态
 const pollWeChatLogin = async () => {
-  try {
-    const data = await fetchWeChatPoll({ uuid: pollId.value });
+	try {
+		// 如果轮询标志为真，则开始轮训
+		if (!pollFlag.value) {
+			return;
+		}
 
-    if (data.data?.status === 2) {
-      const { accessToken, refreshToken, userId } = data.data;
-      await auth.handleActionAfterLogin({
-        accessToken,
-        refreshToken,
-        userId
-      });
-      resetRouteStore();
-      initAuthRoute();
-    } else {
-      await sleep(1000);
-      pollWeChatLogin();
-    }
-  } catch (error) {
-    message.error(`${error}`);
-  }
+		const data = await fetchWeChatPoll({ uuid: pollId.value });
+
+		if (data.error != null && data.error?.code !== 200) {
+			retryCount += 1;
+			if (retryCount > MAX_RETRY_COUNT) {
+				pollFlag.value = false;
+				return;
+			}
+		}
+
+		// 扫码成功
+		if (data.data?.status === pollStatusEnum.loginSuccess) {
+			const { accessToken, refreshToken, userId } = data.data;
+			await auth.handleActionAfterLogin({
+				accessToken,
+				refreshToken,
+				userId,
+			});
+			resetRouteStore();
+			initAuthRoute();
+		} else {
+			await sleep(1000);
+			pollWeChatLogin();
+		}
+	} catch (error) {
+		message.error(`${error}`);
+	}
 };
 /**
  * 获取登录二维码
  */
 const initWeChatTicket = async () => {
-  try {
-    const response = await fetchWeChatTicket();
-    if (response.data) {
-      pollId.value = response.data?.uuid;
-      weChatTicket.value = response.data?.ticket;
-    }
+	try {
+		const response = await fetchWeChatTicket();
+		if (response.data) {
+			pollId.value = response.data?.uuid;
+			weChatTicket.value = response.data?.ticket;
+		}
 
-    // 轮训
-    pollWeChatLogin();
-  } catch (e) {
-    message.error(`${e}`);
-  }
+		// 轮训
+		pollFlag.value = true;
+		pollWeChatLogin();
+	} catch (e) {
+		message.error(`${e}`);
+	}
 };
 
 onMounted(() => {
-  initWeChatTicket();
+	initWeChatTicket();
 });
 </script>
 
