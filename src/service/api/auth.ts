@@ -64,3 +64,15 @@ export function fetchUpdateToken(refreshToken: string) {
 export function loginOut() {
   return request.post('/system/auth/logout');
 }
+
+/**
+ * 扫码登录未绑定平台->登录并绑定
+ * @param username 用户名
+ * @param password 密码
+ * @param pollId 扫码轮询ID
+ * @returns 登录结果
+ */
+export function fetchBindUser(username: string, password: string, pollId: string) {
+  // return request.post<ApiAuth.Token>('/system/auth/bind-user', { username, password, pollId });
+  return request.post<ApiAuth.Token>('/system/auth/bind-user', { username, password, pollId });
+}

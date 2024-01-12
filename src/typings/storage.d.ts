@@ -21,5 +21,7 @@ declare namespace StorageInterface {
     lang: I18nType.LangType;
     /** 租户id */
     tenantId: number;
+    /** 扫码轮询id */
+    pollId: string;
   }
 }

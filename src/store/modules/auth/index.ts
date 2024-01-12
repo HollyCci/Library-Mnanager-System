@@ -1,7 +1,7 @@
 import { unref, nextTick } from 'vue';
 import { defineStore } from 'pinia';
 import { router } from '@/router';
-import { fetchLogin, fetchUserInfo } from '@/service';
+import { fetchLogin, fetchUserInfo, fetchBindUser } from '@/service';
 import { useRouterPush } from '@/composables';
 import { localStg } from '@/utils';
 import { $t } from '@/locales';
@@ -125,7 +125,17 @@ export const useAuthStore = defineStore('auth-store', {
         await this.handleActionAfterLogin(data);
       }
       this.loginLoading = false;
-      //
+    },
+    async bindUser(userName: string, password: string, pollId: string) {
+      this.loginLoading = true;
+      window.$message?.loading('登录中....请耐心等待☕', {
+        duration: 500
+      });
+      const { data } = await fetchBindUser(userName, password, pollId);
+      if (data) {
+        await this.handleActionAfterLogin(data);
+      }
+      this.loginLoading = false;
     },
     /**
      * 更换用户权限(切换账号)

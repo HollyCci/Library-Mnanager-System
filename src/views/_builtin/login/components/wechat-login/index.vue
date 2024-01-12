@@ -24,6 +24,8 @@ import { loginModuleLabels } from "@/constants";
 import { useRouterPush } from "@/composables";
 import { fetchWeChatPoll, fetchWeChatTicket } from "~/src/service";
 import { useAuthStore, useRouteStore } from "~/src/store";
+import { BIND_USER } from "~/src/config";
+import {localStg } from '@/utils';
 
 const message = useMessage();
 const { toLoginModule } = useRouterPush();
@@ -58,6 +60,7 @@ const sleep = (time: number) =>
 const pollFlag = ref<boolean>(false); // 轮询标志
 let retryCount = 0; // 失败轮询次数
 const MAX_RETRY_COUNT = 5; // 失败轮询次数
+const UNBIND_CODE = 1002000011; // 未绑定平台code
 // 轮训微信QR状态
 const pollWeChatLogin = async () => {
 	try {
@@ -70,10 +73,19 @@ const pollWeChatLogin = async () => {
 
 		if (data.error != null && data.error?.code !== 200) {
 			retryCount += 1;
+
+			// 未绑定平台
+			if(data.error?.code === UNBIND_CODE){
+				localStg.set('pollId', pollId.value)
+				toLoginModule(BIND_USER)
+			}
+
+			// 异常时轮训次数超过最大次数
 			if (retryCount > MAX_RETRY_COUNT) {
 				pollFlag.value = false;
 				return;
 			}
+
 		}
 
 		// 扫码成功
