@@ -16,8 +16,6 @@ export const views: Record<
   'analyze-data_borrowData': () => import('./analyze-data/borrowData/index.vue'),
   'analyze-data_stackData': () => import('./analyze-data/stackData/index.vue'),
   'analyze-data_userData': () => import('./analyze-data/userData/index.vue'),
-  'auth-demo_permission': () => import('./auth-demo/permission/index.vue'),
-  'auth-demo_super': () => import('./auth-demo/super/index.vue'),
   authority_menu: () => import('./authority/menu/index.vue'),
   authority_role: () => import('./authority/role/index.vue'),
   authority_token: () => import('./authority/token/index.vue'),
