@@ -1,7 +1,7 @@
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
-import { NaiveUiResolver, TDesignResolver } from 'unplugin-vue-components/resolvers';
+import { NaiveUiResolver, TDesignResolver, DevUiResolver } from 'unplugin-vue-components/resolvers';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import { getSrcPath } from '../utils';
@@ -31,6 +31,7 @@ export default function unplugin(viteEnv: ImportMetaEnv) {
       types: [{ from: 'vue-router', names: ['RouterLink', 'RouterView'] }],
       resolvers: [
         NaiveUiResolver(),
+        DevUiResolver(),
         TDesignResolver({
           library: 'vue-next'
         }),

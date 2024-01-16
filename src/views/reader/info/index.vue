@@ -75,118 +75,121 @@
     </n-card>
 
     <n-card title="我的借阅" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
-      <n-grid x-gap="12" y-gap="12" :cols="4">
-        <n-gi v-for="borrow in borrowedList" :key="borrow.id">
-          <t-card :subtitle="borrow.book.author" class="rounded-8px shadow-sm" hover-shadow style="height: 320px">
-            <!-- 图书封面 -->
-            <template #avatar>
-              <t-avatar
-                :image="
-                  borrow.book.picUrl ? borrow.book.picUrl : 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'
-                "
-                size="56px"
-              ></t-avatar>
-            </template>
-            <template #description>
-              <n-tag style="width: 140px">
-                {{ borrow.barCode }}
-                <template #icon>
-                  <icon-ion:barcode-outline class="text-20px mr1" />
+      <n-flex>
+        <d-card
+          v-for="borrow in borrowedList"
+          :key="borrow.id"
+          v-ripple="{ duration: 500 }"
+          style="width: 380px"
+          @click="handleToBorrowDetail(borrow.serialNumber)"
+        >
+          <template #avatar>
+            <d-avatar name="DevUI" />
+          </template>
+          <template #title>
+            <n-text>{{ borrow.book.title }}</n-text>
+          </template>
+          <template #subtitle>
+            <n-flex>
+              <n-text>{{ borrow.book.author }}</n-text>
+              <d-tag v-if="borrow.status === 5" size="18">
+                <icon-icon-park-twotone:success class="text-16px mb1 mr1" color="#18a058" />
+                <n-text type="success">已归还</n-text>
+              </d-tag>
+              <d-tag v-if="borrow.status === 1" size="18">
+                <icon-svg-spinners:pulse-multiple class="text-18px mb1 mr1" color="#007d65" />
+                <n-text type="success" style="color: #007d65">待取书</n-text>
+              </d-tag>
+              <d-tag v-if="borrow.status === 3" size="18">
+                <icon-svg-spinners:bouncing-ball class="text-18px mb1 mr1" color="#0052d9" />
+                <n-text type="success" style="color: #0052d9">借阅中</n-text>
+              </d-tag>
+              <d-tag v-if="borrow.status === 4" size="18">
+                <icon-svg-spinners:bouncing-ball class="text-18px mb1 mr1" color="#e37318" />
+                <n-text type="success" style="color: #e37318">即将到期</n-text>
+              </d-tag>
+              <d-tag v-if="borrow.status === -1" size="18">
+                <icon-streamline:interface-validation-check-circle-checkmark-addition-circle-success-check-validation-add-form
+                  class="text-14px mb1 mr1"
+                  color="#d03050"
+                />
+                <n-text type="success" style="color: #d03050">审批驳回</n-text>
+              </d-tag>
+              <d-tag v-if="borrow.status === -2" size="18">
+                <icon-svg-spinners:pulse-3 class="text-14px mb1 mr1" color="#d03050" />
+                <n-text type="success" style="color: #d03050">逾期中</n-text>
+              </d-tag>
+              <d-tag v-if="borrow.status === -3" size="18">
+                <icon-mdi:archive-success-outline class="text-16px mb1 mr1" color="#18a058" />
+                <n-text type="success" style="color: #18a058">逾期归还</n-text>
+              </d-tag>
+              <d-tag v-if="borrow.status === 6" size="18">
+                <icon-svg-spinners:180-ring-with-bg class="text-16px mb1 mr1" color="#18a058" />
+                <n-text type="success" style="color: #18a058">预定中</n-text>
+              </d-tag>
+            </n-flex>
+          </template>
+          <template #content>
+            <n-flex vertical>
+              <n-flex>
+                <n-tag round :bordered="false">
+                  <n-text>{{ borrow.barCode }}</n-text>
+                  <template #avatar>
+                    <icon-ion:barcode-outline class="text-20px m1" />
+                  </template>
+                </n-tag>
+                <n-tag round :bordered="false">
+                  <n-text>{{ borrow.bookStack.stackName }}</n-text>
+                  <template #avatar>
+                    <icon-fa6-solid:warehouse class="text-16px m1" />
+                  </template>
+                </n-tag>
+              </n-flex>
+              <n-tag round :bordered="false" class="text-14px">
+                <n-text>{{ borrow.serialNumber }}</n-text>
+                <template #avatar>
+                  <icon-carbon:order-details class="text-20px m1" />
                 </template>
               </n-tag>
-              <n-tag style="width: 140px">
-                {{ borrow.bookStack.stackName }}
-                <template #icon>
-                  <icon-fa6-solid:warehouse class="text-20px mr1" />
+              <n-tag round :bordered="false" class="text-14px">
+                <n-text>{{ formatDate(borrow.borrowTime) }} - {{ formatDate(borrow.returnTime) }}</n-text>
+                <template #avatar>
+                  <icon-formkit:datetime class="text-20px m1" />
                 </template>
               </n-tag>
-            </template>
-            <template #title>
-              <n-ellipsis style="width: 150px">
-                {{ borrow.book.title }}
-              </n-ellipsis>
-            </template>
-            <!-- 主体内容 -->
-            <p>借阅单号：{{ borrow.serialNumber }}</p>
-            <p>
-              借阅时间：
-              <t-tag theme="primary" variant="light">{{ formatDate(borrow.borrowTime) }}</t-tag>
-            </p>
-            <p>
-              归还时间：
-              <t-tag theme="primary" variant="light">{{ formatDate(borrow.returnTime) }}</t-tag>
-            </p>
-            <template #actions>
-              <t-tag v-if="borrow.status === 1" theme="primary" variant="light">
-                <template #icon><icon-svg-spinners:pulse-multiple class="text-25px" color="#18a058" /></template>
-                待取书
-              </t-tag>
-              <t-tag v-if="borrow.status === 3" theme="primary" variant="light">
-                <template #icon><icon-svg-spinners:bouncing-ball class="text-25px" color="#0052d9" /></template>
-                借阅中
-              </t-tag>
-              <t-tag v-if="borrow.status === 4" theme="warning" variant="light">
-                <template #icon><icon-svg-spinners:clock class="text-18px mr1" color="##e37318" /></template>
-                即将到期
-              </t-tag>
-              <t-tag v-if="borrow.status === 5" theme="success" variant="light">
-                <template #icon><icon-icon-park-twotone:success class="text-18px mr1" color="#18a058" /></template>
-                已归还
-              </t-tag>
-              <t-tag v-if="borrow.status === -1" theme="danger" variant="light">
-                <template #icon>
-                  <icon-streamline:interface-validation-check-circle-checkmark-addition-circle-success-check-validation-add-form
-                    class="text-15px mr1"
-                    color="#d03050"
-                  />
-                </template>
-                审批驳回
-              </t-tag>
-              <t-tag v-if="borrow.status === -2" theme="danger" variant="light">
-                <template #icon><icon-svg-spinners:pulse-3 class="text-25px" color="#d03050" /></template>
-                逾期中
-              </t-tag>
-              <t-tag v-if="borrow.status === -3" theme="warning" variant="light">
-                <template #icon><icon-mdi:archive-success-outline class="text-20px mr1" color="#18a058" /></template>
-                逾期归还
-              </t-tag>
-              <t-tag v-if="borrow.status === 6" theme="primary" variant="light">
-                <template #icon><icon-svg-spinners:180-ring-with-bg class="text-18px mr1" color="#18a058" /></template>
-                预定
-              </t-tag>
-            </template>
-            <template #footer>
-              <n-space justify="end">
-                <t-button variant="outline" @click="handleToBorrowDetail(borrow.serialNumber)">查看详情</t-button>
-                <t-button
-                  v-if="borrow.status === 1"
-                  variant="outline"
-                  theme="success"
-                  @click="handleTakeBook(borrow.id, borrow.serialNumber, borrow.book.title)"
-                >
-                  我已取得
-                </t-button>
-                <t-button
-                  v-if="borrow.status === 4"
-                  variant="outline"
-                  theme="primary"
-                  @click="handleRenewalBook(borrow.id, borrow.serialNumber, borrow.book.title)"
-                >
-                  申请续期
-                </t-button>
-                <t-button
-                  v-if="borrow.status === -2 || borrow.status === 4 || borrow.status === 3"
-                  variant="outline"
-                  theme="primary"
-                  @click="handleReturnBook(borrow.id, borrow.serialNumber, borrow.book.title)"
-                >
-                  归还图书
-                </t-button>
-              </n-space>
-            </template>
-          </t-card>
-        </n-gi>
-      </n-grid>
+            </n-flex>
+          </template>
+          <template #actions>
+            <n-flex>
+              <n-button size="small" @click="handleToBorrowDetail(borrow.serialNumber)">查看详情</n-button>
+              <n-button
+                v-if="borrow.status === 1"
+                size="small"
+                type="success"
+                @click="handleTakeBook(borrow.id, borrow.serialNumber, borrow.book.title)"
+              >
+                我已取得
+              </n-button>
+              <n-button
+                v-if="borrow.status === 4"
+                size="small"
+                type="warning"
+                @click="handleRenewalBook(borrow.id, borrow.serialNumber, borrow.book.title)"
+              >
+                申请续期
+              </n-button>
+              <n-button
+                v-if="borrow.status === -2 || borrow.status === 4 || borrow.status === 3"
+                type="info"
+                size="small"
+                @click="handleReturnBook(borrow.id, borrow.serialNumber, borrow.book.title)"
+              >
+                归还图书
+              </n-button>
+            </n-flex>
+          </template>
+        </d-card>
+      </n-flex>
       <n-pagination
         :page="queryParams.pageNo"
         :page-size="queryParams.pageSize"
