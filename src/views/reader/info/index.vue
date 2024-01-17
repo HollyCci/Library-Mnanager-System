@@ -154,9 +154,9 @@
               <template #subtitle>
                 <n-flex>
                   <n-text>{{ borrow.book.author }}</n-text>
-                  <d-tag v-if="borrow.status === 5" size="18">
-                    <icon-icon-park-twotone:success class="text-16px mb1 mr1" color="#18a058" />
-                    <n-text type="success">已归还</n-text>
+                  <d-tag v-if="borrow.status === 0" size="18">
+                    <icon-svg-spinners:180-ring-with-bg class="text-16px mb1 mr1" color="#0052d9" />
+                    <n-text type="success" style="color: #0052d9">审批中</n-text>
                   </d-tag>
                   <d-tag v-if="borrow.status === 1" size="18">
                     <icon-svg-spinners:pulse-multiple class="text-18px mb1 mr1" color="#007d65" />
@@ -169,6 +169,10 @@
                   <d-tag v-if="borrow.status === 4" size="18">
                     <icon-svg-spinners:bouncing-ball class="text-18px mb1 mr1" color="#e37318" />
                     <n-text type="success" style="color: #e37318">即将到期</n-text>
+                  </d-tag>
+                  <d-tag v-if="borrow.status === 5" size="18">
+                    <icon-icon-park-twotone:success class="text-16px mb1 mr1" color="#18a058" />
+                    <n-text type="success">已归还</n-text>
                   </d-tag>
                   <d-tag v-if="borrow.status === -1" size="18">
                     <icon-streamline:interface-validation-check-circle-checkmark-addition-circle-success-check-validation-add-form
