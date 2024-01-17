@@ -68,6 +68,24 @@ export function getReaderBorrowPage(params: PageParam) {
 }
 
 /**
+ * 获取借阅逾期列表
+ * @param params 查询参数
+ * @returns 逾期记录列表
+ */
+export function getReaderOverDueBorrowPage(params: PageParam) {
+  return request.get<any>('/library/reader/overdue-borrow-page', { params });
+}
+
+/**
+ * 获取借阅已归还列表
+ * @param params 查询参数
+ * @returns 已归还记录列表
+ */
+export function getReaderReturnedBorrowPage(params: PageParam) {
+  return request.get<any>('/library/reader/returned-borrow-page', { params });
+}
+
+/**
  * 归还图书
  * @param data 图书归还参数
  * @returns Boolean

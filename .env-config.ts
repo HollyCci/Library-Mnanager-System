@@ -5,8 +5,8 @@ type ServiceEnv = Record<ServiceEnvType, ServiceEnvConfig>;
 const serviceEnv: ServiceEnv = {
   dev: {
     // url: 'http://book.wocc.site/api/admin-api'
-    url: 'http://t.lihaha.cn/api/admin-api'
-    // url: 'http://127.0.0.1:8849/admin-api'
+    // url: 'http://t.lihaha.cn/api/admin-api'
+    url: 'http://127.0.0.1:8849/admin-api'
   },
   test: {
     url: 'http://t.lihaha.cn/api/admin-api'

@@ -1,7 +1,63 @@
 <template>
   <n-space :vertical="true" :size="16">
+    <!-- <div
+      class="hover:-translate-y-2 group bg-neutral-50 duration-500 w-44 h-44 flex text-neutral-600 flex-col justify-center items-center relative rounded-xl overflow-hidden shadow-md"
+    >
+      <svg
+        viewBox="0 0 200 200"
+        xmlns="http://www.w3.org/2000/svg"
+        class="absolute blur z-10 fill-red-300 duration-500 group-hover:blur-none group-hover:scale-105"
+      >
+        <path
+          transform="translate(100 100)"
+          d="M39.5,-49.6C54.8,-43.2,73.2,-36.5,78.2,-24.6C83.2,-12.7,74.8,4.4,69,22.5C63.3,40.6,60.2,59.6,49.1,64.8C38.1,70,19,61.5,0.6,60.7C-17.9,59.9,-35.9,67,-47.2,61.9C-58.6,56.7,-63.4,39.5,-70,22.1C-76.6,4.7,-84.9,-12.8,-81.9,-28.1C-79,-43.3,-64.6,-56.3,-49.1,-62.5C-33.6,-68.8,-16.8,-68.3,-2.3,-65.1C12.1,-61.9,24.2,-55.9,39.5,-49.6Z"
+        ></path>
+      </svg>
+
+      <div class="z-20 flex flex-col justify-center items-center">
+        <span class="font-bold text-6xl ml-2">34+</span>
+        <p class="font-bold">Projects</p>
+      </div>
+    </div> -->
+
     <n-card title="我的信息" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
-      <t-list-item>
+      <n-card :bordered="false" class="rounded-8px shadow-sm">
+        <div class="flex-y-center justify-between">
+          <div class="flex-y-center">
+            <icon-local-avatar class="text-70px" />
+            <div class="pl-12px">
+              <h3 class="text-18px font-semibold">
+                {{ userInfo ? userInfo.nickname + '您好，' + titleTip : '暂无昵称' }}
+              </h3>
+              <n-flex>
+                <n-tag :bordered="false" size="small" class="tag tag-primary border">
+                  {{ userInfo && userInfo.dept.name ? userInfo.dept.name : '暂无学院信息' }}
+                </n-tag>
+                <n-tag :bordered="false" size="small" class="tag tag-primary border">
+                  {{ userInfo && userInfo.sclass.name ? userInfo.sclass.name : '暂无班级信息' }}
+                </n-tag>
+              </n-flex>
+            </div>
+          </div>
+          <n-space :size="24" :wrap="false">
+            <n-statistic
+              label="借阅额度"
+              :value="userInfo && userInfo.borrowCount ? userInfo.borrowCount - userInfo.borrowedCount : 0"
+            >
+              <template #prefix>
+                <n-icon>
+                  <icon-fluent:person-available-20-regular class="text-28px mb2" />
+                </n-icon>
+              </template>
+              <template #suffix>
+                <n-text>/ {{ userInfo.borrowCount ? userInfo.borrowCount : 0 }}</n-text>
+              </template>
+            </n-statistic>
+          </n-space>
+        </div>
+      </n-card>
+
+      <!-- <t-list-item>
         <t-list-item-meta :image="userInfo.avatar ? userInfo.avatar : 'https://tdesign.gtimg.com/site/avatar.jpg'">
           <template #title>
             {{ userInfo ? userInfo.nickname + '同学您好，' + titleTip : '暂无昵称' }}
@@ -71,125 +127,138 @@
             </n-grid>
           </template>
         </t-list-item-meta>
-      </t-list-item>
+      </t-list-item> -->
     </n-card>
 
     <n-card title="我的借阅" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
-      <n-flex>
-        <d-card
-          v-for="borrow in borrowedList"
-          :key="borrow.id"
-          v-ripple="{ duration: 500 }"
-          style="width: 380px"
-          @click="handleToBorrowDetail(borrow.serialNumber)"
-        >
-          <template #avatar>
-            <d-avatar name="DevUI" />
-          </template>
-          <template #title>
-            <n-text>{{ borrow.book.title }}</n-text>
-          </template>
-          <template #subtitle>
-            <n-flex>
-              <n-text>{{ borrow.book.author }}</n-text>
-              <d-tag v-if="borrow.status === 5" size="18">
-                <icon-icon-park-twotone:success class="text-16px mb1 mr1" color="#18a058" />
-                <n-text type="success">已归还</n-text>
-              </d-tag>
-              <d-tag v-if="borrow.status === 1" size="18">
-                <icon-svg-spinners:pulse-multiple class="text-18px mb1 mr1" color="#007d65" />
-                <n-text type="success" style="color: #007d65">待取书</n-text>
-              </d-tag>
-              <d-tag v-if="borrow.status === 3" size="18">
-                <icon-svg-spinners:bouncing-ball class="text-18px mb1 mr1" color="#0052d9" />
-                <n-text type="success" style="color: #0052d9">借阅中</n-text>
-              </d-tag>
-              <d-tag v-if="borrow.status === 4" size="18">
-                <icon-svg-spinners:bouncing-ball class="text-18px mb1 mr1" color="#e37318" />
-                <n-text type="success" style="color: #e37318">即将到期</n-text>
-              </d-tag>
-              <d-tag v-if="borrow.status === -1" size="18">
-                <icon-streamline:interface-validation-check-circle-checkmark-addition-circle-success-check-validation-add-form
-                  class="text-14px mb1 mr1"
-                  color="#d03050"
-                />
-                <n-text type="success" style="color: #d03050">审批驳回</n-text>
-              </d-tag>
-              <d-tag v-if="borrow.status === -2" size="18">
-                <icon-svg-spinners:pulse-3 class="text-14px mb1 mr1" color="#d03050" />
-                <n-text type="success" style="color: #d03050">逾期中</n-text>
-              </d-tag>
-              <d-tag v-if="borrow.status === -3" size="18">
-                <icon-mdi:archive-success-outline class="text-16px mb1 mr1" color="#18a058" />
-                <n-text type="success" style="color: #18a058">逾期归还</n-text>
-              </d-tag>
-              <d-tag v-if="borrow.status === 6" size="18">
-                <icon-svg-spinners:180-ring-with-bg class="text-16px mb1 mr1" color="#18a058" />
-                <n-text type="success" style="color: #18a058">预定中</n-text>
-              </d-tag>
-            </n-flex>
-          </template>
-          <template #content>
-            <n-flex vertical>
-              <n-flex>
-                <n-tag round :bordered="false">
-                  <n-text>{{ borrow.barCode }}</n-text>
-                  <template #avatar>
-                    <icon-ion:barcode-outline class="text-20px m1" />
-                  </template>
-                </n-tag>
-                <n-tag round :bordered="false">
-                  <n-text>{{ borrow.bookStack.stackName }}</n-text>
-                  <template #avatar>
-                    <icon-fa6-solid:warehouse class="text-16px m1" />
-                  </template>
-                </n-tag>
-              </n-flex>
-              <n-tag round :bordered="false" class="text-14px">
-                <n-text>{{ borrow.serialNumber }}</n-text>
-                <template #avatar>
-                  <icon-carbon:order-details class="text-20px m1" />
-                </template>
-              </n-tag>
-              <n-tag round :bordered="false" class="text-14px">
-                <n-text>{{ formatDate(borrow.borrowTime) }} - {{ formatDate(borrow.returnTime) }}</n-text>
-                <template #avatar>
-                  <icon-formkit:datetime class="text-20px m1" />
-                </template>
-              </n-tag>
-            </n-flex>
-          </template>
-          <template #actions>
-            <n-flex>
-              <n-button size="small" @click="handleToBorrowDetail(borrow.serialNumber)">查看详情</n-button>
-              <n-button
-                v-if="borrow.status === 1"
-                size="small"
-                type="success"
-                @click="handleTakeBook(borrow.id, borrow.serialNumber, borrow.book.title)"
-              >
-                我已取得
-              </n-button>
-              <n-button
-                v-if="borrow.status === 4"
-                size="small"
-                type="warning"
-                @click="handleRenewalBook(borrow.id, borrow.serialNumber, borrow.book.title)"
-              >
-                申请续期
-              </n-button>
-              <n-button
-                v-if="borrow.status === -2 || borrow.status === 4 || borrow.status === 3"
-                type="info"
-                size="small"
-                @click="handleReturnBook(borrow.id, borrow.serialNumber, borrow.book.title)"
-              >
-                归还图书
-              </n-button>
-            </n-flex>
-          </template>
-        </d-card>
-      </n-flex>
+      <n-tabs type="line" default-value="all" @update:value="handleUpdateValue">
+        <n-tab-pane name="all" tab="全部记录" />
+        <n-tab-pane name="approve" tab="待取记录" />
+        <n-tab-pane name="borrowing" tab="借阅中" />
+        <n-tab-pane name="renewal" tab="审批驳回" />
+        <n-tab-pane name="due" tab="即将逾期" />
+        <n-tab-pane name="planning" tab="预定记录" />
+        <n-tab-pane name="overdue" tab="逾期记录" />
+        <n-tab-pane name="return" tab="归还记录" />
+      </n-tabs>
+      <n-spin :show="dataLoading">
+        <transition name="fade-slide" mode="out-in" :appear="true">
+          <n-flex>
+            <d-card v-for="borrow in borrowedList" :key="borrow.id" v-ripple="{ duration: 500 }" style="width: 380px">
+              <template #avatar>
+                <d-avatar name="DevUI" />
+              </template>
+              <template #title>
+                <n-text>{{ borrow.book.title }}</n-text>
+              </template>
+              <template #subtitle>
+                <n-flex>
+                  <n-text>{{ borrow.book.author }}</n-text>
+                  <d-tag v-if="borrow.status === 5" size="18">
+                    <icon-icon-park-twotone:success class="text-16px mb1 mr1" color="#18a058" />
+                    <n-text type="success">已归还</n-text>
+                  </d-tag>
+                  <d-tag v-if="borrow.status === 1" size="18">
+                    <icon-svg-spinners:pulse-multiple class="text-18px mb1 mr1" color="#007d65" />
+                    <n-text type="success" style="color: #007d65">待取书</n-text>
+                  </d-tag>
+                  <d-tag v-if="borrow.status === 3" size="18">
+                    <icon-svg-spinners:bouncing-ball class="text-18px mb1 mr1" color="#0052d9" />
+                    <n-text type="success" style="color: #0052d9">借阅中</n-text>
+                  </d-tag>
+                  <d-tag v-if="borrow.status === 4" size="18">
+                    <icon-svg-spinners:bouncing-ball class="text-18px mb1 mr1" color="#e37318" />
+                    <n-text type="success" style="color: #e37318">即将到期</n-text>
+                  </d-tag>
+                  <d-tag v-if="borrow.status === -1" size="18">
+                    <icon-streamline:interface-validation-check-circle-checkmark-addition-circle-success-check-validation-add-form
+                      class="text-14px mb1 mr1"
+                      color="#d03050"
+                    />
+                    <n-text type="success" style="color: #d03050">审批驳回</n-text>
+                  </d-tag>
+                  <d-tag v-if="borrow.status === -2" size="18">
+                    <icon-svg-spinners:pulse-3 class="text-14px mb1 mr1" color="#d03050" />
+                    <n-text type="success" style="color: #d03050">逾期中</n-text>
+                  </d-tag>
+                  <d-tag v-if="borrow.status === -3" size="18">
+                    <icon-mdi:archive-success-outline class="text-16px mb1 mr1" color="#18a058" />
+                    <n-text type="success" style="color: #18a058">逾期归还</n-text>
+                  </d-tag>
+                  <d-tag v-if="borrow.status === 6" size="18">
+                    <icon-svg-spinners:180-ring-with-bg class="text-16px mb1 mr1" color="#18a058" />
+                    <n-text type="success" style="color: #18a058">预定中</n-text>
+                  </d-tag>
+                </n-flex>
+              </template>
+              <template #content>
+                <n-flex vertical>
+                  <n-flex>
+                    <n-tag round :bordered="false">
+                      <n-text>{{ borrow.barCode }}</n-text>
+                      <template #avatar>
+                        <icon-ion:barcode-outline class="text-20px m1" />
+                      </template>
+                    </n-tag>
+                    <n-tag round :bordered="false">
+                      <n-text>{{ borrow.bookStack.stackName }}</n-text>
+                      <template #avatar>
+                        <icon-fa6-solid:warehouse class="text-16px m1" />
+                      </template>
+                    </n-tag>
+                  </n-flex>
+                  <n-tag round :bordered="false" class="text-14px">
+                    <n-text>{{ borrow.serialNumber }}</n-text>
+                    <template #avatar>
+                      <icon-carbon:order-details class="text-20px m1" />
+                    </template>
+                  </n-tag>
+                  <n-tag round :bordered="false" class="text-14px">
+                    <n-text>{{ formatDate(borrow.borrowTime) }} - {{ formatDate(borrow.returnTime) }}</n-text>
+                    <template #avatar>
+                      <icon-formkit:datetime class="text-20px m1" />
+                    </template>
+                  </n-tag>
+                </n-flex>
+              </template>
+              <template #actions>
+                <n-flex>
+                  <n-button size="small" @click="handleToBorrowDetail(borrow.serialNumber)">查看详情</n-button>
+                  <n-button
+                    v-if="borrow.status === 1"
+                    size="small"
+                    type="success"
+                    @click="handleTakeBook(borrow.id, borrow.serialNumber, borrow.book.title)"
+                  >
+                    我已取得
+                  </n-button>
+                  <n-button
+                    v-if="borrow.status === 4"
+                    size="small"
+                    type="warning"
+                    @click="handleRenewalBook(borrow.id, borrow.serialNumber, borrow.book.title)"
+                  >
+                    申请续期
+                  </n-button>
+                  <n-button
+                    v-if="borrow.status === -2 || borrow.status === 4 || borrow.status === 3"
+                    type="info"
+                    size="small"
+                    @click="handleReturnBook(borrow.id, borrow.serialNumber, borrow.book.title)"
+                  >
+                    归还图书
+                  </n-button>
+                </n-flex>
+              </template>
+            </d-card>
+          </n-flex>
+        </transition>
+
+        <n-empty
+          v-if="!(borrowedList && borrowedList.length > 0 && !dataLoading)"
+          description="什么也没有找到"
+        ></n-empty>
+      </n-spin>
       <n-pagination
         :page="queryParams.pageNo"
         :page-size="queryParams.pageSize"
@@ -257,11 +326,13 @@ import * as UserProfilesApi from '@/service/api/userProfile'; // 导入用户相
 import { formatDate } from '@/utils/common/formatTime';
 const { routerPush } = useRouterPush();
 const queryParams = reactive({
+	status: undefined as number | undefined,
   pageNo: 1,
   pageSize: 12
 });
 const pageCount = ref(0);
 const itemCount = ref(0);
+const dataLoading = ref(false);
 
 const borrowedList = ref<any>([]);
 
@@ -373,11 +444,39 @@ const shortcuts = {
 };
 
 const getUserBorrowInfo = async () => {
+	dataLoading.value = true;
   const { data } = await ReaderApi.getReaderBorrowPage(queryParams);
   borrowedList.value = data.list;
   itemCount.value = data.total;
   pageCount.value = Math.ceil(itemCount.value / queryParams.pageSize);
-};
+	dataLoading.value = false;
+}
+
+const getUserOverdueBorrowInfo = async () => {
+	restQueryParams();
+	dataLoading.value = true;
+	const { data } = await ReaderApi.getReaderOverDueBorrowPage(queryParams);
+	borrowedList.value = data.list;
+	itemCount.value = data.total;
+	pageCount.value = Math.ceil(itemCount.value / queryParams.pageSize);
+	dataLoading.value = false;
+}
+
+const getUserReturnedBorrowInfo = async () =>{
+	restQueryParams();
+	dataLoading.value = true;
+	const { data } = await ReaderApi.getReaderReturnedBorrowPage(queryParams);
+	borrowedList.value = data.list;
+	itemCount.value = data.total;
+	pageCount.value = Math.ceil(itemCount.value / queryParams.pageSize);
+	dataLoading.value = false;
+}
+
+const getUserBorrowInfoByTabs = async (status: number) =>{
+	restQueryParams();
+	queryParams.status = status;
+	await getUserBorrowInfo();
+}
 
 const handlePageUpdate = (page: number) => {
   queryParams.pageNo = page;
@@ -431,6 +530,41 @@ const handleRenewalBook = async (id: number, serialNumber: string, title: string
   formShow.value = true;
 };
 
+const handleUpdateValue = async (tabName: string) => {
+	switch(tabName){
+		case 'all':
+		restQueryParams();
+		getUserBorrowInfo();
+			break;
+		case 'approve':
+			await getUserBorrowInfoByTabs(1);
+			break;
+		case 'borrowing':
+		await getUserBorrowInfoByTabs(3);
+			break;
+		case 'renewal':
+		await getUserBorrowInfoByTabs(-1);
+			break;
+		case 'due':
+		await getUserBorrowInfoByTabs(4);
+			break;
+		case 'planning':
+		await getUserBorrowInfoByTabs(6);
+			break;
+		case 'overdue':
+			await getUserOverdueBorrowInfo();
+			break;
+		case 'return':
+			await getUserReturnedBorrowInfo();
+			break;
+	}
+}
+
+const restQueryParams= () => {
+	queryParams.status = undefined;
+	queryParams.pageNo = 1;
+	queryParams.pageSize = 12;
+}
 const rules: FormRules = {
   newReturnTime: [{ type: 'number', required: true, trigger: ['blur', 'change'], message: '请选择归还时间' }]
 };
@@ -468,3 +602,21 @@ onMounted(async () => {
   await getUserBorrowInfo();
 });
 </script>
+<style scoped>
+.tag{
+	color: aliceblue;
+	margin:0;
+	font-size:12px;
+	height:24px;
+	display: inline-flex;
+	box-sizing:border-box;
+	flex-direction: row;
+	align-items: center;
+	border:3px solid transparent;
+	white-space:nowrap;
+	font-family:'Ping Fang SC','Microsoft YaHei','Helvetica','Arial',sans-serif;
+}
+.tag-primary{
+	background-color:#0052d9;
+}
+</style>
