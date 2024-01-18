@@ -1,27 +1,29 @@
 {
-  "name": "soybean-admin",
-  "version": "0.10.3",
-  "description": "A fresh and elegant admin template, based on Vue3、Vite3、TypeScript、NaiveUI and UnoCSS. 一个基于Vue3、Vite3、TypeScript、NaiveUI and UnoCSS的清新优雅的中后台模版。",
+  "name": "ztbu-library",
+  "version": "0.10.1",
+  "description": "高校图书管理系统以郑州工商学院的高校图书馆设施实际应用为背景， 旨在探索如何将大量读者行为数据可视化， 并开发一个高可用性、实时互动的图书馆在线平台，为用户提供个性化服务，解决信息过载问题。",
   "author": {
-    "name": "Soybean",
-    "email": "soybeanjs@outlook.com",
-    "url": "https://github.com/soybeanjs"
+    "name": "陈成成",
+    "email": "chenchengcheng.wocc@gmail.com",
+    "url": "https://github.com/HollyCci"
   },
   "license": "MIT",
-  "homepage": "https://github.com/honghuangdc/soybean-admin",
+  "homepage": "https://github.com/HollyCci/Library-System-Mnanager",
   "repository": {
-    "url": "https://github.com/honghuangdc/soybean-admin.git"
+    "url": "https://github.com/HollyCci/Library-System-Mnanager.git"
   },
   "bugs": {
-    "url": "https://github.com/honghuangdc/soybean-admin/issues"
+    "url": "https://github.com/HollyCci/Library-System-Mnanager/issues"
   },
   "keywords": [
+    "ztbu",
+    "library",
+    "system",
+    "book",
     "Vue",
     "Vue3",
     "admin",
-    "admin-template",
     "vue-admin",
-    "vue-admin-template",
     "Vite3",
     "Vite",
     "vite-admin",
@@ -30,8 +32,6 @@
     "NaiveUI",
     "naive-ui",
     "naive-admin",
-    "NaiveUI-Admin",
-    "naive-ui-admin",
     "UnoCSS"
   ],
   "scripts": {

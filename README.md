@@ -1,16 +1,15 @@
 <div align="center">
 	<img src="./public/favicon.svg" style="width: 160px;"/>
-	<h1>Soybean Admin</h1>
+	<h1>Library-System-Manager</h1>
 </div>
 
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
 
 ## 简介
 
-[Soybean Admin](https://github.com/honghuangdc/soybean-admin) 是一个基于 Vue3、Vite3、TypeScript、NaiveUI、Pinia 和 UnoCSS 的高校图书管理系统，以郑州工商学院的高校图书馆设施实际应用为背景， 旨在探索如何将大量读者行为数据可视化， 并开发一个高可用性、实时互动的在线管理平台，为用户提供个性化服务，解决信息过载问题。
-高校图书管理系统以高校和用户为中心，旨在为不同高校的图书馆提供一个高可用、高互动的在线平台， 打破学生与图书馆之间的时间和空间限制，消除学生与图书馆之间的信息差， 提高图书馆资源的利用率，解决图书馆信息过载问题；为学生提供线上方便、个性化的图书馆相关服务
+[Library-System-Manager(ZTBU)](https://github.com/HollyCci/Library-System-Mnanager) 是一个基于 [SoybeanAdmin]([honghuangdc/soybean-admin: An elegant and powerful admin template, based on Vue3, Vite5, TypeScript, Pinia and UnoCSS. 一个优雅且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。 (github.com)](https://github.com/honghuangdc/soybean-admin)) 开发的高校图书馆管理及可视化平台。平台以郑州工商学院的高校图书馆设施实际应用为背景，通过设计与实现图书馆用户行为数据可视化平台，加强对用户行为数据的集中管理和分析，并引入先进的数据可视化工具，可以使图书馆管理者能够更全面、深入地理解用户行为，以提高图书馆的人性化和个性化服务水平。同时将整合先进技术，在图书馆智能管理系统的加持下，能够更好地推动图书馆向智能化管理方向迈进。
 
-## 特性
+## 前端特性
 
 - **最新流行技术栈**：使用 Vue3/Vite 等前端前沿技术开发, 使用高效率的 npm 包管理器 pnpm
 - **TypeScript**: 应用程序级 JavaScript 的语言
@@ -20,67 +19,58 @@
 - **权限路由**：提供前端静态和后端动态两种路由模式，基于 mock 的动态路由能快速实现后端动态路由
 - **请求函数**：基于 axios 的完善的请求函数封装，提供 Promise 和 hooks 两种请求函数，加入请求结果数据转换的适配器
 
-## SoybeanJS 工具库
+## 后端特性
 
-- [@soybeanjs/cli](https://github.com/soybeanjs/cli): SoybeanJS 命令行工具，包含发布、git 和依赖等相关的实用命令
-- [@soybeanjs/changelog](https://github.com/soybeanjs/changelog): 根据 git tags 和 commits 生成 changelog [示例](./CHANGELOG.md)
-- [eslint-config-soybeanjs](https://github.com/soybeanjs/eslint-config): SoybeanJS 的 eslint 预设配置
-- [@soybeanjs/materials](https://github.com/soybeanjs/materials): SoybeanJS 的物料仓库
-- [@soybeanjs/vite-plugin-vue-page-route](https://github.com/soybeanjs/vite-plugin-vue-page-route): SoybeanAdmin 的路由插件
+- **架构**：采用 Spring Boot 多模块架构、MySQL + MyBatis Plus、Redis + Redisson
+- **消息队列：**可使用 Event、Redis、RabbitMQ、Kafka、RocketMQ 等
+- **权限认证：**使用 Spring Security & Token & Redis，支持多终端、多种用户的认证系统，支持 SSO 单点登录
+- **权限控制：**支持加载动态权限菜单，按钮级别权限控制，Redis 缓存提升性能
+- **SaaS 多租户：**支持 SaaS 多租户，可自定义每个租户的权限，提供透明化的多租户底层封装
+- **实时通信：**采用 Spring WebSocket 实现，内置 Token 身份校验，支持 WebSocket 集群
+- **第三方：**集成微信小程序、微信公众号、企业微信、钉钉等三方登陆，集成支付宝、微信等支付与退款
 
-## 基于 SoybeanAdmin 二次开发的项目
+## 项目架构图
 
-- [electron-mock-admin](https://github.com/lixin59/electron-mock-api): 一个 Mock Api 管理系统，帮助前端开发伙伴快速实现接口的 mock。
-- [T-Shell](https://github.com/TheBlindM/T-Shell): 是一个可配置命令提示的终端模拟器和 SSH 客户端。
+![技术架构图.png](https://s2.loli.net/2024/01/18/5jPM8sNJtFcBEfl.png)
 
-## 在线预览
+## 预览
 
-- [Soybean Admin 预览地址](https://soybean.pro/)
+- [Library-System 预览地址](http://t.lihaha.cn/)
+- [作者主页](http://wocc.site/)
 
 ## 文档
 
-- [项目文档预览地址](https://docs.soybean.pro)
-
-## 代码仓库
-
-| 仓库           | github 地址                                                                   | gitee 镜像                                                                   | 预览                                                      |
-| -------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------- |
-| soybean-admin  | [github](https://github.com/honghuangdc/soybean-admin)                        | [gitee](https://gitee.com/honghuangdc/soybean-admin)                         | [预览](https://soybean.pro/)                              |
-| tauri 版       | [tauri 版](https://github.com/honghuangdc/soybean-admin/tree/tauri)           | [tauri 版](https://gitee.com/honghuangdc/soybean-admin/tree/tauri)           |                                                           |
-| 精简版         | [精简版](https://github.com/honghuangdc/soybean-admin/tree/thin)              | [精简版](https://gitee.com/honghuangdc/soybean-admin/tree/thin)              |                                                           |
-| 集成 fast-crud | [集成 fast-crud](https://github.com/honghuangdc/soybean-admin/tree/fast-crud) | [集成 fast-crud](https://gitee.com/honghuangdc/soybean-admin/tree/fast-crud) | [预览](http://fast-crud.docmirror.cn/soybean/#/crud/demo) |
+- [ ] 文档网站开发
 
 ## 项目示例图
 
-![](https://s2.loli.net/2022/05/16/keOtgFH27r9nqYS.png)
+![分析页.png](https://s2.loli.net/2024/01/18/HF7EXjqTweKz1ol.png)
 
-![](https://s2.loli.net/2022/05/18/bW7mftiQexkvSTG.png)
+![用户管理.png](https://s2.loli.net/2024/01/18/TCnWFYSbHuaKjqL.png)
 
-![](https://s2.loli.net/2022/05/16/uV5nzjb3gYptAEl.png)
+![菜单管理.png](https://s2.loli.net/2024/01/18/CjokqRw87bLhiYW.png)
 
-![](https://s2.loli.net/2022/05/16/rSnNHLdpuvkKxWq.png)
+![班级管理.png](https://s2.loli.net/2024/01/18/m41JdkILac2XROw.png)
 
-![](https://s2.loli.net/2023/06/07/O39EKNa675FZIuS.png)
+![菜单权限.png](https://s2.loli.net/2024/01/18/5uOhPlyjYtXRzCL.png)
 
-![](https://s2.loli.net/2022/05/18/Mt6YZqmDxO8v4uR.png)
+![角色管理.png](https://s2.loli.net/2024/01/18/ZF9lmW5NwhBLnUq.png)
 
-![](https://s2.loli.net/2023/06/07/zhmWnFlPTfDpot8.png)
+![数据权限.png](https://s2.loli.net/2024/01/18/ME4kVHv3D7F1IPY.png)
 
-![](https://s2.loli.net/2022/05/16/VPl6Ru1iCAhLcS4.png)
+![租户管理.png](https://s2.loli.net/2024/01/18/hUF3fzsMHI6qGo1.png)
 
-![](https://s2.loli.net/2023/06/07/n6Dy1HXBvuPc9oT.png)
+![租户套餐.png](https://s2.loli.net/2024/01/18/zyZLfA1s56g2nwN.png)
 
-![](https://s2.loli.net/2022/06/07/rY8TyAftM5dxspv.png)
+![图书管理.png](https://s2.loli.net/2024/01/18/oCAwH3b8Pmc49fG.png)
 
-![](https://s2.loli.net/2022/06/07/5GNBAd31IzQVjLP.png)
+![图书详情.png](https://s2.loli.net/2024/01/18/6exCGsUKYk21hSf.png)
 
-![](https://s2.loli.net/2022/06/07/rRSG6mEZpujOACT.png)
+![书库管理.png](https://s2.loli.net/2024/01/18/1MPRiVfFaB5oEIr.png)
 
-<div align="center">
-	<img style="width:380px;margin-right:18px;border:1px solid #dedede;" src="https://s2.loli.net/2023/06/07/A5Nonc9vI6pB1lr.png" />
-	&nbsp;
-	<img style="width:380px;border:1px solid #dedede;" src="https://s2.loli.net/2023/06/07/VwBjqEhTke3OxXF.png" />
-</div>
+![我的借阅.png](https://s2.loli.net/2024/01/18/NRHZ6pWM4Gtmb97.png)
+
+![借阅详情.png](https://s2.loli.net/2024/01/18/hLNqTuo578OxCPD.png)
 
 ## 安装使用
 
@@ -115,9 +105,9 @@ pnpm build
 docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 ```
 
-- 访问 SoybeanAdmin
+- 访问 Library-System-Manager
 
-打开本地浏览器访问`http://localhost`
+打开本地浏览器访问`http://localhost:8847`
 
 ## Git 贡献提交规范
 
