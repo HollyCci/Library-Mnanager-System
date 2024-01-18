@@ -7,7 +7,7 @@
 
 ## 简介
 
-[Library-System-Manager(ZTBU)](https://github.com/HollyCci/Library-System-Mnanager) 是一个基于 [SoybeanAdmin]([honghuangdc/soybean-admin: An elegant and powerful admin template, based on Vue3, Vite5, TypeScript, Pinia and UnoCSS. 一个优雅且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。 (github.com)](https://github.com/honghuangdc/soybean-admin)) 开发的高校图书馆管理及可视化平台。平台以郑州工商学院的高校图书馆设施实际应用为背景，通过设计与实现图书馆用户行为数据可视化平台，加强对用户行为数据的集中管理和分析，并引入先进的数据可视化工具，可以使图书馆管理者能够更全面、深入地理解用户行为，以提高图书馆的人性化和个性化服务水平。同时将整合先进技术，在图书馆智能管理系统的加持下，能够更好地推动图书馆向智能化管理方向迈进。
+[Library-System-Manager(ZTBU)](https://github.com/HollyCci/Library-System-Mnanager) 是一个基于 [SoybeanAdmin](https://github.com/honghuangdc/soybean-admin) 开发的高校图书馆管理及可视化平台。平台以郑州工商学院的高校图书馆设施实际应用为背景，通过设计与实现图书馆用户行为数据可视化平台，加强对用户行为数据的集中管理和分析，并引入先进的数据可视化工具，可以使图书馆管理者能够更全面、深入地理解用户行为，以提高图书馆的人性化和个性化服务水平。同时将整合先进技术，在图书馆智能管理系统的加持下，能够更好地推动图书馆向智能化管理方向迈进。
 
 ## 前端特性
 
