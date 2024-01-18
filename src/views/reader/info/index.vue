@@ -218,7 +218,7 @@
                     </template>
                   </n-tag>
                   <n-tag round :bordered="false" class="text-14px">
-                    <n-text>{{ formatDate(borrow.borrowTime) }} - {{ formatDate(borrow.returnTime) }}</n-text>
+                    <n-text>{{ formatDate(borrow.borrowTime) }} - {{ formatDate(borrow.expectReturnTime) }}</n-text>
                     <template #avatar>
                       <icon-formkit:datetime class="text-20px m1" />
                     </template>

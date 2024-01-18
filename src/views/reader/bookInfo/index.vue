@@ -224,9 +224,9 @@
                 </template>
               </t-tag>
             </n-form-item-gi>
-            <n-form-item-gi :span="24" label="归还时间" required path="returnTime">
+            <n-form-item-gi :span="24" label="归还时间" required path="expectReturnTime">
               <n-date-picker
-                v-model:value="formData.returnTime"
+                v-model:value="formData.expectReturnTime"
                 type="datetime"
                 placeholder="请选择归还时间"
                 :is-date-disabled="isDateDisabled"
@@ -503,7 +503,7 @@ const isDateDisabled = (ts: number) => {
 };
 
 const rules: FormRules = {
-  returnTime: [{ type: 'number', required: true, trigger: ['blur', 'change'], message: '请选择归还时间' }]
+  expectReturnTime: [{ type: 'number', required: true, trigger: ['blur', 'change'], message: '请选择归还时间' }]
 };
 
 const shortcuts = {
@@ -552,7 +552,7 @@ const formData = ref({
     name: ''
   },
   barCode: '',
-  returnTime: null
+  expectReturnTime: null
 });
 const handleBorrow = async (id: number) => {
   const { data } = await InventoryApi.getInventory(id);
@@ -608,7 +608,7 @@ async function submitFrom() {
 
 const close = () => {
   formShow.value = false;
-  formData.value.returnTime = null;
+  formData.value.expectReturnTime = null;
 };
 
 // 在组件挂载时获取列表数据

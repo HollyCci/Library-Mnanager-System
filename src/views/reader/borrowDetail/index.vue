@@ -102,7 +102,7 @@
           </n-gi>
           <n-gi>
             <icon-formkit:datetime class="text-23px mr1 mb1" />
-            应还日期：{{ formatDate(borrowDetail ? borrowDetail.returnTime : null) }}
+            应还日期：{{ formatDate(borrowDetail ? borrowDetail.expectReturnTime : null) }}
           </n-gi>
         </n-grid>
       </n-flex>
@@ -130,13 +130,24 @@
               />
 
               <n-timeline-item
-                v-if="borrowDetail && borrowDetail.status === -1"
+                v-if="borrowDetail && borrowDetail.approve.status === -1"
                 type="error"
                 content="审批驳回"
                 :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
               />
               <n-timeline-item
-                v-if="borrowDetail && borrowDetail.status !== -1"
+                v-if="borrowDetail && borrowDetail.approve.status === 0"
+                content="审批中"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
+              >
+                <template #icon>
+                  <n-icon>
+                    <icon-line-md:loading-loop class="text-22px" color="#646cff" />
+                  </n-icon>
+                </template>
+              </n-timeline-item>
+              <n-timeline-item
+                v-if="borrowDetail && borrowDetail.approve.status === 1"
                 type="success"
                 title="审批通过"
                 :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
