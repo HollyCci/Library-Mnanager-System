@@ -126,7 +126,7 @@
             <n-timeline>
               <n-timeline-item
                 :content="submitApproveTitle"
-                :time="borrowDetail ? formatDate(borrowDetail.createTime) : ''"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
               />
 
               <n-timeline-item
@@ -147,28 +147,54 @@
                 </template>
               </n-timeline-item>
               <n-timeline-item
-                v-if="borrowDetail && borrowDetail.approve.status === 1"
+                v-if="borrowDetail && borrowDetail.approve.status === 1 && borrowDetail.status !== 3"
                 type="success"
                 title="审批通过"
-                :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
+              />
+              <n-timeline-item
+                v-if="borrowDetail && borrowDetail.approve.status === 1 && borrowDetail.status === 3"
+                type="success"
+                line-type="dashed"
+                title="审批通过"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
               />
               <n-timeline-item
                 v-if="borrowDetail && borrowDetail.approve.renew === true"
                 type="info"
                 title="提交续借审批"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
               />
               <n-timeline-item
                 v-if="borrowDetail && borrowDetail.approve.renew === true && borrowDetail.status === 1"
                 type="success"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
                 title="续借审批通过"
               />
               <n-timeline-item
                 v-if="borrowDetail && borrowDetail.approve.renew === true && borrowDetail.status === -1"
                 type="error"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
                 title="续借审批驳回"
               />
-              <n-timeline-item v-if="borrowDetail && borrowDetail.status === 5" type="success" title="已归还" />
-              <n-timeline-item v-if="borrowDetail && borrowDetail.status === -3" type="success" title="逾期归还" />
+              <n-timeline-item
+                v-if="borrowDetail && borrowDetail.approve.status === 1 && borrowDetail.status === 3"
+                type="info"
+                title="约定归还"
+                :time="borrowDetail ? formatDate(borrowDetail.expectReturnTime) : ''"
+              />
+              <n-timeline-item
+                v-if="borrowDetail && borrowDetail.status === 5"
+                type="success"
+                :time="borrowDetail ? formatDate(borrowDetail.actualReturnTime) : ''"
+                title="已归还"
+              />
+              <n-timeline-item
+                v-if="borrowDetail && borrowDetail.status === -3"
+                :time="borrowDetail ? formatDate(borrowDetail.actualReturnTime) : ''"
+                type="success"
+                title="逾期归还"
+              />
             </n-timeline>
           </n-gi>
           <n-gi>
@@ -177,7 +203,7 @@
           </n-gi>
           <n-gi>
             <icon-fluent:people-edit-20-regular class="text-22px mr1 mb1" />
-            审批人：{{ borrowDetail ? borrowDetail.approve.creator : '暂无信息' }}
+            审批人：{{ borrowDetail ? borrowDetail.approve.updater : '暂无信息' }}
           </n-gi>
         </n-grid>
       </n-flex>
