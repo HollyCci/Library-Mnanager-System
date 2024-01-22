@@ -98,7 +98,7 @@ export function useEcharts(
 
   function update(updateOptions: ECOption) {
     if (isRendered()) {
-      chart?.clear();
+      // chart?.clear();
       chart!.setOption({ ...updateOptions, backgroundColor: 'transparent' });
     }
   }
