@@ -19,6 +19,7 @@
 /* eslint-disable */
 import { onMounted, ref } from 'vue';
 import type { Ref } from 'vue';
+import * as dataApi from '@/service/api/data';
 import { type ECOption, useEcharts } from '@/composables';
 
 defineOptions({ name: 'DashboardAnalysisDataCard' });
@@ -253,9 +254,13 @@ const pieOptions = ref<ECOption>({
 }) as Ref<ECOption>;
 const { domRef: pieRef } = useEcharts(pieOptions);
 
+const getData = async () => {
+	const {data} = await dataApi.getAnalysisMidData();
+	console.log(data);
+};
 
 onMounted(async () => {
-
+  await getData();
 });
 </script>
 
