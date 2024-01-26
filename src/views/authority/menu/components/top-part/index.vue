@@ -80,94 +80,89 @@
     </n-card>
     <n-modal v-model:show="fromShow" transform-origin="center">
       <n-card style="width: 600px" title="菜单信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
-        <n-form
-          ref="formRef"
-          v-loading="formLoading"
-          :rules="rules"
-          :model="formData"
-          label-placement="left"
-          label-width="93px"
-        >
-          <n-form-item label="上级菜单" path="parentId">
-            <n-tree-select
-              v-model:value="formData.parentId"
-              :options="menuTree"
-              label-field="name"
-              key-field="id"
-              :default-expanded-keys="[0]"
-              children-field="children"
-              clearable
-              style="width: 50%"
-              placeholder="请选择上级菜单"
-            />
-          </n-form-item>
-          <n-form-item label="菜单名称" path="title" required>
-            <n-input v-model:value="formData.title" class="!w-213px" clearable placeholder="请输入菜单名称" />
-          </n-form-item>
-          <n-form-item label="菜单类型" path="type" required>
-            <n-radio-group v-model:value="formData.type">
-              <n-radio-button
-                v-for="dict in SystemMenuTypeEnum"
-                :key="dict.value"
-                :value="dict.value"
-                :label="dict.label"
+        <n-spin :show="formLoading">
+          <n-form ref="formRef" :rules="rules" :model="formData" label-placement="left" label-width="93px">
+            <n-form-item label="上级菜单" path="parentId">
+              <n-tree-select
+                v-model:value="formData.parentId"
+                :options="menuTree"
+                label-field="name"
+                key-field="id"
+                :default-expanded-keys="[0]"
+                children-field="children"
+                clearable
+                style="width: 50%"
+                placeholder="请选择上级菜单"
               />
-            </n-radio-group>
-          </n-form-item>
-          <n-form-item v-if="formData.type !== 3" label="菜单图标">
-            <icon-select v-model:value="formData.icon" :icons="icons" clearable />
-          </n-form-item>
+            </n-form-item>
+            <n-form-item label="菜单名称" path="title" required>
+              <n-input v-model:value="formData.title" class="!w-213px" clearable placeholder="请输入菜单名称" />
+            </n-form-item>
+            <n-form-item label="菜单类型" path="type" required>
+              <n-radio-group v-model:value="formData.type">
+                <n-radio-button
+                  v-for="dict in SystemMenuTypeEnum"
+                  :key="dict.value"
+                  :value="dict.value"
+                  :label="dict.label"
+                />
+              </n-radio-group>
+            </n-form-item>
+            <n-form-item v-if="formData.type !== 3" label="菜单图标">
+              <icon-select v-model:value="formData.icon" :icons="icons" clearable />
+            </n-form-item>
 
-          <n-form-item v-if="formData.type !== 3" label="路由地址" path="path" required>
-            <n-input v-model:value="formData.path" style="width: 50%" clearable placeholder="请输入路由地址" />
-          </n-form-item>
-          <n-form-item v-if="formData.type !== 3" label="组件布局" path="component" required>
-            <n-select
-              v-model:value="formData.component"
-              clearable
-              style="width: 50%"
-              placeholder="请选择组件布局"
-              :options="componentOptions"
-            ></n-select>
-          </n-form-item>
+            <n-form-item v-if="formData.type !== 3" label="路由地址" path="path" required>
+              <n-input v-model:value="formData.path" style="width: 50%" clearable placeholder="请输入路由地址" />
+            </n-form-item>
+            <n-form-item v-if="formData.type !== 3" label="组件布局" path="component" required>
+              <n-select
+                v-model:value="formData.component"
+                clearable
+                style="width: 50%"
+                placeholder="请选择组件布局"
+                :options="componentOptions"
+              ></n-select>
+            </n-form-item>
 
-          <n-form-item v-if="formData.type !== 1" label="权限标识" path="permission" required>
-            <n-input v-model:value="formData.permission" clearable placeholder="请输入权限标识" />
-          </n-form-item>
-          <n-form-item label="显示排序" path="order" required>
-            <n-input-number v-model:value="formData.order" min="0" clearable placeholder="请输入菜单排序位次" />
-          </n-form-item>
-          <n-form-item label="重定向" path="href">
-            <n-input v-model:value="formData.href" style="width: 50%" clearable placeholder="请输入重定向地址" />
-          </n-form-item>
-          <n-space>
-            <n-form-item label="菜单状态" path="status">
-              <n-radio-group v-model:value="formData.status">
-                <n-radio v-for="dict in DictOptions" :key="dict.value" :label="dict.label" :value="dict.value" />
-              </n-radio-group>
+            <n-form-item v-if="formData.type !== 1" label="权限标识" path="permission" required>
+              <n-input v-model:value="formData.permission" clearable placeholder="请输入权限标识" />
             </n-form-item>
-            <n-form-item v-if="formData.type !== 3" label="隐藏状态" path="visible">
-              <n-radio-group v-model:value="formData.hide">
-                <n-radio v-for="dict in keepAliveOptions" :key="dict.key" :label="dict.label" :value="dict.value" />
-              </n-radio-group>
+            <n-form-item label="显示排序" path="order" required>
+              <n-input-number v-model:value="formData.order" min="0" clearable placeholder="请输入菜单排序位次" />
             </n-form-item>
-            <n-form-item v-if="formData.type !== 3" label="缓存状态" path="keepAlive">
-              <n-radio-group v-model:value="formData.keepAlive">
-                <n-radio v-for="dict in keepAliveOptions" :key="dict.key" :label="dict.label" :value="dict.value" />
-              </n-radio-group>
+            <n-form-item label="重定向" path="href">
+              <n-input v-model:value="formData.href" style="width: 50%" clearable placeholder="请输入重定向地址" />
             </n-form-item>
-            <n-form-item v-if="formData.type !== 3" label="登录权限" path="requiresAuth">
-              <n-radio-group v-model:value="formData.requireAuth">
-                <n-radio v-for="dict in keepAliveOptions" :key="dict.key" :label="dict.label" :value="dict.value" />
-              </n-radio-group>
-            </n-form-item>
-            <n-form-item v-if="formData.type !== 3" label="不可关闭" path="affix">
-              <n-radio-group v-model:value="formData.affix">
-                <n-radio v-for="dict in keepAliveOptions" :key="dict.key" :label="dict.label" :value="dict.value" />
-              </n-radio-group>
-            </n-form-item>
-          </n-space>
-        </n-form>
+            <n-space>
+              <n-form-item label="菜单状态" path="status">
+                <n-radio-group v-model:value="formData.status">
+                  <n-radio v-for="dict in DictOptions" :key="dict.value" :label="dict.label" :value="dict.value" />
+                </n-radio-group>
+              </n-form-item>
+              <n-form-item v-if="formData.type !== 3" label="隐藏状态" path="visible">
+                <n-radio-group v-model:value="formData.hide">
+                  <n-radio v-for="dict in keepAliveOptions" :key="dict.key" :label="dict.label" :value="dict.value" />
+                </n-radio-group>
+              </n-form-item>
+              <n-form-item v-if="formData.type !== 3" label="缓存状态" path="keepAlive">
+                <n-radio-group v-model:value="formData.keepAlive">
+                  <n-radio v-for="dict in keepAliveOptions" :key="dict.key" :label="dict.label" :value="dict.value" />
+                </n-radio-group>
+              </n-form-item>
+              <n-form-item v-if="formData.type !== 3" label="登录权限" path="requiresAuth">
+                <n-radio-group v-model:value="formData.requireAuth">
+                  <n-radio v-for="dict in keepAliveOptions" :key="dict.key" :label="dict.label" :value="dict.value" />
+                </n-radio-group>
+              </n-form-item>
+              <n-form-item v-if="formData.type !== 3" label="不可关闭" path="affix">
+                <n-radio-group v-model:value="formData.affix">
+                  <n-radio v-for="dict in keepAliveOptions" :key="dict.key" :label="dict.label" :value="dict.value" />
+                </n-radio-group>
+              </n-form-item>
+            </n-space>
+          </n-form>
+        </n-spin>
         <!-- 弹窗底部按钮 -->
         <template #footer>
           <n-space style="float: right">
@@ -180,6 +175,7 @@
   </n-space>
 </template>
 <script lang="tsx" setup>
+/* eslint-disable */
 defineOptions({ name: 'TopPart' });
 import { ref, reactive, onBeforeMount, nextTick } from 'vue';
 import { NSpace, NButton, NPopconfirm, NTag } from 'naive-ui';
@@ -189,7 +185,7 @@ import { handleTree } from '@/utils/common/tree';
 import { formRules } from '~/src/utils';
 import { icons } from './icons';
 
-const loading = ref(true); // 列表的加载中
+const loading = ref(false); // 列表的加载中
 const list = ref<AuthRoute.Route[]>([]); // 列表数据
 // 查询参数
 const queryParams = reactive({
@@ -414,7 +410,7 @@ const handleDelete = async (id: number) => {
 
 // ------------------------------------- model相关操作 -------------------------------------
 const fromShow = ref(false); // 表单的显示状态
-const formLoading = ref(false) // 表单的加载中：1）修改时的数据加载；2）提交的按钮禁用
+const formLoading = ref(true) // 表单的加载中：1）修改时的数据加载；2）提交的按钮禁用
 const formType = ref('') // 表单的类型：create - 新增；update - 修改
 const formRef = ref<HTMLElement & FormInst>(); // 表单的引用
 const formData = ref({
@@ -488,6 +484,7 @@ async function getTree(){
 
 // 打开弹窗
 async function openForm(type: string, id?: number,parentId?:number) {
+  formLoading.value = true;
 	fromShow.value = true;
   formType.value = type;
 	if(parentId){
@@ -496,19 +493,19 @@ async function openForm(type: string, id?: number,parentId?:number) {
 	if(type === 'update' && id){
 		formLoading.value = true;
 		const { data } = await MenuApi.getMenu(id);
-			/* eslint-disable */
-      // @ts-ignore
+		// @ts-ignore
 		formData.value = data;
-			/* eslint-disable */
-      // @ts-ignore 特殊处理order 回头可以优化
+		// @ts-ignore 特殊处理order 回头可以优化
 		formData.value.order = data.sort;
 	}
 	// 获取菜单列表
 	await getTree()
+  formLoading.value = false;
 }
 
 // 提交表单
 async function submitFrom(){
+  formLoading.value = true;
 	// 校验表单
 	if (!formRef) return
 	// @ts-ignore
@@ -516,7 +513,6 @@ async function submitFrom(){
 	// 默认name处理方式
 	formData.value.name= formData.value.path.replace(/\//g, "_").substring(1);
 	// 提交表单
-	formLoading.value = true;
 	try{
 		const param = formData.value;
 		if(formType.value === 'create'){
@@ -555,7 +551,6 @@ function close(){
 }
 // ------------------------------------- model相关操作 -------------------------------------
 onBeforeMount(async () => {
-  /* eslint-disable */
 	// @ts-ignore
   // list.value = initTempValue;
   getList()
@@ -616,3 +611,4 @@ onBeforeMount(async () => {
 /** 离奇的bug之页面首页加载后第一次执行该方法无效，需预先执行以下 */
 toggleExpandAll();
 </script>
+
