@@ -29,7 +29,8 @@ const locale: I18nType.Schema = {
       naive: 'NaiveUI文档',
       ldoc: '程序员知识库',
       project: '项目文档',
-      'project-link': '项目文档(外链)'
+      'project-link': '项目文档(外链)',
+      'update-log': '更新日志'
     },
     component: {
       _value: '组件示例',

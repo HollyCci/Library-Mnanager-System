@@ -338,6 +338,7 @@ declare namespace I18nType {
         ldoc: string;
         project: string;
         'project-link': string;
+        'update-log': string;
       };
       component: {
         _value: string;

@@ -29,7 +29,8 @@ const locale: I18nType.Schema = {
       naive: 'NaiveUI Document',
       ldoc: 'Knowledge Base Document',
       project: 'Project Document',
-      'project-link': 'Project Document(href)'
+      'project-link': 'Project Document(href)',
+      'update-log': 'Update Log'
     },
     component: {
       _value: 'Component',

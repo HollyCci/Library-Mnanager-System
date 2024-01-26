@@ -59,6 +59,17 @@ const document: AuthRoute.Route = {
       }
     },
     {
+      name: 'document_update-log',
+      path: '/document/update-log',
+      component: 'self',
+      meta: {
+        title: '更新日志',
+        i18nTitle: 'routes.document.update-log',
+        requiresAuth: true,
+        localIcon: 'vscode-icons:file-type-jsbeautify'
+      }
+    },
+    {
       name: 'document_project-link',
       path: '/document/project-link',
       meta: {
