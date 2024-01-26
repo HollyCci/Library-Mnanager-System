@@ -15,7 +15,7 @@
   </n-flex>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 /* eslint-disable */
 import { onMounted, ref } from 'vue';
 import type { Ref } from 'vue';
@@ -23,6 +23,18 @@ import * as dataApi from '@/service/api/data';
 import { type ECOption, useEcharts } from '@/composables';
 
 defineOptions({ name: 'DashboardAnalysisDataCard' });
+
+const dataCard = ref({
+	subject: [{
+		value:0,
+		name:''
+	}],
+	approveWeekList:[],
+	successWeekList: [],
+	dueWeekList: [],
+	dueSoonWeekList: [],
+	returnedWeekList: []
+})
 
 const lineOptions = ref<ECOption>({
   tooltip: {
@@ -65,7 +77,7 @@ const lineOptions = ref<ECOption>({
       name: '审批订单量',
       type: 'line',
       smooth: true,
-      stack: 'Total',
+      // stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',
@@ -88,14 +100,14 @@ const lineOptions = ref<ECOption>({
       emphasis: {
         focus: 'series'
       },
-      data: [120, 132, 101, 134, 90, 230, 210]
+      data: []
     },
     {
       color: '#9fe6b8',
       name: '借阅成功量',
       type: 'line',
       smooth: true,
-      stack: 'Total',
+      // stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',
@@ -118,14 +130,14 @@ const lineOptions = ref<ECOption>({
       emphasis: {
         focus: 'series'
       },
-      data: [220, 182, 191, 234, 290, 330, 310]
+      data: []
     },
     {
       color: '#fedb5c',
       name: '即将到期量',
       type: 'line',
       smooth: true,
-      stack: 'Total',
+      // stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',
@@ -148,14 +160,14 @@ const lineOptions = ref<ECOption>({
       emphasis: {
         focus: 'series'
       },
-      data: [150, 232, 201, 154, 190, 330, 410]
+      data: []
     },
     {
       color: '#fb7293',
       name: '借阅逾期量',
       type: 'line',
       smooth: true,
-      stack: 'Total',
+      // stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',
@@ -178,14 +190,14 @@ const lineOptions = ref<ECOption>({
       emphasis: {
         focus: 'series'
       },
-      data: [320, 332, 301, 334, 390, 330, 320]
+      data: []
     },
     {
       color: '#e7bcf3',
       name: '归还图书量',
       type: 'line',
       smooth: true,
-      stack: 'Total',
+      // stack: 'Total',
       areaStyle: {
         color: {
           type: 'linear',
@@ -208,7 +220,7 @@ const lineOptions = ref<ECOption>({
       emphasis: {
         focus: 'series'
       },
-      data: [820, 932, 901, 934, 1290, 1330, 1320]
+      data: []
     }
   ]
 }) as Ref<ECOption>;
@@ -233,22 +245,16 @@ const pieOptions = ref<ECOption>({
     {
       name: '本周读者爱好分析',
       type: 'pie',
-      radius: [10, 100],
-      center: ['50%', '50%'],
+      radius: [20, 150],
+      center: ['50%', '60%'],
       roseType: 'area',
+			label:{
+				show:false
+			},
       itemStyle: {
         borderRadius: 8
       },
-      data: [
-        { value: 40, name: '文学创作' },
-        { value: 38, name: '中篇小说' },
-        { value: 32, name: '鲁迅小说' },
-        { value: 30, name: '小说集' },
-        { value: 28, name: '演讲' },
-        { value: 26, name: '名人' },
-        { value: 22, name: '寓言' },
-        { value: 18, name: '马克思著作' }
-      ]
+      data: []
     }
   ]
 }) as Ref<ECOption>;
@@ -256,6 +262,22 @@ const { domRef: pieRef } = useEcharts(pieOptions);
 
 const getData = async () => {
 	const {data} = await dataApi.getAnalysisMidData();
+	// @ts-ignore
+	dataCard.value = data;
+	// @ts-ignore
+	pieOptions.value.series[0].data=(dataCard.value.subject);
+	// @ts-ignore
+	lineOptions.value.series[0].data=(dataCard.value.approveWeekList);
+	// @ts-ignore
+	lineOptions.value.series[1].data = (dataCard.value.successWeekList);
+	// @ts-ignore
+	lineOptions.value.series[2].data=(dataCard.value.dueSoonWeekList);
+	// @ts-ignore
+	lineOptions.value.series[3].data=(dataCard.value.dueWeekList);
+	// @ts-ignore
+	lineOptions.value.series[4].data=(dataCard.value.returnedWeekList);
+
+
 	console.log(data);
 };
 
