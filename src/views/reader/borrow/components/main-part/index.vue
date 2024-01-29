@@ -157,7 +157,7 @@ const queryParams = reactive({
   categoryId: null
 });
 function handleToTabMultiDetail(num: number) {
-  routerPush({ name: routeName('reader_book-info'), query: { num }, hash: '#DEMO_HASH' });
+  routerPush({ name: routeName('reader_book-info'), query: { num }});
 }
 
 type RowData = {

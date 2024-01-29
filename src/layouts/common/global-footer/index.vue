@@ -1,6 +1,6 @@
 <template>
   <dark-mode-container class="flex-center h-full" :inverted="theme.footer.inverted">
-    <span>Copyright ©2023 Three People</span>
+    <span>Copyright ©2024 Library System</span>
   </dark-mode-container>
 </template>
 
