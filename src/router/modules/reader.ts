@@ -26,8 +26,8 @@ const reader: AuthRoute.Route = {
       }
     },
     {
-      name: 'reader_bookInfo',
-      path: '/reader/bookInfo',
+      name: 'reader_book-info',
+      path: '/reader/book-info',
       component: 'self',
       meta: {
         title: '图书详情',
@@ -38,8 +38,8 @@ const reader: AuthRoute.Route = {
       }
     },
     {
-      name: 'reader_borrowDetail',
-      path: '/reader/borrowDetail',
+      name: 'reader_borrow-detail',
+      path: '/reader/borrow-detail',
       component: 'self',
       meta: {
         title: '借阅详情',

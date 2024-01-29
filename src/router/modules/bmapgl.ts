@@ -4,8 +4,8 @@ const bmapgl: AuthRoute.Route = {
   component: 'basic',
   children: [
     {
-      name: 'BMapGL_showInfo',
-      path: '/BMapGL/showInfo',
+      name: 'BMapGL_show-info',
+      path: '/BMapGL/show-info',
       component: 'self',
       meta: {
         title: '我的位置',

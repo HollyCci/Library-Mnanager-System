@@ -42,8 +42,8 @@ const facility: AuthRoute.Route = {
       component: 'multi',
       children: [
         {
-          name: 'facility_apiLog_accessLog',
-          path: '/facility/apiLog/accessLog',
+          name: 'facility_apiLog_access-log',
+          path: '/facility/apiLog/access-log',
           component: 'self',
           meta: {
             title: '访问日志',
@@ -53,8 +53,8 @@ const facility: AuthRoute.Route = {
           }
         },
         {
-          name: 'facility_apiLog_exceptionLog',
-          path: '/facility/apiLog/exceptionLog',
+          name: 'facility_apiLog_exception-log',
+          path: '/facility/apiLog/exception-log',
           component: 'self',
           meta: {
             title: '异常日志',

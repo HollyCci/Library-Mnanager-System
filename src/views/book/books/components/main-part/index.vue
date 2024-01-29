@@ -232,11 +232,11 @@ const DictOptions = [
   }
 ];
 function handleToTabMultiDetail(num: number) {
-  routerPush({ name: routeName('book_bookInfo'), query: { num }, hash: '#DEMO_HASH' });
+  routerPush({ name: routeName('book_book-info'), query: { num }, hash: '#DEMO_HASH' });
 }
 
 function handleCreate() {
-  routerPush({ name: routeName('book_bookCreate') });
+  routerPush({ name: routeName('book_book-create') });
 }
 type RowData = {
   id: number;

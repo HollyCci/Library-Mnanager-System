@@ -70,8 +70,8 @@ const book: AuthRoute.Route = {
       }
     },
     {
-      name: 'book_bookInfo',
-      path: '/book/bookInfo',
+      name: 'book_book-info',
+      path: '/book/book-info',
       component: 'self',
       meta: {
         title: '图书详情',
@@ -83,8 +83,8 @@ const book: AuthRoute.Route = {
       }
     },
     {
-      name: 'book_bookCreate',
-      path: '/book/bookCreate',
+      name: 'book_book-create',
+      path: '/book/book-create',
       component: 'self',
       meta: {
         title: '图书新增',

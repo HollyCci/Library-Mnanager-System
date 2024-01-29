@@ -596,7 +596,7 @@ async function submitFrom() {
 }
 
 const handleToBorrowDetail = (serialNumber: string) => {
-  routerPush({ name: routeName('reader_borrowDetail'), query: { serialNumber } });
+  routerPush({ name: routeName('reader_borrow-detail'), query: { serialNumber } });
 };
 
 onMounted(async () => {

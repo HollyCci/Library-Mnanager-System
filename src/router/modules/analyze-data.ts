@@ -4,8 +4,8 @@ const analyzeData: AuthRoute.Route = {
   component: 'basic',
   children: [
     {
-      name: 'analyze-data_bookData',
-      path: '/analyze-data/bookData',
+      name: 'analyze-data_book-data',
+      path: '/analyze-data/book-data',
       component: 'self',
       meta: {
         title: '图书数据',
@@ -15,8 +15,8 @@ const analyzeData: AuthRoute.Route = {
       }
     },
     {
-      name: 'analyze-data_borrowData',
-      path: '/analyze-data/borrowData',
+      name: 'analyze-data_borrow-data',
+      path: '/analyze-data/borrow-data',
       component: 'self',
       meta: {
         title: '借阅数据',
@@ -26,8 +26,8 @@ const analyzeData: AuthRoute.Route = {
       }
     },
     {
-      name: 'analyze-data_stackData',
-      path: '/analyze-data/stackData',
+      name: 'analyze-data_stack-data',
+      path: '/analyze-data/stack-data',
       component: 'self',
       meta: {
         title: '库存数据',
@@ -37,8 +37,8 @@ const analyzeData: AuthRoute.Route = {
       }
     },
     {
-      name: 'analyze-data_userData',
-      path: '/analyze-data/userData',
+      name: 'analyze-data_user-data',
+      path: '/analyze-data/user-data',
       component: 'self',
       meta: {
         title: '用户数据',

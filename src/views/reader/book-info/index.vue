@@ -563,7 +563,7 @@ const handleBorrow = async (id: number) => {
 
 const { routerPush } = useRouterPush();
 const handleToBorrowDetail = (serialNumber: string) => {
-  routerPush({ name: routeName('reader_borrowDetail'), query: { serialNumber } });
+  routerPush({ name: routeName('reader_borrow-detail'), query: { serialNumber } });
 };
 
 async function submitFrom() {
