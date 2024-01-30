@@ -145,6 +145,7 @@ const loading = ref(true); // 列表的加载中
 const pageCount = ref(0);
 const list = ref([]); // 列表的数
 const gridCollapsed = ref(true);
+const stamp = ref();
 const queryParams = reactive({
   pageNo: 1,
   pageSize: 10,
@@ -156,8 +157,8 @@ const queryParams = reactive({
   classification: '',
   categoryId: null
 });
-function handleToTabMultiDetail(num: number) {
-  routerPush({ name: routeName('reader_book-info'), query: { num }});
+function handleToTabMultiDetail(num: number,stamp:string) {
+  routerPush({ name: routeName('reader_book-info'), query: { num ,stamp}});
 }
 
 type RowData = {
@@ -339,7 +340,7 @@ const columns: DataTableColumns<RowData> = [
             color="#8a2be2"
             size={'small'}
             onClick={() => {
-              handleToTabMultiDetail(row.id);
+              handleToTabMultiDetail(row.id,stamp.value);
             }}
           >
             查看
@@ -356,7 +357,8 @@ const getList = async () => {
   await getTree();
   try {
     const { data } = await ReaderApi.getReaderBookSkuPage(queryParams);
-    list.value = data.list;
+    list.value = data.pageResult.list;
+		stamp.value = data.stamp;
     pagination.page = queryParams.pageNo;
     pagination.pageSize = queryParams.pageSize;
     pagination.itemCount = data.total;

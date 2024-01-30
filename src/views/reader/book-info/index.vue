@@ -265,6 +265,7 @@ import * as CategoryApi from '@/service/api/category'; // 导入图书分类相�
 import * as SubjectApi from '@/service/api/subject'; // 导入主题词相关的 API 调用
 import * as ReaderApi from '@/service/api/reader'; // 导入读者相关的 API 调用
 import * as UserProfilesApi from '@/service/api/userProfile'; // 导入用户相关的 API 调用
+import * as CollectSearchApi from '@/service/api/searchCollect'; // 导入用户搜索数据收集相关的 API 调用
 
 // 使用 useRoute 获取当前路由信息
 const route = useRoute();
@@ -317,6 +318,7 @@ const loading = ref(false); // 数据加载中的标识
 const receiveBookId = ref(); // 用于存储接收的图书ID
 const formShow = ref(false); // 表单的显示状态，控制表单的显示和隐藏
 const pageCount = ref(0); // 分页的总页数
+const stamp = ref(); // 搜索特征码
 
 // 响应式引用，存储表单数据
 const formBookData = ref({
@@ -559,6 +561,9 @@ const handleBorrow = async (id: number) => {
   // @ts-ignore
   formData.value = data;
   formShow.value = true;
+	if(stamp.value && receiveBookId.value){
+		CollectSearchApi.confirmClickBorrow(stamp.value,receiveBookId.value);
+	}
 };
 
 const { routerPush } = useRouterPush();
@@ -606,6 +611,12 @@ async function submitFrom() {
   }
 }
 
+const confirmClickView = async () =>{
+	if(stamp.value && receiveBookId.value){
+		CollectSearchApi.confirmClickView(stamp.value,receiveBookId.value);
+	}
+}
+
 const close = () => {
   formShow.value = false;
   formData.value.expectReturnTime = null;
@@ -615,6 +626,7 @@ const close = () => {
 onMounted(async () => {
   // 从路由参数中获取图书 ID 并设置接收的图书 ID
   receiveBookId.value = route.query.num;
+	stamp.value = route.query.stamp;
 
   // 设置查询参数的图书 ID
   queryParams.bookId = parseInt(receiveBookId.value);
@@ -625,6 +637,9 @@ onMounted(async () => {
   await getCategoryData();
   await getSubjectData();
   await getList();
+
+	// 收集点击数据
+	await confirmClickView()
 });
 </script>
 
