@@ -587,6 +587,7 @@ async function submitFrom() {
             {
               text: true,
               type: 'primary',
+							duration: 10000,
               onClick: () => {
                 // @ts-ignore
                 handleToBorrowDetail(data);
