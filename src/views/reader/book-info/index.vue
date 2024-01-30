@@ -1,49 +1,43 @@
 <template>
   <n-space vertical :size="16">
-    <n-card title="用户信息" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
-      <t-list :split="true">
-        <t-list-item>
-          <t-list-item-meta image="https://tdesign.gtimg.com/site/avatar.jpg">
-            <template #title>
-              {{ userInfo ? userInfo.nickname : '暂无昵称' }}
+    <n-card :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
+      <n-h5 prefix="bar" align-text type="info"><n-text strong>我的信息</n-text></n-h5>
+      <div class="flex-y-center justify-between">
+        <div class="flex-y-center">
+          <icon-local-avatar class="text-70px" />
+          <div class="pl-12px">
+            <h3 class="text-18px font-semibold">
+              {{ userInfo ? userInfo.nickname + '您好' : '暂无昵称' }}
+            </h3>
+            <n-flex>
+              <n-tag :bordered="false" size="small" class="tag tag-primary border">
+                {{ userInfo && userInfo.dept.name ? userInfo.dept.name : '暂无学院信息' }}
+              </n-tag>
+              <n-tag :bordered="false" size="small" class="tag tag-primary border">
+                {{ userInfo && userInfo.sclass.name ? userInfo.sclass.name : '暂无班级信息' }}
+              </n-tag>
+            </n-flex>
+          </div>
+        </div>
+        <n-space :size="24" :wrap="false">
+          <n-statistic
+            label="借阅额度"
+            :value="userInfo && userInfo.borrowCount ? userInfo.borrowCount - userInfo.borrowedCount : 0"
+          >
+            <template #prefix>
+              <n-icon>
+                <icon-fluent:person-available-20-regular class="text-28px mb2" />
+              </n-icon>
             </template>
-            <template #description>
-              <n-grid :x-gap="80" :y-gap="8" :cols="4">
-                <n-gi>
-                  <t-tooltip content="所属学院" theme="light">
-                    <icon-uil:university class="text-24px mb0.9 mr2" />
-                  </t-tooltip>
-                  <t-tag theme="primary">
-                    {{ userInfo && userInfo.dept.name ? userInfo.dept.name : '暂无学院信息' }}
-                  </t-tag>
-                </n-gi>
-                <n-gi>
-                  <t-tooltip content="所属班级" theme="light">
-                    <icon-healthicons:i-training-class-outline class="text-28px mr2" />
-                  </t-tooltip>
-                  <t-tag theme="primary">
-                    {{ userInfo && userInfo.sclass.name ? userInfo.sclass.name : '暂无班级信息' }}
-                  </t-tag>
-                </n-gi>
-                <n-gi>
-                  <t-tooltip content="剩余借阅额度/借阅额度" theme="light">
-                    <icon-fluent:person-available-20-regular class="text-28px mr2 ml6" />
-                  </t-tooltip>
-                  <t-tag theme="primary">
-                    {{
-                      userInfo && userInfo.borrowCount
-                        ? userInfo.borrowCount - userInfo.borrowedCount
-                        : '暂无消费额度信息'
-                    }}/{{ userInfo && userInfo.borrowCount ? userInfo.borrowCount : '暂无借阅额度信息' }}
-                  </t-tag>
-                </n-gi>
-              </n-grid>
+            <template #suffix>
+              <n-text>/ {{ userInfo.borrowCount ? userInfo.borrowCount : 0 }}</n-text>
             </template>
-          </t-list-item-meta>
-        </t-list-item>
-      </t-list>
+          </n-statistic>
+        </n-space>
+      </div>
     </n-card>
-    <n-card title="书目信息" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
+    <n-card :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
+      <n-h5 prefix="bar" align-text type="info"><n-text strong>书目信息</n-text></n-h5>
       <n-space :size="16" :wrap="false">
         <!-- 左侧：图书封面 -->
         <n-space :size="16">
@@ -172,7 +166,8 @@
       </n-space>
     </n-card>
 
-    <n-card title="馆藏信息" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
+    <n-card :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
+      <n-h5 prefix="bar" align-text type="info"><n-text strong>馆藏信息</n-text></n-h5>
       <!-- 馆藏信息数据表格 -->
       <n-data-table
         :loading="loading"
@@ -643,4 +638,21 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.tag{
+	color: aliceblue;
+	margin:0;
+	font-size:12px;
+	height:24px;
+	display: inline-flex;
+	box-sizing:border-box;
+	flex-direction: row;
+	align-items: center;
+	border:3px solid transparent;
+	white-space:nowrap;
+	font-family:'Ping Fang SC','Microsoft YaHei','Helvetica','Arial',sans-serif;
+}
+.tag-primary{
+	background-color:#0052d9;
+}
+</style>

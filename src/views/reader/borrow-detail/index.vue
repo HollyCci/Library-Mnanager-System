@@ -2,9 +2,10 @@
   <n-space :vertical="true" :size="16">
     <n-card :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
       <n-flex>
-        <n-h3 prefix="bar">
-          <n-text>我的信息</n-text>
-        </n-h3>
+        <n-h4 prefix="bar">
+          <n-text strong>我的信息</n-text>
+        </n-h4>
+
         <n-grid x-gap="12" y-gap="12" :cols="5">
           <n-gi>
             <icon-iconoir:people-tag class="text-22px mr1 mb1" />
@@ -70,9 +71,9 @@
       </n-flex>
 
       <n-flex class="mt5">
-        <n-h3 prefix="bar">
+        <n-h4 prefix="bar">
           <n-text>借阅信息</n-text>
-        </n-h3>
+        </n-h4>
         <n-grid x-gap="12" y-gap="12" :cols="5">
           <n-gi span="5">
             <icon-carbon:order-details class="text-24px mr1 mb1" />
@@ -108,9 +109,9 @@
       </n-flex>
 
       <n-flex class="mt5">
-        <n-h3 prefix="bar">
+        <n-h4 prefix="bar">
           <n-text>审批信息</n-text>
-        </n-h3>
+        </n-h4>
         <n-grid x-gap="12" y-gap="12" :cols="5">
           <n-gi span="4">
             <icon-streamline:interface-id-voice-scan-identification-secure-id-soundwave-sound-voice-brackets-security
