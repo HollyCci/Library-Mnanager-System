@@ -174,7 +174,7 @@
               placeholder="请输入用户密码"
             />
           </n-form-item-gi>
-          <n-form-item-gi :span="8" label="用户性别">
+          <n-form-item-gi :span="8" label="用户性别" path="sex" required>
             <n-select v-model:value="formData.sex" :options="SexDictOptions" />
           </n-form-item-gi>
           <n-form-item-gi :span="16" label="归属班级" path="classId">
@@ -693,6 +693,7 @@ const formData = ref({
 
 const rules: FormRules = {
   nickname: [{ required: true, message: '用户昵称不能为空', trigger: 'blur' }],
+	sex: [{type: 'number', required: true, trigger: ['blur', 'change'], message: '用户性别不能为空'}],
   mobile: formRules.phone,
   email: formRules.email,
   username: formRules.username,

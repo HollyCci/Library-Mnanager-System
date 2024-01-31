@@ -123,7 +123,7 @@
               style="width: 80%"
             />
           </n-form-item>
-          <n-form-item label="班级负责人" path="leaderUsername" required>
+          <n-form-item label="班级负责人" path="leaderUsername">
             <n-input
               v-model:value="formData.leaderUsername"
               placeholder="请输入用户账号"
@@ -511,7 +511,7 @@ const formData = ref({
 const rules: FormRules = {
   name: [{ required: true, message: '请输入班级名称', trigger: 'input' }],
   grade: [{ required: true, message: '请输入班级年级', trigger: 'input' }],
-  leaderUsername: [{ required: true, message: '请输入班级负责人账号', trigger: 'input' }],
+  // leaderUsername: [{ required: true, message: '请输入班级负责人账号', trigger: 'input' }],
   code: [{ required: true, message: '请输入角色标识', trigger: 'input' }],
   sort: [{ required: true, type: 'number', message: '请输入显示顺序', trigger: 'change' }]
 };
@@ -554,6 +554,7 @@ const handleValidUserId  = async () => {
 		formData.value.phone = data.mobile;
 	}else{
 		formData.value.leaderUserId = null
+		formData.value.leaderUsername = ''
 		window.$message?.error('用户不存在,请重新输入！');
 	}
 }
