@@ -547,10 +547,14 @@ const handleValidUserId  = async () => {
 		// @ts-ignore
 		window.$message?.info(`您选择的班级负责人信息为：账号:${data.username}、姓名：${data.nickname}，请核查信息是否正确！`)
 		// @ts-ignore
-		formData.value.leaderUserId = data.id
+		formData.value.leaderUserId = data.id;
+		// @ts-ignore
+		formData.value.email = data.email;
+		// @ts-ignore
+		formData.value.phone = data.mobile;
 	}else{
 		formData.value.leaderUserId = null
-		window.$message?.error('用户不存在,请重新输入！')
+		window.$message?.error('用户不存在,请重新输入！');
 	}
 }
 
