@@ -62,7 +62,6 @@ export const views: Record<
   management_post: () => import('./management/post/index.vue'),
   management_route: () => import('./management/route/index.vue'),
   management_user: () => import('./management/user/index.vue'),
-  plugin_charts_antv: () => import('./plugin/charts/antv/index.vue'),
   plugin_charts_echarts: () => import('./plugin/charts/echarts/index.vue'),
   plugin_copy: () => import('./plugin/copy/index.vue'),
   plugin_editor_markdown: () => import('./plugin/editor/markdown/index.vue'),

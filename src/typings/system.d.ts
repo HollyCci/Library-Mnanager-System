@@ -350,7 +350,6 @@ declare namespace I18nType {
         _value: string;
         charts: {
           _value: string;
-          antv: string;
           echarts: string;
         };
         copy: string;

@@ -42,8 +42,7 @@ const locale: I18nType.Schema = {
       _value: '插件示例',
       charts: {
         _value: '图表',
-        echarts: 'ECharts',
-        antv: 'AntV'
+        echarts: 'ECharts'
       },
       copy: '剪贴板',
       editor: {

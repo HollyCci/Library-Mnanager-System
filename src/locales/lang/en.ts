@@ -42,8 +42,7 @@ const locale: I18nType.Schema = {
       _value: 'Plugin',
       charts: {
         _value: 'Chart',
-        echarts: 'ECharts',
-        antv: 'AntV'
+        echarts: 'ECharts'
       },
       copy: 'Copy',
       editor: {

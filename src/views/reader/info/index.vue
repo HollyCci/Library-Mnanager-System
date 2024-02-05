@@ -237,7 +237,7 @@
                     我已取得
                   </n-button>
                   <n-button
-                    v-if="borrow.status === 4"
+                    v-if="borrow.status === 4 || borrow.status === 3"
                     size="small"
                     type="warning"
                     @click="handleRenewalBook(borrow.id, borrow.serialNumber, borrow.book.title)"

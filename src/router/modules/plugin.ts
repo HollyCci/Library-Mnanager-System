@@ -18,17 +18,6 @@ const plugin: AuthRoute.Route = {
             requiresAuth: true,
             icon: 'simple-icons:apacheecharts'
           }
-        },
-        {
-          name: 'plugin_charts_antv',
-          path: '/plugin/charts/antv',
-          component: 'self',
-          meta: {
-            title: 'AntV',
-            i18nTitle: 'routes.plugin.charts.antv',
-            requiresAuth: true,
-            icon: 'simple-icons:antdesign'
-          }
         }
       ],
       meta: {
