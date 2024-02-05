@@ -17,7 +17,7 @@ export interface DeptVO {
  * @param params 查询参数
  * @returns DeptVO
  */
-export function fetchDeptPage(params: PageParam) {
+export function fetchDeptPage(params: any) {
   return request.get<DeptVO[]>('/system/dept/list', { params });
 }
 

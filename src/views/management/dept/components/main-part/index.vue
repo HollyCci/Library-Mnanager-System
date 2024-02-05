@@ -200,11 +200,8 @@ const DictOptions = [
 
 // 定义搜索表单的响应式变量
 const queryParams = reactive({
-  title: '',
   name: null,
-  status: null,
-  pageNo: 1,
-  pageSize: 100
+  status: null
 });
 
 // 定义表格的列及其渲染函数
@@ -313,7 +310,6 @@ function handleQuery() {
 
 // 重置按钮操作
 function resetQuery() {
-  queryParams.pageNo = 1;
   queryParams.name = null;
   queryParams.status = null;
   handleQuery();

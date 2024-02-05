@@ -97,7 +97,7 @@
       <template #header-extra><icon-line-md:close class="text-20px" @click="close" /></template>
     </n-card>
 
-    <n-modal v-model:show="fromShow" :on-mask-click="close" transform-origin="center">
+    <n-modal v-model:show="formShow" :on-mask-click="close" transform-origin="center">
       <n-card style="width: 600px" title="班级信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
         <!-- 班级编辑表单 -->
         <n-form
@@ -490,7 +490,7 @@ const pagination = reactive({
 
 // 必须要有rowKey，不然点击打开会全部打开
 const rowKey = (row: any) => row.id;
-const fromShow = ref(false); // 表单的显示状态
+const formShow = ref(false); // 表单的显示状态
 const formRef = ref<HTMLElement & FormInst>(); // 表单的引用
 const formLoading = ref(false); // 表单的加载中：1）修改时的数据加载；2）提交的按钮禁用
 const formType = ref(''); // 表单的类型：create - 新增；update - 修改
@@ -517,7 +517,7 @@ const rules: FormRules = {
 };
 
 async function openForm(type: string, id?: number, row?: any) {
-  fromShow.value = true;
+  formShow.value = true;
   formType.value = type;
   // 如果是修改时设置数据
   if (type === 'update' && id) {
@@ -584,7 +584,7 @@ async function submitFrom(){
 
 // 关闭弹窗
 function close(){
-	fromShow.value = false;
+	formShow.value = false;
 	formData.value={
 		id: undefined,
 		grade:'',
