@@ -238,7 +238,6 @@ const lineOptions = ref<ECOption>({
 }) as Ref<ECOption>;
 const { domRef: lineRef } = useEcharts(lineOptions);
 
-
 const getData = async () => {
   const { data } = await dataApi.getAnalysisMidData();
   // @ts-ignore
@@ -253,40 +252,39 @@ const getData = async () => {
   lineOptions.value.series[3].data = dataCard.value.dueWeekList;
   // @ts-ignore
   lineOptions.value.series[4].data = dataCard.value.returnedWeekList;
-
 };
 
 const initHobbyData = async () => {
   hobbyChart = echarts.init(hobbyRef.value);
 
   const hobbyOption = {
-		title: {
-    text: '本周读者爱好分析',
-  },
-  tooltip: {
-    trigger: 'item',
-    formatter: '{a} <br/>{b} : {c} ({d}%)'
-  },
-  series: [
-    {
-      name: '本周读者爱好分析',
-      type: 'pie',
-      radius: [22, 110],
-      center: ['50%', '50%'],
-      roseType: 'radius',
-      itemStyle: {
-        borderRadius: 5
-      },
-      label: {
-        show: false
-      },
+    title: {
+      text: "本周读者爱好分析",
+    },
+    tooltip: {
+      trigger: "item",
+      formatter: "{a} <br/>{b} : {c} ({d}%)",
+    },
+    series: [
+      {
+        name: "本周读者爱好分析",
+        type: "pie",
+        radius: [22, 110],
+        center: ["50%", "50%"],
+        roseType: "radius",
+        itemStyle: {
+          borderRadius: 5,
+        },
+        label: {
+          show: false,
+        },
 
-      data: dataCard.value.subject
-    }
-  ]
+        data: dataCard.value.subject,
+      },
+    ],
   };
 
-	hobbyChart.setOption(hobbyOption);
+  hobbyChart.setOption(hobbyOption);
 };
 
 onMounted(async () => {

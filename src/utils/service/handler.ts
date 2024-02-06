@@ -1,5 +1,5 @@
+import { DialogPlugin } from 'tdesign-vue-next';
 import { useAuthStore } from '@/store';
-
 /** 统一失败和成功的请求结果的数据类型 */
 export async function handleServiceResult<T = any>(error: Service.RequestError | null, data: any) {
   if (error) {
@@ -45,24 +45,23 @@ export function adapter<T extends Service.ServiceAdapter>(
   return result!;
 }
 
+/** 用于处理token失效 */
 export function handleAuthorized() {
-  const auth = useAuthStore();
-  let isShow = true;
-  if (isShow) {
-    window.$dialog?.info({
-      title: '系统提示',
-      content: '您的登录身份已过期，若想继续使用请重新登录。',
-      positiveText: '我已知晓',
-      maskClosable: false,
-      onMaskClick: () => {
-        window.$message?.info("请阅读弹框提示内容，并点击'我已知晓'按钮进行重新登录，");
-      },
-      onPositiveClick: async () => {
-        auth.resetAuthStore();
-        isShow = false;
-        window.location.href = '/login';
-      }
-    });
-  }
-  isShow = false;
+  /* eslint-disable */
+	const auth = useAuthStore();
+	const confirmDia = DialogPlugin({
+		header: '系统提示',
+		body: '您的登录身份已过期，若想继续使用请重新登录。',
+		confirmBtn: '我已知晓',
+		theme: 'warning',
+		closeOnOverlayClick: false,
+		closeBtn: false,
+		// @ts-ignore pros里面有cancelBtn属性，但是报错，暂时忽略
+		cancelBtn: null,
+		onConfirm: () => {
+			auth.resetAuthStore();
+			window.location.href = '/login';
+			confirmDia.hide();
+		}
+	});
 }
