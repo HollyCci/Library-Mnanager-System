@@ -22,12 +22,14 @@
 ## 后端特性
 
 - **架构**：采用 Spring Boot 多模块架构、MySQL + MyBatis Plus、Redis + Redisson
-- **消息队列：**可使用 Event、Redis、RabbitMQ、Kafka、RocketMQ 等
-- **权限认证：**使用 Spring Security & Token & Redis，支持多终端、多种用户的认证系统，支持 SSO 单点登录
-- **权限控制：**支持加载动态权限菜单，按钮级别权限控制，Redis 缓存提升性能
-- **SaaS 多租户：**支持 SaaS 多租户，可自定义每个租户的权限，提供透明化的多租户底层封装
-- **实时通信：**采用 Spring WebSocket 实现，内置 Token 身份校验，支持 WebSocket 集群
-- **第三方：**集成微信小程序、微信公众号、企业微信、钉钉等三方登陆，集成支付宝、微信等支付与退款
+- **消息队列**：**可使用 Event、Redis、RabbitMQ、Kafka、RocketMQ 等
+- **权限认证**：**使用 Spring Security & Token & Redis，支持多终端、多种用户的认证系统，支持 SSO 单点登录
+- **权限控制**：**支持加载动态权限菜单，按钮级别权限控制，Redis 缓存提升性能
+- **SaaS 多租户**：**支持 SaaS 多租户，可自定义每个租户的权限，提供透明化的多租户底层封装
+- **实时通信**：**采用 Spring WebSocket 实现，内置 Token 身份校验，支持 WebSocket 集群
+- **第三方**：**集成微信小程序、微信公众号、企业微信、钉钉等三方登陆，集成支付宝、微信等支付与退款
+
+**后端项目因涉及敏感信息暂未公开，若有需要可联系作者。**
 
 ## 项目架构图
 
@@ -114,3 +116,6 @@ docker run --name soybean -p 80:80 -d soybeanjs/soybean-admin:v0.9.6
 项目已经内置 Angular 提交规范，直接执行 commit 命令即可生成符合 Angular 提交规范的 commit。
 
 项目已用 simple-git-hooks 代替了 husky, 旧版本用了 husky，执行 pnpm soy init-git-hooks 进行初始化配置
+
+## 联系方式
+![微信图片_20240217165026.jpg](https://s2.loli.net/2024/02/17/1ft9Ic5DoVwGJHZ.jpg)
