@@ -256,10 +256,5 @@ onMounted(async () => {
   subjectOptions.value.series[0].data = computed(() => {
     return props.subjectList;
   });
-  console.log(
-    computed(() => {
-      return props.subjectList;
-    })
-  );
 });
 </script>

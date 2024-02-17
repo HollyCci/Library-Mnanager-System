@@ -1,81 +1,91 @@
 <template>
   <div>
-    <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable>
-      <n-grid cols="s:1 m:2 l:4" responsive="screen" :x-gap="16" :y-gap="16">
-        <n-gi>
-          <gradient-bg class="h-100px" :start-color="cardData[0].colors[0]" :end-color="cardData[0].colors[1]">
-            <h3 class="text-18px">{{ cardData[0].title }}</h3>
-            <div class="flex justify-between pt-12px">
-              <svg-icon :icon="cardData[0].icon" class="text-32px" />
-              <count-to
-                :prefix="cardData[0].unit"
-                :start-value="1"
-                :end-value="remoteData.bookSkuCount"
-                class="text-30px text-white dark:text-dark"
-              />
-            </div>
-          </gradient-bg>
-        </n-gi>
-        <n-gi>
-          <gradient-bg class="h-100px" :start-color="cardData[1].colors[0]" :end-color="cardData[1].colors[1]">
-            <h3 class="text-18px">{{ cardData[1].title }}</h3>
-            <div class="flex justify-between pt-12px">
-              <svg-icon :icon="cardData[1].icon" class="text-32px" />
-              <count-to
-                :prefix="cardData[1].unit"
-                :start-value="1"
-                :end-value="remoteData.inventoryCount"
-                class="text-30px text-white dark:text-dark"
-              />
-            </div>
-          </gradient-bg>
-        </n-gi>
-        <n-gi>
-          <gradient-bg class="h-100px" :start-color="cardData[2].colors[0]" :end-color="cardData[2].colors[1]">
-            <h3 class="text-18px">{{ cardData[2].title }}</h3>
-            <div class="flex justify-between pt-12px">
-              <svg-icon :icon="cardData[2].icon" class="text-32px" />
-              <count-to
-                :prefix="cardData[2].unit"
-                :start-value="1"
-                :end-value="remoteData.categoryCount"
-                class="text-30px text-white dark:text-dark"
-              />
-            </div>
-          </gradient-bg>
-        </n-gi>
-        <n-gi>
-          <gradient-bg class="h-100px" :start-color="cardData[3].colors[0]" :end-color="cardData[3].colors[1]">
-            <h3 class="text-18px">{{ cardData[3].title }}</h3>
-            <div class="flex justify-between pt-12px">
-              <svg-icon :icon="cardData[3].icon" class="text-32px" />
-              <count-to
-                :prefix="cardData[3].unit"
-                :start-value="1"
-                :end-value="remoteData.subjectCount"
-                class="text-30px text-white dark:text-dark"
-              />
-            </div>
-          </gradient-bg>
-        </n-gi>
-      </n-grid>
-    </n-card>
+    <n-grid cols="s:1 m:2 l:4" responsive="screen" :x-gap="16" :y-gap="16">
+      <n-gi>
+        <gradient-bg class="h-100px" :start-color="cardData[0].colors[0]" :end-color="cardData[0].colors[1]">
+          <h3 class="text-18px">{{ cardData[0].title }}</h3>
+          <div class="flex justify-between pt-12px">
+            <svg-icon :icon="cardData[0].icon" class="text-32px" />
+            <count-to
+              :prefix="cardData[0].unit"
+              :start-value="1"
+              :end-value="remoteData.bookSkuCount"
+              class="text-30px text-white dark:text-dark"
+            />
+          </div>
+        </gradient-bg>
+      </n-gi>
+      <n-gi>
+        <gradient-bg class="h-100px" :start-color="cardData[1].colors[0]" :end-color="cardData[1].colors[1]">
+          <h3 class="text-18px">{{ cardData[1].title }}</h3>
+          <div class="flex justify-between pt-12px">
+            <svg-icon :icon="cardData[1].icon" class="text-32px" />
+            <count-to
+              :prefix="cardData[1].unit"
+              :start-value="1"
+              :end-value="remoteData.inventoryCount"
+              class="text-30px text-white dark:text-dark"
+            />
+          </div>
+        </gradient-bg>
+      </n-gi>
+      <n-gi>
+        <gradient-bg class="h-100px" :start-color="cardData[2].colors[0]" :end-color="cardData[2].colors[1]">
+          <h3 class="text-18px">{{ cardData[2].title }}</h3>
+          <div class="flex justify-between pt-12px">
+            <svg-icon :icon="cardData[2].icon" class="text-32px" />
+            <count-to
+              :prefix="cardData[2].unit"
+              :start-value="1"
+              :end-value="remoteData.categoryCount"
+              class="text-30px text-white dark:text-dark"
+            />
+          </div>
+        </gradient-bg>
+      </n-gi>
+      <n-gi>
+        <gradient-bg class="h-100px" :start-color="cardData[3].colors[0]" :end-color="cardData[3].colors[1]">
+          <h3 class="text-18px">{{ cardData[3].title }}</h3>
+          <div class="flex justify-between pt-12px">
+            <svg-icon :icon="cardData[3].icon" class="text-32px" />
+            <count-to
+              :prefix="cardData[3].unit"
+              :start-value="1"
+              :end-value="remoteData.subjectCount"
+              class="text-30px text-white dark:text-dark"
+            />
+          </div>
+        </gradient-bg>
+      </n-gi>
+    </n-grid>
 
     <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" class="mt4">
       <n-grid-item span="0:24 640:24 1024:10">
-        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #333645">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
           <category-data class="h-330px" :category-list="remoteData.subjectList" />
         </n-card>
       </n-grid-item>
       <n-grid-item span="0:24 640:240 1024:6	">
-        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #333645">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
           <subject-data class="h-330px" :subject-list="remoteData.subjectList" />
         </n-card>
       </n-grid-item>
       <n-grid-item span="0:24 640:240 1024:8	">
-        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #333645">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
           <div ref="pubRef" class="h-330px"></div>
         </n-card>
+      </n-grid-item>
+    </n-grid>
+
+    <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" class="mt4">
+      <n-grid-item span="0:24 640:24 1024:10">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
+          <div ref="bookTopRef" class="h-450px"></div>
+        </n-card>
+      </n-grid-item>
+      <n-grid-item span="0:24 640:240 1024:6	"></n-grid-item>
+      <n-grid-item span="0:24 640:240 1024:8	">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546"></n-card>
       </n-grid-item>
     </n-grid>
   </div>
@@ -116,6 +126,8 @@ const remoteData = ref({
   ],
   pubDateYears: [],
   pubDateCounts: [],
+  bookTopNames: [],
+  bookTopCount: [],
 });
 
 const cardData: CardData[] = [
@@ -153,8 +165,11 @@ const cardData: CardData[] = [
   },
 ];
 const pubRef = ref(null);
+const bookTopRef = ref(null);
+
 // @ts-ignore
 let pubChart = null;
+let bookTopChart = null;
 
 // 定时更新数据
 const app = {
@@ -167,6 +182,13 @@ const initPubLine = async () => {
 
   // 设置 ECharts 配置
   const pubOption = {
+    title: {
+      text: "图书出版日期分布",
+      left: "center",
+      textStyle: {
+        color: "#fff",
+      },
+    },
     tooltip: {
       trigger: "axis",
       axisPointer: {
@@ -301,11 +323,140 @@ const initPubLine = async () => {
   }, 1000);
 };
 
+const initBookTop = async () => {
+  var bookTopName = remoteData.value.bookTopNames;
+  var bookTopValue = remoteData.value.bookTopCount;
+  var bookTopMax:any = []; //背景按最大值
+  for (let i = 0; i < bookTopValue.length; i++) {
+    bookTopMax.push(bookTopValue[0]);
+  }
+  bookTopChart = echarts.init(bookTopRef.value);
+
+  const bookTopOption = {
+		title: {
+      text: "热门借阅图书排行",
+      left: "center",
+      textStyle: {
+        color: "#fff",
+      },
+    },
+    grid: {
+      left: "2%",
+      right: "2%",
+      bottom: "1%",
+      top: "5%",
+      containLabel: true,
+    },
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "none",
+      },
+      formatter: function (params: any) {
+        return params[0].name + " : " + params[0].value + "次";
+      },
+    },
+    xAxis: {
+      show: false,
+      type: "value",
+    },
+    yAxis: [
+      {
+        type: "category",
+        inverse: true,
+        axisLabel: {
+          show: false,
+          textStyle: {
+            color: "#fff",
+          },
+        },
+        splitLine: {
+          show: false,
+        },
+        axisTick: {
+          show: false,
+        },
+        axisLine: {
+          show: false,
+        },
+        data: bookTopName,
+      },
+      {
+        type: "category",
+        inverse: true,
+        axisTick: "none",
+        axisLine: "none",
+        show: true,
+        axisLabel: {
+          textStyle: {
+            color: "#ffffff",
+            fontSize: "12",
+          },
+        },
+        data: bookTopValue,
+      },
+    ],
+    series: [
+      {
+        name: "值",
+        type: "bar",
+        zlevel: 1,
+        itemStyle: {
+          normal: {
+            barBorderRadius: 30,
+            color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+              {
+                offset: 0,
+                color: "rgb(57,89,255,1)",
+              },
+              {
+                offset: 1,
+                color: "rgb(46,200,207,1)",
+              },
+            ]),
+          },
+        },
+        barWidth: 20,
+        data: bookTopValue,
+        label: {
+          normal: {
+            color: "#ffffff",
+            show: true,
+            position: [0, "-16px"],
+            textStyle: {
+              fontSize: 14,
+            },
+            formatter: function (a: any, b: any) {
+              return a.name;
+            },
+          },
+        },
+      },
+      {
+        name: "背景",
+        type: "bar",
+        barWidth: 20,
+        barGap: "-100%",
+        data: bookTopMax,
+        itemStyle: {
+          normal: {
+            color: "rgba(24,31,68,1)",
+            barBorderRadius: 30,
+          },
+        },
+      },
+    ],
+  };
+
+  bookTopChart.setOption(bookTopOption);
+};
+
 onMounted(async () => {
   const res = await DataApi.getCommonBookData();
   // @ts-ignore
   remoteData.value = res.data;
   await initPubLine();
+  await initBookTop();
 });
 </script>
 
