@@ -129,15 +129,8 @@
                 :content="submitApproveTitle"
                 :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
               />
-
               <n-timeline-item
-                v-if="borrowDetail && borrowDetail.approve.status === -1"
-                type="error"
-                content="审批驳回"
-                :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
-              />
-              <n-timeline-item
-                v-if="borrowDetail && borrowDetail.approve.status === 0"
+                v-if="borrowDetail && borrowDetail.approve.status === 0 && borrowDetail.status !== -1"
                 content="审批中"
                 :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
               >
@@ -148,38 +141,130 @@
                 </template>
               </n-timeline-item>
               <n-timeline-item
-                v-if="borrowDetail && borrowDetail.approve.status === 1 && borrowDetail.status !== 3"
+                v-if="borrowDetail && borrowDetail.status === -1"
+                type="error"
+                content="审批驳回"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
+              />
+              <n-timeline-item
+                v-if="borrowDetail && borrowDetail.approve.status === 1 && takeOperate.isDo"
                 type="success"
                 title="审批通过"
                 :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
               />
+              <!-- dashed:虚线 -->
               <n-timeline-item
-                v-if="borrowDetail && borrowDetail.approve.status === 1 && borrowDetail.status === 3"
+                v-if="borrowDetail && borrowDetail.approve.status === 1 && !takeOperate.isDo"
                 type="success"
                 line-type="dashed"
                 title="审批通过"
                 :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
               />
               <n-timeline-item
+                v-if="
+                  takeOperate.isDo &&
+                  !dueOperate.isDo &&
+                  borrowDetail.status !== 5 &&
+                  borrowDetail.status !== -3 &&
+                  !renewalOperate.isDo &&
+                  !overDueOperate.isDo
+                "
+                :time="formatDate(takeOperate.doTime)"
+                type="success"
+                line-type="dashed"
+                title="领书"
+              />
+              <n-timeline-item
+                v-if="
+                  takeOperate.isDo &&
+                  (dueOperate.isDo ||
+                    borrowDetail.status === 5 ||
+                    borrowDetail.status === -3 ||
+                    renewalOperate.isDo ||
+                    overDueOperate.isDo)
+                "
+                :time="formatDate(takeOperate.doTime)"
+                type="success"
+                title="领书"
+              />
+              <n-timeline-item
+                v-if="
+                  dueOperate.isDo && (overDueOperate.isDo || borrowDetail.status === 5 || borrowDetail.status === -3)
+                "
+                :time="formatDate(dueOperate.doTime)"
+                type="error"
+                title="即将逾期"
+              />
+              <n-timeline-item
+                v-if="
+                  dueOperate.isDo && !overDueOperate.isDo && borrowDetail.status !== 5 && borrowDetail.status !== -3
+                "
+                :time="formatDate(dueOperate.doTime)"
+                type="error"
+                line-type="dashed"
+                title="即将逾期"
+              />
+              <n-timeline-item
+                v-if="overDueOperate.isDo && borrowDetail.status !== 5 && borrowDetail.status !== -3"
+                :time="formatDate(overDueOperate.doTime)"
+                type="error"
+                line-type="dashed"
+                title="逾期中"
+              />
+              <n-timeline-item
+                v-if="overDueOperate.isDo && (borrowDetail.status === 5 || borrowDetail.status === -3)"
+                :time="formatDate(overDueOperate.doTime)"
+                type="error"
+                title="逾期中"
+              />
+              <n-timeline-item
+                v-if="renewalOperate.isDo"
+                :time="formatDate(renewalOperate.doTime)"
+                type="success"
+                title="提交续借审批"
+              />
+              <!-- <n-timeline-item
                 v-if="borrowDetail && borrowDetail.approve.renew === true"
                 type="info"
                 title="提交续借审批"
                 :time="borrowDetail ? formatDate(borrowDetail.approve.createTime) : ''"
-              />
+              /> -->
               <n-timeline-item
-                v-if="borrowDetail && borrowDetail.approve.renew === true && borrowDetail.status === 1"
+                v-if="renewalOperate.isDo && (borrowDetail.status === -3 || borrowDetail.status === 5)"
                 type="success"
                 :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
                 title="续借审批通过"
               />
               <n-timeline-item
-                v-if="borrowDetail && borrowDetail.approve.renew === true && borrowDetail.status === -1"
+                v-if="renewalOperate.isDo && borrowDetail.status !== -3 && borrowDetail.status !== 5"
+                type="success"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
+                line-type="dashed"
+                title="续借审批通过"
+              />
+              <n-timeline-item
+                v-if="
+                  borrowDetail &&
+                  borrowDetail.approve.renew === true &&
+                  !renewalOperate.isDo &&
+                  borrowDetail.status !== -3 &&
+                  borrowDetail.status !== 5
+                "
+                type="error"
+                :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
+                line-type="dashed"
+                title="续借审批驳回"
+              />
+              <n-timeline-item
+                v-if="!renewalOperate && (borrowDetail.status === -3 || borrowDetail.status === 5)"
                 type="error"
                 :time="borrowDetail ? formatDate(borrowDetail.approve.updateTime) : ''"
                 title="续借审批驳回"
               />
               <n-timeline-item
-                v-if="borrowDetail && borrowDetail.approve.status === 1 && borrowDetail.status === 3"
+                v-if="
+                  borrowDetail && borrowDetail.status !== 5 && borrowDetail.status !== -3 && borrowDetail.status !== -1
+                "
                 type="info"
                 title="约定归还"
                 :time="borrowDetail ? formatDate(borrowDetail.expectReturnTime) : ''"
@@ -195,6 +280,12 @@
                 :time="borrowDetail ? formatDate(borrowDetail.actualReturnTime) : ''"
                 type="success"
                 title="逾期归还"
+              />
+              <n-timeline-item
+                v-if="planingOperate.isDo"
+                :time="formatDate(planingOperate.doTime)"
+                type="success"
+                title="预定"
               />
             </n-timeline>
           </n-gi>
@@ -259,12 +350,83 @@ const userInfo = ref({
 const submitApproveTitle = ref('');
 const remarkContent = ref('');
 
+// var takeBook = false;
+// var takeTime;
+// const takeBook = ref({
+// 	isTake:false,
+// 	takeTime:''
+// })
+interface operateLog {
+	/** 是否操作 */
+	isDo:boolean,
+	/** 操作时间 */
+	doTime:string | null;
+}
+
+const takeOperate :operateLog = {
+	isDo: false,
+	doTime:null
+}
+
+const dueOperate :operateLog = {
+	isDo: false,
+	doTime:null
+}
+
+const overDueOperate :operateLog = {
+	isDo: false,
+	doTime:null
+}
+
+const planingOperate :operateLog = {
+	isDo: false,
+	doTime:null
+}
+
+const renewalOperate :operateLog = {
+	isDo: false,
+	doTime:null
+}
+
+const borrowOperate :operateLog = {
+	isDo: false,
+	doTime:null
+}
+
 const getBorrowDetail = async () => {
   const { data } = await ReaderApi.getReaderBorrowDetail(querySerialNumber.value);
   borrowDetail.value = data;
   submitApproveTitle.value = `图书：《${borrowDetail.value.book.title}》— 提交借阅审批`;
   remarkContent.value = borrowDetail.value.approve.remark;
-};
+  // 处理操作记录数据
+  // @ts-ignore
+  const operateLogList = data.operateLog;
+  for (let index = 0; index < operateLogList.length; index++) {
+    const element = operateLogList[index];
+    console.log(element);
+		if(element.type == 1){
+			takeOperate.isDo = true;
+			takeOperate.doTime = element.createTime;
+		}else if(element.type == 2){
+			dueOperate.isDo = true;
+			dueOperate.doTime = element.createTime;
+		}else if(element.type == 3){
+			overDueOperate.isDo = true;
+			overDueOperate.doTime = element.createTime;
+		}else if(element.type == 6){
+			planingOperate.isDo = true;
+			planingOperate.doTime = element.createTime;
+		}else if(element.type == 7){
+			renewalOperate.isDo = true;
+			renewalOperate.doTime = element.createTime;
+		}else if(element.type == 0){
+			borrowOperate.isDo = true;
+			borrowOperate.doTime = element.createTime;
+		}
+	};
+}
+
+
 const statusDict = [
   {
     label: '已提交借阅审批',
@@ -317,6 +479,7 @@ const typeDict = [
     value: 1
   }
 ];
+
 
 const getStatusLabel = (status: number) => {
   const statusItem = statusDict.find(item => item.value === status);
