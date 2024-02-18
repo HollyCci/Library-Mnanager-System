@@ -46,7 +46,7 @@
 
 ## 项目示例图
 
-![分析页.png](https://s2.loli.net/2024/01/18/HF7EXjqTweKz1ol.png)
+![分析页.png](https://s2.loli.net/2024/02/18/yWcPa1qTgQAFCK5.png)
 
 ![用户管理.png](https://s2.loli.net/2024/01/18/TCnWFYSbHuaKjqL.png)
 
@@ -73,6 +73,8 @@
 ![我的借阅.png](https://s2.loli.net/2024/01/18/NRHZ6pWM4Gtmb97.png)
 
 ![借阅详情.png](https://s2.loli.net/2024/01/18/hLNqTuo578OxCPD.png)
+
+![图书数据可视化.png](https://s2.loli.net/2024/02/18/DXapEvMAuts754k.png)
 
 ## 安装使用
 
