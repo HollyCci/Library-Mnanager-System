@@ -154,7 +154,7 @@
               <template #subtitle>
                 <n-flex>
                   <n-text>{{ borrow.book.author }}</n-text>
-                  <d-tag v-if="borrow.status === 0" size="18">
+                  <d-tag v-if="borrow.status === 0 || borrow.status === 2" size="18">
                     <icon-svg-spinners:180-ring-with-bg class="text-16px mb1 mr1" color="#0052d9" />
                     <n-text type="success" style="color: #0052d9">审批中</n-text>
                   </d-tag>
