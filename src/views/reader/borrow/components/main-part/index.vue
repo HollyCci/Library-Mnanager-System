@@ -361,7 +361,7 @@ const getList = async () => {
 		stamp.value = data.stamp;
     pagination.page = queryParams.pageNo;
     pagination.pageSize = queryParams.pageSize;
-    pagination.itemCount = data.total;
+    pagination.itemCount = data.pageResult.total;
     pageCount.value = Math.ceil(pagination.itemCount / pagination.pageSize);
   } finally {
     loading.value = false;
@@ -380,8 +380,8 @@ const handCollapsed = (value: boolean) => {
   gridCollapsed.value = value;
   console.log(gridCollapsed.value);
 };
-// 定义分页参数
 
+// 定义分页参数
 const pagination = reactive({
   page: queryParams.pageNo,
   pageCount: pageCount.value,
