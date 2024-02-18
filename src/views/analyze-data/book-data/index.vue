@@ -89,7 +89,9 @@
         </n-card>
       </n-grid-item>
       <n-grid-item span="0:24 640:240 1024:8	">
-        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546"></n-card>
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
+          <div ref="searchTopRef" class="h-450px"></div>
+        </n-card>
       </n-grid-item>
     </n-grid>
   </div>
@@ -134,6 +136,8 @@ const remoteData = ref({
   bookTopCount: [],
   renewBookNames: [],
   renewBookCount: [],
+  searchBookNames: [],
+  searchBookCount: [],
 });
 
 const cardData: CardData[] = [
@@ -173,11 +177,13 @@ const cardData: CardData[] = [
 const pubRef = ref(null);
 const bookTopRef = ref(null);
 const renewTopRef = ref(null);
+const searchTopRef = ref(null);
 
 // @ts-ignore
 let pubChart = null;
 let bookTopChart = null;
 let renewTopChart = null;
+let searchTopChart = null;
 
 // 定时更新数据
 const app = {
@@ -585,6 +591,140 @@ const initRenewTop = async () => {
   renewTopChart.setOption(renewTopOption);
 };
 
+const initSearchTop = async () => {
+  var searchTopName = remoteData.value.searchBookNames;
+  var searchTopValue = remoteData.value.searchBookCount;
+  var bookTopMax: any = []; //背景按最大值
+  for (let i = 0; i < searchTopValue.length; i++) {
+    bookTopMax.push(searchTopValue[0]);
+  }
+  searchTopChart = echarts.init(searchTopRef.value);
+
+  const searchTopOption = {
+    title: {
+      text: "热门检索图书排行",
+      left: "center",
+      textStyle: {
+        color: "#fff",
+      },
+    },
+    grid: {
+      left: "2%",
+      right: "2%",
+      bottom: "1%",
+      top: "5%",
+      containLabel: true,
+    },
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "none",
+      },
+      formatter: function (params: any) {
+        return params[0].name + " : " + params[0].value + "次";
+      },
+    },
+    xAxis: {
+      show: false,
+      type: "value",
+    },
+    yAxis: [
+      {
+        type: "category",
+        inverse: true,
+        axisLabel: {
+          show: false,
+          textStyle: {
+            color: "#fff",
+          },
+        },
+        splitLine: {
+          show: false,
+        },
+        axisTick: {
+          show: false,
+        },
+        axisLine: {
+          show: false,
+        },
+        data: searchTopName,
+      },
+      {
+        type: "category",
+        inverse: true,
+        axisTick: "none",
+        axisLine: "none",
+        show: true,
+        axisLabel: {
+          textStyle: {
+            color: "#ffffff",
+            fontSize: "12",
+          },
+        },
+        data: searchTopValue,
+      },
+    ],
+    series: [
+      {
+        name: "值",
+        type: "bar",
+        zlevel: 1,
+        itemStyle: {
+          normal: {
+            color: {
+              type: "linear",
+              x: 1,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [
+                {
+                  offset: 0,
+                  color: "#00d386", // 0% 处的颜色
+                },
+                {
+                  offset: 1,
+                  color: "#0076fc", // 100% 处的颜色
+                },
+              ],
+              globalCoord: false, // 缺省为 false
+            },
+            barBorderRadius: 15,
+          },
+        },
+        barWidth: 20,
+        data: searchTopValue,
+        label: {
+          normal: {
+            color: "#ffffff",
+            show: true,
+            position: [0, "-16px"],
+            textStyle: {
+              fontSize: 14,
+            },
+            formatter: function (a: any, b: any) {
+              return a.name;
+            },
+          },
+        },
+      },
+      {
+        name: "背景",
+        type: "bar",
+        barWidth: 20,
+        barGap: "-100%",
+        data: bookTopMax,
+        itemStyle: {
+          normal: {
+            color: "rgba(24,31,68,1)",
+            barBorderRadius: 30,
+          },
+        },
+      },
+    ],
+  };
+  searchTopChart.setOption(searchTopOption);
+};
 onMounted(async () => {
   const res = await DataApi.getCommonBookData();
   // @ts-ignore
@@ -595,6 +735,8 @@ onMounted(async () => {
   await initBookTop();
   // 图书热门续借排行
   await initRenewTop();
+  // 图书热门搜索排行
+  await initSearchTop();
 });
 </script>
 
