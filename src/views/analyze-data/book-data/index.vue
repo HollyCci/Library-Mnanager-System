@@ -78,12 +78,16 @@
     </n-grid>
 
     <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" class="mt4">
-      <n-grid-item span="0:24 640:24 1024:10">
+      <n-grid-item span="0:24 640:24 1024:8">
         <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
           <div ref="bookTopRef" class="h-450px"></div>
         </n-card>
       </n-grid-item>
-      <n-grid-item span="0:24 640:240 1024:6	"></n-grid-item>
+      <n-grid-item span="0:24 640:240 1024:8">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
+          <div ref="renewTopRef" class="h-450px"></div>
+        </n-card>
+      </n-grid-item>
       <n-grid-item span="0:24 640:240 1024:8	">
         <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546"></n-card>
       </n-grid-item>
@@ -128,6 +132,8 @@ const remoteData = ref({
   pubDateCounts: [],
   bookTopNames: [],
   bookTopCount: [],
+  renewBookNames: [],
+  renewBookCount: [],
 });
 
 const cardData: CardData[] = [
@@ -166,10 +172,12 @@ const cardData: CardData[] = [
 ];
 const pubRef = ref(null);
 const bookTopRef = ref(null);
+const renewTopRef = ref(null);
 
 // @ts-ignore
 let pubChart = null;
 let bookTopChart = null;
+let renewTopChart = null;
 
 // 定时更新数据
 const app = {
@@ -326,14 +334,14 @@ const initPubLine = async () => {
 const initBookTop = async () => {
   var bookTopName = remoteData.value.bookTopNames;
   var bookTopValue = remoteData.value.bookTopCount;
-  var bookTopMax:any = []; //背景按最大值
+  var bookTopMax: any = []; //背景按最大值
   for (let i = 0; i < bookTopValue.length; i++) {
     bookTopMax.push(bookTopValue[0]);
   }
   bookTopChart = echarts.init(bookTopRef.value);
 
   const bookTopOption = {
-		title: {
+    title: {
       text: "热门借阅图书排行",
       left: "center",
       textStyle: {
@@ -344,7 +352,7 @@ const initBookTop = async () => {
       left: "2%",
       right: "2%",
       bottom: "1%",
-      top: "5%",
+      top: "10%",
       containLabel: true,
     },
     tooltip: {
@@ -451,12 +459,142 @@ const initBookTop = async () => {
   bookTopChart.setOption(bookTopOption);
 };
 
+const initRenewTop = async () => {
+  var renewTopName = remoteData.value.renewBookNames;
+  var renewTopValue = remoteData.value.renewBookCount;
+  var bookTopMax: any = []; //背景按最大值
+  for (let i = 0; i < renewTopValue.length; i++) {
+    bookTopMax.push(renewTopValue[0]);
+  }
+  renewTopChart = echarts.init(renewTopRef.value);
+
+  const renewTopOption = {
+    title: {
+      text: "热门续借图书排行",
+      left: "center",
+      textStyle: {
+        color: "#fff",
+      },
+    },
+    grid: {
+      left: "2%",
+      right: "2%",
+      bottom: "1%",
+      top: "5%",
+      containLabel: true,
+    },
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "none",
+      },
+      formatter: function (params: any) {
+        return params[0].name + " : " + params[0].value + "次";
+      },
+    },
+    xAxis: {
+      show: false,
+      type: "value",
+    },
+    yAxis: [
+      {
+        type: "category",
+        inverse: true,
+        axisLabel: {
+          show: false,
+          textStyle: {
+            color: "#fff",
+          },
+        },
+        splitLine: {
+          show: false,
+        },
+        axisTick: {
+          show: false,
+        },
+        axisLine: {
+          show: false,
+        },
+        data: renewTopName,
+      },
+      {
+        type: "category",
+        inverse: true,
+        axisTick: "none",
+        axisLine: "none",
+        show: true,
+        axisLabel: {
+          textStyle: {
+            color: "#ffffff",
+            fontSize: "12",
+          },
+        },
+        data: renewTopValue,
+      },
+    ],
+    series: [
+      {
+        name: "值",
+        type: "bar",
+        itemStyle: {
+          normal: {
+            barBorderRadius: 5,
+            color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+              { offset: 0, color: "#956FD4" },
+              { offset: 1, color: "#3EACE5" },
+            ]),
+          },
+        },
+        barWidth: 20,
+        data: renewTopValue,
+        label: {
+          normal: {
+            color: "#ffffff",
+            show: true,
+            position: [0, "-16px"],
+            textStyle: {
+              fontSize: 14,
+            },
+            formatter: function (a: any, b: any) {
+              return a.name;
+            },
+          },
+        },
+      },
+      {
+        name: "背景",
+        type: "bar",
+        barGap: "-100%",
+        barWidth: 10,
+        itemStyle: {
+          normal: {
+            barBorderRadius: 5,
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: "rgba(156,107,211,0.5)" },
+              { offset: 0.2, color: "rgba(156,107,211,0.3)" },
+              { offset: 1, color: "rgba(156,107,211,0)" },
+            ]),
+          },
+        },
+        z: -12,
+        data: bookTopMax,
+      },
+    ],
+  };
+
+  renewTopChart.setOption(renewTopOption);
+};
+
 onMounted(async () => {
   const res = await DataApi.getCommonBookData();
   // @ts-ignore
   remoteData.value = res.data;
+  // 图书出版日期分布图
   await initPubLine();
+  // 图书热门借阅排行
   await initBookTop();
+  // 图书热门续借排行
+  await initRenewTop();
 });
 </script>
 
