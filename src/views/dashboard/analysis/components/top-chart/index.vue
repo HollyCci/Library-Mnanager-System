@@ -41,7 +41,9 @@
         <n-list class="w-full h-333px" :show-divider="false">
           <n-list-item v-for="book in dataShow.bookRanks" :key="book.bookId">
             <n-flex justify="space-between">
-              <n-text class="text-15px">{{ book.bookName }}</n-text>
+              <n-ellipsis style="max-width: 290px">
+                {{ book.bookName }}
+              </n-ellipsis>
               <n-text style="font-weight: bold">{{ book.borrowCount }}</n-text>
             </n-flex>
             <n-progress
