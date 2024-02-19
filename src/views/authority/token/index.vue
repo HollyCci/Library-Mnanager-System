@@ -2,8 +2,8 @@
   <n-space :vertical="true" :size="16">
     <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
       <n-form ref="queryFormRef" inline label-width="85px" label-placement="left" :model="queryParams">
-        <n-form-item label="用户编号">
-          <n-input v-model:value="queryParams.userId" placeholder="请输入用户编号" @keyup.enter="handleQuery" />
+        <n-form-item label="用户账号">
+          <n-input v-model:value="queryParams.username" placeholder="请输入用户账号/学号" @keyup.enter="handleQuery" />
         </n-form-item>
         <!-- <n-form-item label="用户类型">
           <n-select v-model:value="queryParams.type" class="!w-200px" placeholder="请选择用户类型" :options="options" />
@@ -49,6 +49,7 @@ const queryParams = reactive({
   pageNo: 1,
   pageSize: 10,
   userId: '',
+	username: '',
   type: '',
   clientId: ''
 });
@@ -70,6 +71,7 @@ type RowData = {
   accessToken: string;
   refreshToken: string;
   userId: number;
+	userName: string
   type: number;
   expiresTime: number;
   createTime: number;
@@ -80,6 +82,7 @@ const columns: DataTableColumns<RowData> = [
   { key: 'refreshToken', title: '刷新令牌',
 		align: "center" },
   { key: 'userId', title: '用户编号', align: "center" },
+	{ key: 'username', title: '用户账号', align: "center" },
   // { key: 'userType', title: '用户类型',	align: "center" },
   {
 		key: 'expiresTime',
