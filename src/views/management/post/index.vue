@@ -67,13 +67,7 @@
       </n-form>
     </n-card>
     <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
-      <n-data-table
-        v-if="refreshTable"
-        :loading="loading"
-        :columns="columns"
-        :data="list"
-        :pagination="pagination"
-      ></n-data-table>
+      <n-data-table v-if="refreshTable" :loading="loading" :columns="columns" :data="list" :pagination="pagination" />
     </n-card>
 
     <n-modal v-model:show="formShow" :on-mask-click="close" transform-origin="center">

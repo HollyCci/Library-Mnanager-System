@@ -75,7 +75,7 @@
         :columns="columns"
         :data="list"
         :default-expand-all="isExpandAll"
-      ></n-data-table>
+      />
     </n-card>
 
     <!-- 新增/修改弹窗 -->
