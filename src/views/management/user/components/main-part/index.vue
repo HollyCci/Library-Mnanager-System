@@ -131,7 +131,7 @@
       </n-card>
     </n-space>
   </n-space>
-  <n-modal v-model:show="fromShow" transform-origin="center">
+  <n-modal v-model:show="formShow" transform-origin="center">
     <n-card style="width: 600px" title="用户信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
       <n-form
         ref="formRef"
@@ -494,7 +494,6 @@ const getTree = async () => {
   deptList.value = [];
   // @ts-ignore
   deptList.value.push(...handleTree(data));
-  console.log(deptList.value);
 };
 
 /** 处理用户状态变化 */
@@ -671,7 +670,7 @@ const handleImport = () => {
 
 
 // =================================
-const fromShow = ref(false); // 表单的显示状态
+const formShow = ref(false); // 表单的显示状态
 const formRef = ref<HTMLElement & FormInst>(); // 表单的引用
 const formLoading = ref(false); // 表单的加载中：1）修改时的数据加载；2）提交的按钮禁用
 const formType = ref(''); // 表单的类型：create - 新增；update - 修改
@@ -701,7 +700,7 @@ const rules: FormRules = {
 }; // 表单的校验规则
 
 async function openForm(type: string, id?: number) {
-  fromShow.value = true; // 打开表单弹窗
+  formShow.value = true; // 打开表单弹窗
   formType.value = type; // 设置表单类型
 
   // 如果是修改时设置数据
@@ -762,7 +761,7 @@ async function submitFrom() {
 
 // 关闭表单弹窗
 function close() {
-  fromShow.value = false; // 关闭表单弹窗
+  formShow.value = false; // 关闭表单弹窗
   formData.value = {
     nickname: '',
     classId: '',

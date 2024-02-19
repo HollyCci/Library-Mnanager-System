@@ -30,7 +30,7 @@
       </n-form>
     </n-card>
     <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
-      <n-data-table :loading="loading" :columns="columns" :data="list" :pagination="pagination" />
+      <n-data-table remote :loading="loading" :columns="columns" :data="list" :pagination="pagination" />
     </n-card>
   </n-space>
 </template>
@@ -65,7 +65,7 @@ const queryParams = reactive({
 // ];
 
 /**
- * 数据项信息
+ * 数据项信息类型定义
  */
 type RowData = {
   accessToken: string;
@@ -76,7 +76,9 @@ type RowData = {
   expiresTime: number;
   createTime: number;
 };
-
+/**
+ * 数据项具体信息
+ */
 const columns: DataTableColumns<RowData> = [
   { key: 'accessToken', title: '访问令牌', align: "center" },
   { key: 'refreshToken', title: '刷新令牌',
