@@ -431,6 +431,9 @@ declare namespace I18nType {
         'scheduled-tasks': string;
         mysql: string;
         redis: string;
+        'audit-log': string;
+        'login-log': string;
+        'operate-log': string;
         apiLog: string;
         accessLog: string;
         exceptionLog: string;

@@ -37,6 +37,40 @@ const facility: AuthRoute.Route = {
       }
     },
     {
+      name: 'facility_audit-log',
+      path: '/facility/audit-log',
+      component: 'multi',
+      children: [
+        {
+          name: 'facility_audit-log_login-log',
+          path: '/facility/audit-log/login-log',
+          component: 'self',
+          meta: {
+            title: '登录日志',
+            i18nTitle: 'routes.facility.login-log',
+            requiresAuth: true,
+            icon: 'ant-design:login-outlined'
+          }
+        },
+        {
+          name: 'facility_audit-log_operate-log',
+          path: '/facility/audit-log/operate-log',
+          component: 'self',
+          meta: {
+            title: '操作日志',
+            i18nTitle: 'routes.facility.operate-log',
+            requiresAuth: true,
+            icon: 'ant-design:file-done-outlined'
+          }
+        }
+      ],
+      meta: {
+        title: '审计日志',
+        i18nTitle: 'routes.facility.audit-log',
+        icon: 'ant-design:audit-outlined'
+      }
+    },
+    {
       name: 'facility_apiLog',
       path: '/facility/apiLog',
       component: 'multi',

@@ -46,6 +46,8 @@ export const views: Record<
   'facility_api-interface-documents': () => import('./facility/api-interface-documents/index.vue'),
   'facility_apiLog_access-log': () => import('./facility/apiLog/access-log/index.vue'),
   'facility_apiLog_exception-log': () => import('./facility/apiLog/exception-log/index.vue'),
+  'facility_audit-log_login-log': () => import('./facility/audit-log/login-log/index.vue'),
+  'facility_audit-log_operate-log': () => import('./facility/audit-log/operate-log/index.vue'),
   'facility_database-documents': () => import('./facility/database-documents/index.vue'),
   facility_mysql: () => import('./facility/mysql/index.vue'),
   facility_redis: () => import('./facility/redis/index.vue'),
