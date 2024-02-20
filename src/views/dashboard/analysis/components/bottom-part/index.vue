@@ -1,25 +1,25 @@
 <template>
-  <n-grid :x-gap="16" :y-gap="16" :item-responsive="true">
-    <n-grid-item span="0:24 640:24 1024:6">
-      <!-- <n-card title="最近借阅记录" :bordered="false" class="h-full rounded-8px shadow-sm">
-        <n-timeline>
-          <n-timeline-item v-for="item in timelines" :key="item.type" v-bind="item" />
-        </n-timeline>
-      </n-card> -->
-    </n-grid-item>
-    <n-grid-item span="0:24 640:24 1024:18">
-      <n-card :bordered="false" class="h-full rounded-8px shadow-sm">
-        <!-- <div ref="barRef" class="h-400px"></div> -->
-      </n-card>
-    </n-grid-item>
-  </n-grid>
+	<n-grid :x-gap="16" :y-gap="16" :item-responsive="true">
+		<n-grid-item span="0:24 640:24 1024:6">
+			<!-- <n-card title="最近借阅记录" :bordered="false" class="h-full rounded-8px shadow-sm">
+				<n-timeline>
+					<n-timeline-item v-for="item in timelines" :key="item.type" v-bind="item" />
+				</n-timeline>
+			</n-card> -->
+		</n-grid-item>
+		<n-grid-item span="0:24 640:24 1024:18">
+			<n-card :bordered="false" class="h-full rounded-8px shadow-sm">
+				<!-- <div ref="barRef" class="h-400px"></div> -->
+			</n-card>
+		</n-grid-item>
+	</n-grid>
 </template>
 
 <script setup lang="ts">
 // import { ref } from 'vue';
 // import type { Ref } from 'vue';
 // import { type ECOption, useEcharts } from '@/composables';
-defineOptions({ name: 'DashboardAnalysisBottomPart' });
+defineOptions({name: 'DashboardAnalysisBottomPart'});
 
 // interface TimelineData {
 //   type: 'default' | 'info' | 'success' | 'warning' | 'error';
