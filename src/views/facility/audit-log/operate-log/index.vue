@@ -1,6 +1,6 @@
 <template>
   <n-space :vertical="true" :size="16">
-    <n-card>
+    <n-card :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
       <n-form inline label-width="68px" label-placement="left" :model="queryParams">
         <n-form-item label="系统模块">
           <n-input
@@ -72,7 +72,7 @@
         </n-button>
       </n-space>
     </n-card>
-    <n-card>
+    <n-card :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
       <n-data-table remote size="small" :loading="loading" :columns="columns" :data="list" :pagination="pagination" />
     </n-card>
     <n-modal v-model:show="formShow" transform-origin="center">
@@ -294,7 +294,7 @@ const pageCount = ref(0);
 const getList = async () => {
 	loading.value = true;
 	try {
-		const { data } = await OperateLogApi.getLoginLogPage(queryParams);
+		const { data } = await OperateLogApi.pageOperateLog(queryParams);
 		list.value = data.list;
 		pagination.page = queryParams.pageNo;
 		pagination.pageSize = queryParams.pageSize;
@@ -376,7 +376,7 @@ const handleExport = async () => {
 			onPositiveClick: async () => {
 				exportLoading.value = true;
 				// @ts-ignore
-				const data = await OperateLogApi.exportLoginLog(queryParams);
+				const data = await OperateLogApi.exportOperateLog(queryParams);
 				// @ts-ignore
 				download.excel(data, '操作日志.xls');
 			}

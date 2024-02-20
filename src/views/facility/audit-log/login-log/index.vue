@@ -1,6 +1,6 @@
 <template>
   <n-space :vertical="true" :size="16">
-    <n-card>
+    <n-card :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
       <n-form inline label-placement="left" :model="queryParams">
         <n-form-item label="用户名称">
           <n-input
