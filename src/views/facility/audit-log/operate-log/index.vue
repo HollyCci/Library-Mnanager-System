@@ -25,6 +25,7 @@
             clearable
             class="w-200px"
             :options="typeOptions"
+            @update:value="handleQuery"
           />
         </n-form-item>
         <n-form-item label="操作状态">
@@ -34,6 +35,7 @@
             clearable
             class="w-200px"
             :options="successOptions"
+            @update:value="handleQuery"
           />
         </n-form-item>
         <n-form-item label="操作时间">
@@ -71,7 +73,7 @@
       </n-space>
     </n-card>
     <n-card>
-      <n-data-table remote :loading="loading" :columns="columns" :data="list" :pagination="pagination" />
+      <n-data-table remote size="small" :loading="loading" :columns="columns" :data="list" :pagination="pagination" />
     </n-card>
     <n-modal v-model:show="formShow" transform-origin="center">
       <n-card
@@ -79,12 +81,12 @@
         closable
         title="详情"
         :bordered="false"
-        size="huge"
+        size="small"
         role="dialog"
         aria-modal="true"
         @close="formShow = false"
       >
-        <n-descriptions bordered label-placement="left" label-style="width: 120px" :column="1">
+        <n-descriptions bordered label-placement="left" size="small" label-style="width: 120px" :column="1">
           <n-descriptions-item label="日志编号">{{ rowInfo.id }}</n-descriptions-item>
           <n-descriptions-item label="链路追踪">{{ rowInfo.traceId }}</n-descriptions-item>
           <n-descriptions-item label="操作人编号">{{ rowInfo.userId }}</n-descriptions-item>
@@ -102,17 +104,25 @@
             <n-tag v-if="rowInfo.type === 6" type="primary">导入</n-tag>
             <n-tag v-if="rowInfo.type === 0">其他</n-tag>
           </n-descriptions-item>
-          <n-descriptions-item label="操作明细">{{ rowInfo.content }}</n-descriptions-item>
-          <n-descriptions-item label="请求URL">{{ rowInfo.requestUrl }}</n-descriptions-item>
+          <n-descriptions-item v-if="rowInfo.content" label="操作明细">{{ rowInfo.content }}</n-descriptions-item>
+          <n-descriptions-item v-if="rowInfo.exts" label="操作拓展参数">{{ rowInfo.exts }}</n-descriptions-item>
+          <n-descriptions-item label="请求URL">
+            {{ rowInfo.requestMethod }} {{ rowInfo.requestUrl }}
+          </n-descriptions-item>
           <n-descriptions-item label="Java方法名">{{ rowInfo.javaMethod }}</n-descriptions-item>
           <n-descriptions-item label="Java方法参数">{{ rowInfo.javaMethodArgs }}</n-descriptions-item>
           <n-descriptions-item label="操作时间">{{ formatDate(rowInfo.startTime) }}</n-descriptions-item>
-          <n-descriptions-item label="执行时长">{{ rowInfo.duration }}</n-descriptions-item>
+          <n-descriptions-item label="执行时长">{{ rowInfo.duration }} ms</n-descriptions-item>
           <n-descriptions-item label="操作结果">
             <n-tag v-if="rowInfo.resultCode === 200" type="success">成功</n-tag>
             <n-tag v-else type="error">失败</n-tag>
           </n-descriptions-item>
-          <n-descriptions-item label="结果数据">{{ rowInfo.resultData }}</n-descriptions-item>
+          <n-descriptions-item v-if="rowInfo.resultCode === 200" label="结果数据">
+            {{ rowInfo.resultData }}
+          </n-descriptions-item>
+          <n-descriptions-item v-if="rowInfo.resultCode !== 200" label="失败提示">
+            {{ rowInfo.resultData }}
+          </n-descriptions-item>
         </n-descriptions>
       </n-card>
     </n-modal>
@@ -137,7 +147,7 @@ const queryParams = reactive({
 	pageSize: 10,
 	module: '',
 	userNickname: '',
-	type: '',
+	type: null,
 	success: null,
 	startTime: null
 });
@@ -146,40 +156,40 @@ const queryParams = reactive({
  * 操作类型选项
  */
 const typeOptions = [
-  {
-    label: '查询',
-    value: 1
-  },
-  {
-    label: '新增',
-    value: 2
-  },
-  {
-    label: '修改',
-    value: 3
-  },
-  {
-    label: '删除',
-    value: 4
-  },
-  {
-    label: '导出',
-    value: 5
-  },
-  {
-    label: '导入',
-    value: 6
-  },
 	{
-    label: '其他',
-    value: 0
-  }
+		label: '查询',
+		value: 1
+	},
+	{
+		label: '新增',
+		value: 2
+	},
+	{
+		label: '修改',
+		value: 3
+	},
+	{
+		label: '删除',
+		value: 4
+	},
+	{
+		label: '导出',
+		value: 5
+	},
+	{
+		label: '导入',
+		value: 6
+	},
+	{
+		label: '其他',
+		value: 0
+	}
 ];
 
 /**
  * 操作状态选项
  */
- const successOptions = [
+const successOptions = [
 	{
 		label: "成功",
 		value: "true"
@@ -188,13 +198,13 @@ const typeOptions = [
 		label: "失败",
 		value: "false"
 	}
- ];
+];
 
 
 /**
  * 数据项信息类型定义
  */
- type RowData = {
+type RowData = {
 	id: number;
 	module: string;
 	name: string;
@@ -208,9 +218,9 @@ const typeOptions = [
  * 数据项具体信息
  */
 const columns: DataTableColumns<RowData> = [
-	{ key: 'id', title: '日志编号', align: "center", width:80 },
-	{ key: 'module', title: '操作模块', align: "center", width:240 },
-	{ key: 'name', title: '操作名', align: "center", width:180 },
+	{ key: 'id', title: '日志编号', align: "center", width: 80 },
+	{ key: 'module', title: '操作模块', align: "center", width: 240 },
+	{ key: 'name', title: '操作名', align: "center", width: 180 },
 
 	{
 		key: 'type', title: '操作类型', align: "center",
@@ -238,9 +248,9 @@ const columns: DataTableColumns<RowData> = [
 			}
 		}
 	},
-	{ key: "userNickname", title: "操作人", align: "center"},
+	{ key: "userNickname", title: "操作人", align: "center" },
 	{
-		key: 'resultCode', title: '操作结果', align: 'center', width:80,
+		key: 'resultCode', title: '操作结果', align: 'center', width: 80,
 		render: (row: any) => {
 			if (row.resultCode === 200) {
 				return <NTag type="success">成功</NTag>
@@ -256,17 +266,17 @@ const columns: DataTableColumns<RowData> = [
 			return formatDate(row.startTime);
 		}
 	},
-	{ key: 'duration', title: '执行时长', align: "center", width:80 },
+	{ key: 'duration', title: '执行时长', align: "center", width: 80 ,render:(row:any)=>row.duration+' ms'},
 	{
 		title: '操作',
 		key: 'operate',
 		align: 'center',
 		render: (row: any) => {
 			return (
-				<NButton color="#ff69b4" text size={'small'}
-				onClick={() => {
-              openForm(row);
-            }}>
+				<NButton color="#007AFF" text size={'small'}
+					onClick={() => {
+						openForm(row);
+					}}>
 					详情
 				</NButton>
 			);
@@ -346,7 +356,7 @@ const resetQuery = () => {
 	queryParams.pageNo = 1;
 	queryParams.module = '';
 	queryParams.userNickname = '';
-	queryParams.type = '';
+	queryParams.type = null;
 	queryParams.success = null;
 	queryParams.startTime = null;
 	getList();
@@ -380,8 +390,8 @@ const handleExport = async () => {
 /**
  * 详情页面
  */
- const formShow = ref(false); // 表单的显示状态
-const rowInfo:any = ref()
+const formShow = ref(false); // 表单的显示状态
+const rowInfo: any = ref()
 async function openForm(row?: any) {
 	formShow.value = true; // 打开表单弹窗
 	rowInfo.value = row;

@@ -57,7 +57,7 @@
       </n-form>
     </n-card>
     <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
-      <n-data-table remote :loading="loading" :columns="columns" :data="list" :pagination="pagination" />
+      <n-data-table remote size="small" :loading="loading" :columns="columns" :data="list" :pagination="pagination" />
     </n-card>
     <n-modal v-model:show="formShow" transform-origin="center">
       <n-card
@@ -65,12 +65,12 @@
         closable
         title="详情"
         :bordered="false"
-        size="huge"
+        size="small"
         role="dialog"
         aria-modal="true"
         @close="formShow = false"
       >
-        <n-descriptions bordered label-placement="left" label-style="width: 120px" :column="1">
+        <n-descriptions bordered label-placement="left" size="small" label-style="width: 120px" :column="1">
           <n-descriptions-item label="日志编号">{{ rowInfo.id }}</n-descriptions-item>
           <n-descriptions-item label="操作类型">
             <n-tag v-if="rowInfo.logType === 100" type="primary">账号登录</n-tag>
@@ -174,6 +174,7 @@ const columns: DataTableColumns<RowData> = [
 	{
 		key: 'createTime',
 		title: '执行日期',
+		width: 160,
 		align: "center",
 		render: (row: any) => {
 			return formatDate(row.createTime);
@@ -183,9 +184,10 @@ const columns: DataTableColumns<RowData> = [
 		title: '操作',
 		key: 'operate',
 		align: 'center',
+		width: 80,
 		render: (row: any) => {
 			return (
-				<NButton color="#ff69b4" text size={'small'}
+				<NButton color="#007AFF" text size={'small'}
 				onClick={() => {
               openForm(row);
             }}>
