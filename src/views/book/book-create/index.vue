@@ -1,341 +1,341 @@
 <template>
-	<n-space vertical :size="16">
-		<n-card title="步骤" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
-			<n-space vertical>
-				<t-steps :current="current" status="process" class="steps-demos-extra">
-					<t-step-item title="图书" content="新增图书">
-						<template v-if="current === 0" #extra>
-							<t-button size="small" variant="base" :loading="createBookLoading" @click="handleSubmitBook">
-								下一步
-							</t-button>
-						</template>
-					</t-step-item>
-					<t-step-item title="库存" content="新增库存">
-						<template v-if="current === 1" #extra>
-							<t-button size="small" variant="text" @click="current--">上一步</t-button>
-							<t-button size="small" variant="base" @click="current++">下一步</t-button>
-						</template>
-					</t-step-item>
-					<t-step-item title="完成" content="添加成功">
-						<template v-if="current === 2" #extra>
-							<t-button size="small" variant="text" @click="current--">上一步</t-button>
-							<t-button size="small" variant="base" @click="current++">下一步</t-button>
-						</template>
-					</t-step-item>
-				</t-steps>
-			</n-space>
-		</n-card>
-		<n-card
-			v-if="current === 0"
-			title="书目信息"
-			:bordered="false"
-			size="small"
-			class="rounded-8px shadow-sm"
-			hoverable
-		>
-			<n-space :size="16" :wrap="false">
-				<!-- 左侧：图书封面 -->
-				<n-space :size="16">
-					<n-avatar class="mt20" :size="200" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"/>
-				</n-space>
-				<!-- 右侧：图书信息表单 -->
-				<n-space :size="16" :wrap="false">
-					<n-form ref="formRef" v-loading="formLoading" :rules="formBookRules" :inline="true" :model="formBookData">
-						<!-- 使用 n-grid 来布局表单项 -->
-						<n-grid :cols="24" :x-gap="50">
-							<!-- 图书名称 -->
-							<n-form-item-gi :span="5" label="图书名字" path="title" required>
-								<n-input v-model:value="formBookData.title" placeholder="请输入图书名字"/>
-							</n-form-item-gi>
+  <n-space vertical :size="16">
+    <n-card title="步骤" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
+      <n-space vertical>
+        <t-steps :current="current" status="process" class="steps-demos-extra">
+          <t-step-item title="图书" content="新增图书">
+            <template v-if="current === 0" #extra>
+              <t-button size="small" variant="base" :loading="createBookLoading" @click="handleSubmitBook">
+                下一步
+              </t-button>
+            </template>
+          </t-step-item>
+          <t-step-item title="库存" content="新增库存">
+            <template v-if="current === 1" #extra>
+              <t-button size="small" variant="text" @click="current--">上一步</t-button>
+              <t-button size="small" variant="base" @click="current++">下一步</t-button>
+            </template>
+          </t-step-item>
+          <t-step-item title="完成" content="添加成功">
+            <template v-if="current === 2" #extra>
+              <t-button size="small" variant="text" @click="current--">上一步</t-button>
+              <t-button size="small" variant="base" @click="current++">下一步</t-button>
+            </template>
+          </t-step-item>
+        </t-steps>
+      </n-space>
+    </n-card>
+    <n-card
+      v-if="current === 0"
+      title="书目信息"
+      :bordered="false"
+      size="small"
+      class="rounded-8px shadow-sm"
+      hoverable
+    >
+      <n-space :size="16" :wrap="false">
+        <!-- 左侧：图书封面 -->
+        <n-space :size="16">
+          <n-avatar class="mt20" :size="200" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+        </n-space>
+        <!-- 右侧：图书信息表单 -->
+        <n-space :size="16" :wrap="false">
+          <n-form ref="formRef" v-loading="formLoading" :rules="formBookRules" :inline="true" :model="formBookData">
+            <!-- 使用 n-grid 来布局表单项 -->
+            <n-grid :cols="24" :x-gap="50">
+              <!-- 图书名称 -->
+              <n-form-item-gi :span="5" label="图书名字" path="title" required>
+                <n-input v-model:value="formBookData.title" placeholder="请输入图书名字" />
+              </n-form-item-gi>
 
-							<!-- 作者 -->
-							<n-form-item-gi :span="5" label="作者" path="author" required>
-								<n-input v-model:value="formBookData.author" placeholder="请输入图书作者"/>
-							</n-form-item-gi>
+              <!-- 作者 -->
+              <n-form-item-gi :span="5" label="作者" path="author" required>
+                <n-input v-model:value="formBookData.author" placeholder="请输入图书作者" />
+              </n-form-item-gi>
 
-							<!-- ISBN -->
-							<n-form-item-gi :span="5" label="ISBN" path="isbn" required>
-								<n-input v-model:value="formBookData.isbn" placeholder="请输入图书标准编码"/>
-							</n-form-item-gi>
+              <!-- ISBN -->
+              <n-form-item-gi :span="5" label="ISBN" path="isbn" required>
+                <n-input v-model:value="formBookData.isbn" placeholder="请输入图书标准编码" />
+              </n-form-item-gi>
 
-							<!-- 分类 -->
-							<n-form-item-gi :span="7" label="分类" path="categoryId" required>
-								<n-tree-select
-									v-model:value="formBookData.categoryId"
-									filterable
-									checkable
-									:options="categoryList"
-									default-expand-all
-									label-field="name"
-									key-field="id"
-									children-field="children"
-									clearable
-									placeholder="请选择图书分类"
-								>
-									<template #action>
-										<n-gradient-text type="info">📣:图书分类较多，您可以输入检索信息快速搜索。</n-gradient-text>
-									</template>
-								</n-tree-select>
-							</n-form-item-gi>
+              <!-- 分类 -->
+              <n-form-item-gi :span="7" label="分类" path="categoryId" required>
+                <n-tree-select
+                  v-model:value="formBookData.categoryId"
+                  filterable
+                  checkable
+                  :options="categoryList"
+                  default-expand-all
+                  label-field="name"
+                  key-field="id"
+                  children-field="children"
+                  clearable
+                  placeholder="请选择图书分类"
+                >
+                  <template #action>
+                    <n-gradient-text type="info">📣:图书分类较多，您可以输入检索信息快速搜索。</n-gradient-text>
+                  </template>
+                </n-tree-select>
+              </n-form-item-gi>
 
-							<n-form-item-gi :span="5" label="出版社" path="publisher" required>
-								<n-input v-model:value="formBookData.publisher" placeholder="请输入图书出版社"/>
-							</n-form-item-gi>
-							<n-form-item-gi :span="5" label="出版地" path="pubCity">
-								<n-input v-model:value="formBookData.pubCity" placeholder="请输入图书出版地"/>
-							</n-form-item-gi>
-							<n-form-item-gi :span="5" label="出版国家" path="pubCountry">
-								<n-input v-model:value="formBookData.pubCountry" placeholder="请输入图书出版国家英文缩写"/>
-							</n-form-item-gi>
-							<n-form-item-gi :span="7" label="主题词" path="subjectIds" required>
-								<n-select
-									v-model:value="formBookData.subjectIds"
-									multiple
-									filterable
-									label-field="name"
-									value-field="id"
-									:options="subjectList"
-									placeholder="请为其分配主题词"
-								>
-									<template #action>
-										<n-gradient-text type="info">📢:主题词信息较多，您可以输入检索信息快速搜索。</n-gradient-text>
-									</template>
-								</n-select>
-							</n-form-item-gi>
-							<n-form-item-gi :span="4" label="出版时间" path="pubDate">
-								<n-input-number v-model:value="formBookData.pubDate" placeholder="图书出版时间"/>
-							</n-form-item-gi>
-							<n-form-item-gi :span="3" label="价格" path="price" required>
-								<n-input-number v-model:value="formBookData.price" :show-button="false" :min="0">
-									<template #prefix>￥</template>
-								</n-input-number>
-							</n-form-item-gi>
-							<n-form-item-gi :span="3" label="页数" path="pages">
-								<n-input-number v-model:value="formBookData.pages" :show-button="false">
-									<template #suffix>页</template>
-								</n-input-number>
-							</n-form-item-gi>
-							<n-form-item-gi :span="5" label="索书号" path="callNumber">
-								<n-input v-model:value="formBookData.callNumber" placeholder="请输入图书索书号"/>
-							</n-form-item-gi>
-							<n-form-item-gi :span="7" label="中图分类" path="classification">
-								<n-input v-model:value="formBookData.classification" placeholder="请输入图书所属中图分类"/>
-							</n-form-item-gi>
-							<n-form-item-gi :span="12" label="本书摘要" path="abstracts">
-								<n-input
-									v-model:value="formBookData.abstracts"
-									type="textarea"
-									maxlength="250"
-									show-count
-									:autosize="{
+              <n-form-item-gi :span="5" label="出版社" path="publisher" required>
+                <n-input v-model:value="formBookData.publisher" placeholder="请输入图书出版社" />
+              </n-form-item-gi>
+              <n-form-item-gi :span="5" label="出版地" path="pubCity">
+                <n-input v-model:value="formBookData.pubCity" placeholder="请输入图书出版地" />
+              </n-form-item-gi>
+              <n-form-item-gi :span="5" label="出版国家" path="pubCountry">
+                <n-input v-model:value="formBookData.pubCountry" placeholder="请输入图书出版国家英文缩写" />
+              </n-form-item-gi>
+              <n-form-item-gi :span="7" label="主题词" path="subjectIds" required>
+                <n-select
+                  v-model:value="formBookData.subjectIds"
+                  multiple
+                  filterable
+                  label-field="name"
+                  value-field="id"
+                  :options="subjectList"
+                  placeholder="请为其分配主题词"
+                >
+                  <template #action>
+                    <n-gradient-text type="info">📢:主题词信息较多，您可以输入检索信息快速搜索。</n-gradient-text>
+                  </template>
+                </n-select>
+              </n-form-item-gi>
+              <n-form-item-gi :span="4" label="出版时间" path="pubDate">
+                <n-input-number v-model:value="formBookData.pubDate" placeholder="图书出版时间" />
+              </n-form-item-gi>
+              <n-form-item-gi :span="3" label="价格" path="price" required>
+                <n-input-number v-model:value="formBookData.price" :show-button="false" :min="0">
+                  <template #prefix>￥</template>
+                </n-input-number>
+              </n-form-item-gi>
+              <n-form-item-gi :span="3" label="页数" path="pages">
+                <n-input-number v-model:value="formBookData.pages" :show-button="false">
+                  <template #suffix>页</template>
+                </n-input-number>
+              </n-form-item-gi>
+              <n-form-item-gi :span="5" label="索书号" path="callNumber">
+                <n-input v-model:value="formBookData.callNumber" placeholder="请输入图书索书号" />
+              </n-form-item-gi>
+              <n-form-item-gi :span="7" label="中图分类" path="classification">
+                <n-input v-model:value="formBookData.classification" placeholder="请输入图书所属中图分类" />
+              </n-form-item-gi>
+              <n-form-item-gi :span="12" label="本书摘要" path="abstracts">
+                <n-input
+                  v-model:value="formBookData.abstracts"
+                  type="textarea"
+                  maxlength="250"
+                  show-count
+                  :autosize="{
                     minRows: 2,
                     maxRows: 5
                   }"
-									placeholder="请于此处输入图书摘要信息"
-								/>
-							</n-form-item-gi>
-							<n-form-item-gi :span="10" label="丛编项" path="series">
-								<n-input
-									v-model:value="formBookData.series"
-									type="textarea"
-									maxlength="50"
-									show-count
-									:autosize="{
+                  placeholder="请于此处输入图书摘要信息"
+                />
+              </n-form-item-gi>
+              <n-form-item-gi :span="10" label="丛编项" path="series">
+                <n-input
+                  v-model:value="formBookData.series"
+                  type="textarea"
+                  maxlength="50"
+                  show-count
+                  :autosize="{
                     minRows: 2,
                     maxRows: 5
                   }"
-									placeholder="请于此处输入图书丛编项"
-								/>
-							</n-form-item-gi>
-							<n-gi :span="24">
-								<div style="display: flex; justify-content: flex-end">
-									<n-button
-										v-if="isSubmit === false"
-										round
-										type="primary"
-										:loading="createBookLoading"
-										@click="handleSubmitBook"
-									>
-										提交
-									</n-button>
-									<n-button
-										v-if="isSubmit === true"
-										round
-										type="primary"
-										:loading="createBookLoading"
-										@click="handleSubmitBook"
-									>
-										更新
-									</n-button>
-								</div>
-							</n-gi>
-						</n-grid>
-					</n-form>
-				</n-space>
-			</n-space>
-		</n-card>
+                  placeholder="请于此处输入图书丛编项"
+                />
+              </n-form-item-gi>
+              <n-gi :span="24">
+                <div style="display: flex; justify-content: flex-end">
+                  <n-button
+                    v-if="isSubmit === false"
+                    round
+                    type="primary"
+                    :loading="createBookLoading"
+                    @click="handleSubmitBook"
+                  >
+                    提交
+                  </n-button>
+                  <n-button
+                    v-if="isSubmit === true"
+                    round
+                    type="primary"
+                    :loading="createBookLoading"
+                    @click="handleSubmitBook"
+                  >
+                    更新
+                  </n-button>
+                </div>
+              </n-gi>
+            </n-grid>
+          </n-form>
+        </n-space>
+      </n-space>
+    </n-card>
 
-		<n-card
-			v-if="current === 1"
-			title="馆藏信息"
-			:bordered="false"
-			size="small"
-			class="rounded-8px shadow-sm"
-			hoverable
-		>
-			<!-- 新增按钮 -->
-			<n-button plain type="primary" class="ml1 mb2" @click="openForm('create')">
-				<template #icon>
-					<icon-fluent:add-12-regular class="text-20px"/>
-				</template>
-				新增
-			</n-button>
+    <n-card
+      v-if="current === 1"
+      title="馆藏信息"
+      :bordered="false"
+      size="small"
+      class="rounded-8px shadow-sm"
+      hoverable
+    >
+      <!-- 新增按钮 -->
+      <n-button plain type="primary" class="ml1 mb2" @click="openForm('create')">
+        <template #icon>
+          <icon-fluent:add-12-regular class="text-20px" />
+        </template>
+        新增
+      </n-button>
 
-			<!-- 导入按钮 -->
-			<n-button plain class="ml3 mr3" type="warning" @click="handleImport">
-				<template #icon>
-					<icon-ep:upload class="text-20px"/>
-				</template>
-				导入
-			</n-button>
+      <!-- 导入按钮 -->
+      <n-button plain class="ml3 mr3" type="warning" @click="handleImport">
+        <template #icon>
+          <icon-ep:upload class="text-20px" />
+        </template>
+        导入
+      </n-button>
 
-			<!-- 馆藏信息数据表格 -->
-			<n-data-table
-				:loading="loading"
-				striped
-				remote
-				:single-line="false"
-				:data="list"
-				:row-key="rowKey"
-				:columns="columns"
-				:pagination="pagination"
-			/>
-		</n-card>
+      <!-- 馆藏信息数据表格 -->
+      <n-data-table
+        :loading="loading"
+        striped
+        remote
+        :single-line="false"
+        :data="list"
+        :row-key="rowKey"
+        :columns="columns"
+        :pagination="pagination"
+      />
+    </n-card>
 
-		<!-- 馆藏信息编辑弹窗 -->
-		<n-modal v-model:show="formShow" transform-origin="center">
-			<n-card style="width: 600px" title="库存信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
-				<!-- 弹窗头部：关闭按钮 -->
-				<template #header-extra>
-					<icon-line-md:close class="text-20px" @click="formStackClose"/>
-				</template>
+    <!-- 馆藏信息编辑弹窗 -->
+    <n-modal v-model:show="formShow" transform-origin="center">
+      <n-card style="width: 600px" title="库存信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
+        <!-- 弹窗头部：关闭按钮 -->
+        <template #header-extra>
+          <icon-line-md:close class="text-20px" @click="formStackClose" />
+        </template>
 
-				<!-- 弹窗内容：馆藏信息编辑表单 -->
-				<n-form
-					ref="formStackRef"
-					v-loading="formLoading"
-					:model="formStackData"
-					label-placement="left"
-					label-width="80px"
-				>
-					<!-- 图书名字展示 -->
-					<n-form-item label="图书">
-						<n-input v-model:value="formBookData.title" disabled style="width: 80%"/>
-					</n-form-item>
+        <!-- 弹窗内容：馆藏信息编辑表单 -->
+        <n-form
+          ref="formStackRef"
+          v-loading="formLoading"
+          :model="formStackData"
+          label-placement="left"
+          label-width="80px"
+        >
+          <!-- 图书名字展示 -->
+          <n-form-item label="图书">
+            <n-input v-model:value="formBookData.title" disabled style="width: 80%" />
+          </n-form-item>
 
-					<!-- 条形码输入框 -->
-					<n-form-item label="条形码" path="barCode">
-						<n-input v-model:value="formStackData.barCode" placeholder="请输入图书条形码" style="width: 80%"/>
-					</n-form-item>
+          <!-- 条形码输入框 -->
+          <n-form-item label="条形码" path="barCode">
+            <n-input v-model:value="formStackData.barCode" placeholder="请输入图书条形码" style="width: 80%" />
+          </n-form-item>
 
-					<!-- 馆藏地址选择 -->
-					<n-form-item label="馆藏地址" path="stackId" style="width: 57%">
-						<n-select
-							v-model:value="formStackData.stackId"
-							clearable
-							placeholder="请选择馆藏地址"
-							:options="stackList"
-							label-field="name"
-							value-field="id"
-							key-field="id"
-						/>
-					</n-form-item>
+          <!-- 馆藏地址选择 -->
+          <n-form-item label="馆藏地址" path="stackId" style="width: 57%">
+            <n-select
+              v-model:value="formStackData.stackId"
+              clearable
+              placeholder="请选择馆藏地址"
+              :options="stackList"
+              label-field="name"
+              value-field="id"
+              key-field="id"
+            />
+          </n-form-item>
 
-					<!-- 图书状态选择 -->
-					<n-form-item label="图书状态" path="status" style="width: 50%">
-						<n-select
-							v-model:value="formStackData.status"
-							clearable
-							placeholder="请选择图书状态"
-							:options="DictOptions"
-						/>
-					</n-form-item>
+          <!-- 图书状态选择 -->
+          <n-form-item label="图书状态" path="status" style="width: 50%">
+            <n-select
+              v-model:value="formStackData.status"
+              clearable
+              placeholder="请选择图书状态"
+              :options="DictOptions"
+            />
+          </n-form-item>
 
-					<!-- 详细地址输入框 -->
-					<n-form-item label="详细地址" path="location">
-						<n-input
-							v-model:value="formStackData.location"
-							type="textarea"
-							:autosize="{
+          <!-- 详细地址输入框 -->
+          <n-form-item label="详细地址" path="location">
+            <n-input
+              v-model:value="formStackData.location"
+              type="textarea"
+              :autosize="{
                 minRows: 2,
                 maxRows: 5
               }"
-							placeholder="请输入详细地址"
-						/>
-					</n-form-item>
-				</n-form>
+              placeholder="请输入详细地址"
+            />
+          </n-form-item>
+        </n-form>
 
-				<!-- 弹窗底部按钮 -->
-				<template #footer>
-					<n-space style="float: right">
-						<n-button type="primary" @click="submitFrom">确 定</n-button>
-						<n-button @click="formStackClose">取 消</n-button>
-					</n-space>
-				</template>
-			</n-card>
-		</n-modal>
+        <!-- 弹窗底部按钮 -->
+        <template #footer>
+          <n-space style="float: right">
+            <n-button type="primary" @click="submitFrom">确 定</n-button>
+            <n-button @click="formStackClose">取 消</n-button>
+          </n-space>
+        </template>
+      </n-card>
+    </n-modal>
 
-		<n-modal v-model:show="uploadShow" transform-origin="center" preset="dialog" title="库存导入">
-			<!-- 文件上传部分 -->
-			<n-upload
-				ref="uploadRef"
-				multiple
-				:default-upload="false"
-				directory-dnd
-				:action="importUrl + '?updateSupport=' + updateSupport"
-				:max="1"
-				:headers="uploadHeaders"
-				accept=".xlsx, .xls"
-				:on-error="submitFormError"
-				:on-finish="submitFormSuccess"
-			>
-				<!-- 文件上传拖拽区域 -->
-				<n-upload-dragger>
-					<div style="margin-bottom: 12px; width: 333px">
-						<n-icon size="48" :depth="3">
-							<icon-line-md:upload-loop/>
-						</n-icon>
-					</div>
-					<n-text style="font-size: 16px">点击或者拖动文件到该区域来上传</n-text>
-				</n-upload-dragger>
-			</n-upload>
+    <n-modal v-model:show="uploadShow" transform-origin="center" preset="dialog" title="库存导入">
+      <!-- 文件上传部分 -->
+      <n-upload
+        ref="uploadRef"
+        multiple
+        :default-upload="false"
+        directory-dnd
+        :action="importUrl + '?updateSupport=' + updateSupport"
+        :max="1"
+        :headers="uploadHeaders"
+        accept=".xlsx, .xls"
+        :on-error="submitFormError"
+        :on-finish="submitFormSuccess"
+      >
+        <!-- 文件上传拖拽区域 -->
+        <n-upload-dragger>
+          <div style="margin-bottom: 12px; width: 333px">
+            <n-icon size="48" :depth="3">
+              <icon-line-md:upload-loop />
+            </n-icon>
+          </div>
+          <n-text style="font-size: 16px">点击或者拖动文件到该区域来上传</n-text>
+        </n-upload-dragger>
+      </n-upload>
 
-			<!-- 是否更新已存在的用户数据的选择 -->
-			<n-space justify="center">
-				<n-checkbox v-model:checked="updateSupport" class="m2">是否更新已经存在的用户数据</n-checkbox>
-			</n-space>
+      <!-- 是否更新已存在的用户数据的选择 -->
+      <n-space justify="center">
+        <n-checkbox v-model:checked="updateSupport" class="m2">是否更新已经存在的用户数据</n-checkbox>
+      </n-space>
 
-			<!-- 文件格式说明和模板下载 -->
-			<n-space justify="center">
-				仅允许导入xlsx、xls格式的文件。
-				<n-button text type="primary" @click="importTemplate">下载模板</n-button>
-			</n-space>
+      <!-- 文件格式说明和模板下载 -->
+      <n-space justify="center">
+        仅允许导入xlsx、xls格式的文件。
+        <n-button text type="primary" @click="importTemplate">下载模板</n-button>
+      </n-space>
 
-			<!-- 底部操作按钮 -->
-			<template #action>
-				<n-button type="primary" @click="submitUploadForm">确定</n-button>
-				<n-button @click="closeUploadForm">取消</n-button>
-			</template>
-		</n-modal>
+      <!-- 底部操作按钮 -->
+      <template #action>
+        <n-button type="primary" @click="submitUploadForm">确定</n-button>
+        <n-button @click="closeUploadForm">取消</n-button>
+      </template>
+    </n-modal>
 
-		<n-card v-if="current === 2" title="结果页" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
-			<n-result status="success" title="添加图书成功" description="">
-				<template #footer>
-					<n-button @click="backPage">返回馆藏图书页</n-button>
-				</template>
-			</n-result>
-		</n-card>
-	</n-space>
+    <n-card v-if="current === 2" title="结果页" :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
+      <n-result status="success" title="添加图书成功" description="">
+        <template #footer>
+          <n-button @click="backPage">返回馆藏图书页</n-button>
+        </template>
+      </n-result>
+    </n-card>
+  </n-space>
 </template>
 
 <script setup lang="tsx">
