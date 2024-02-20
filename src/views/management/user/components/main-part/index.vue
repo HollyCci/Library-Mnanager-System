@@ -1,256 +1,256 @@
 <template>
-	<n-space :size="16" :wrap="false">
-		<n-space :vertical="true" :size="16">
-			<n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
-				<n-input-group>
-					<n-input v-model:value="filterText" placeholder="搜索部门" style="margin-bottom: 20px" @input="onFilterInput">
-						<template #prefix>
-							<icon-uil-search class="text-20px"/>
-						</template>
-					</n-input>
-					<!-- <n-button type="primary" ghost @click="resetQuery">重置</n-button> -->
-				</n-input-group>
-				<!-- <t-input-adornment>
+  <n-space :size="16" :wrap="false">
+    <n-space :vertical="true" :size="16">
+      <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
+        <n-input-group>
+          <n-input v-model:value="filterText" placeholder="搜索部门" style="margin-bottom: 20px" @input="onFilterInput">
+            <template #prefix>
+              <icon-uil-search class="text-20px" />
+            </template>
+          </n-input>
+          <!-- <n-button type="primary" ghost @click="resetQuery">重置</n-button> -->
+        </n-input-group>
+        <!-- <t-input-adornment>
 					<t-input v-model="filterText" @change="onFilterInput" />
 				</t-input-adornment> -->
-				<t-tree
-					ref="treeRef"
-					:data="deptList"
-					expand-on-click-node
-					:keys="deptTreeProp"
-					:filter="handleFilterByText"
-					hover
-					@click="handleNodeClick"
-				></t-tree>
-				<!--        :filter="handleFilterByText" /> -->
-			</n-card>
-		</n-space>
+        <t-tree
+          ref="treeRef"
+          :data="deptList"
+          expand-on-click-node
+          :keys="deptTreeProp"
+          :filter="handleFilterByText"
+          hover
+          @click="handleNodeClick"
+        ></t-tree>
+        <!--        :filter="handleFilterByText" /> -->
+      </n-card>
+    </n-space>
 
-		<n-space :vertical="true" :size="16" :wrap="false">
-			<n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
-				<n-form
-					ref="queryFormRef"
-					:inline="true"
-					:model="queryParams"
-					class="-mb-15px"
-					label-width="68px"
-					label-placement="left"
-				>
-					<n-form-item label="用户名称" path="username">
-						<n-input
-							v-model:value="queryParams.username"
-							class="!w-240px"
-							clearable
-							placeholder="请输入用户名称"
-							@keyup.enter="handleQuery"
-						/>
-					</n-form-item>
-					<n-form-item label="用户昵称" path="nickname">
-						<n-input
-							v-model:value="queryParams.nickname"
-							class="!w-240px"
-							clearable
-							placeholder="请输入用户昵称"
-							@keyup.enter="handleQuery"
-						/>
-					</n-form-item>
-					<n-form-item label="手机号码" path="mobile">
-						<n-input
-							v-model:value="queryParams.mobile"
-							class="!w-240px"
-							clearable
-							placeholder="请输入手机号码"
-							@keyup.enter="handleQuery"
-						/>
-					</n-form-item>
-					<n-form-item label="状态" path="status">
-						<n-select
-							v-model:value="queryParams.status"
-							class="!w-240px"
-							clearable
-							placeholder="请选择用户状态"
-							:options="DictOptions"
-						/>
-					</n-form-item>
-					<n-form-item label="创建时间" path="createTime">
-						<n-date-picker
-							v-model:value="queryParams.createTime"
-							type="daterange"
-							start-placeholder="开始日期"
-							end-placeholder="结束日期"
-							clearable
-							:default-time="['00:00:00', '23:59:59']"
-							class="!w-340px"
-						/>
-					</n-form-item>
-				</n-form>
-				<n-space class="m2">
-					<!-- 搜索按钮 -->
-					<n-button class="mr3" @click="handleQuery">
-						<template #icon>
-							<icon-uil-search class="text-20px"/>
-						</template>
-						搜索
-					</n-button>
-					<n-button class="mr3" @click="resetQuery">
-						<template #icon>
-							<icon-iconamoon:restart-bold class="text-20px"/>
-						</template>
-						重置
-					</n-button>
-					<n-button class="mr3" plain type="primary" @click="openForm('create')">
-						<template #icon>
-							<icon-fluent:add-12-regular class="text-20px"/>
-						</template>
-						新增
-					</n-button>
-					<n-button plain class="mr3" type="success" @click="handleExport">
-						<template #icon>
-							<icon-uil:import class="text-20px"/>
-						</template>
-						导出
-					</n-button>
-					<n-button plain class="mr3" type="warning" @click="handleImport">
-						<template #icon>
-							<icon-ep:upload class="text-20px"/>
-						</template>
-						导入
-					</n-button>
-				</n-space>
-			</n-card>
-			<n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable style="width: 1330px">
-				<n-data-table
-					:loading="loading"
-					remote
-					:data="list"
-					:row-key="rowKey"
-					:columns="columns"
-					:pagination="pagination"
-					:scroll-x="1650"
-				/>
-			</n-card>
-		</n-space>
-	</n-space>
-	<n-modal v-model:show="formShow" transform-origin="center">
-		<n-card style="width: 600px" title="用户信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
-			<n-form
-				ref="formRef"
-				v-loading="formLoading"
-				:rules="rules"
-				:model="formData"
-				label-placement="left"
-				label-width="93px"
-			>
-				<n-grid :cols="24" :x-gap="4">
-					<n-form-item-gi :span="12" label="用户昵称" path="nickname" required>
-						<n-input v-model:value="formData.nickname" placeholder="请输入用户昵称"/>
-					</n-form-item-gi>
-					<n-form-item-gi v-if="formData.id === undefined" :span="12" label="用户名称" path="username" required>
-						<n-input v-model:value="formData.username" placeholder="请输入用户名称/学号"/>
-					</n-form-item-gi>
-					<n-form-item-gi :span="12" label="归属部门" path="deptId">
-						<n-tree-select
-							v-model:value="formData.deptId"
-							filterable
-							:options="deptList"
-							label-field="name"
-							key-field="id"
-							children-field="children"
-							clearable
-							placeholder="请选择上级部门"
-						/>
-					</n-form-item-gi>
-					<n-form-item-gi :span="12" label="手机号码" path="mobile">
-						<n-input v-model:value="formData.mobile" placeholder="请输入手机号码"/>
-					</n-form-item-gi>
-					<n-form-item-gi :span="12" label="邮箱" path="email">
-						<n-input v-model:value="formData.email" placeholder="请输入用户邮箱"/>
-					</n-form-item-gi>
-					<n-form-item-gi v-if="formData.id === undefined" :span="12" label="用户密码" required path="password">
-						<n-input
-							v-model:value="formData.password"
-							show-password-on="click"
-							type="password"
-							placeholder="请输入用户密码"
-						/>
-					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="用户性别" path="sex" required>
-						<n-select v-model:value="formData.sex" :options="SexDictOptions"/>
-					</n-form-item-gi>
-					<n-form-item-gi :span="16" label="归属班级" path="classId">
-						<n-tree-select
-							v-model:value="formData.classId"
-							:options="classList"
-							filterable
-							label-field="name"
-							key-field="id"
-							children-field="children"
-							clearable
-							placeholder="请选择所属班级"
-							default-expand-all
-						/>
-					</n-form-item-gi>
-					<n-form-item-gi :span="24" label="岗位">
-						<n-select
-							v-model:value="formData.postIds"
-							multiple
-							label-field="name"
-							value-field="id"
-							:options="postList"
-							placeholder="请选择所属岗位"
-						/>
-					</n-form-item-gi>
-					<n-form-item-gi :span="24" label="备注">
-						<n-input
-							v-model:value="formData.remark"
-							show-count
-							:autosize="{
+    <n-space :vertical="true" :size="16" :wrap="false">
+      <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable>
+        <n-form
+          ref="queryFormRef"
+          :inline="true"
+          :model="queryParams"
+          class="-mb-15px"
+          label-width="68px"
+          label-placement="left"
+        >
+          <n-form-item label="用户名称" path="username">
+            <n-input
+              v-model:value="queryParams.username"
+              class="!w-240px"
+              clearable
+              placeholder="请输入用户名称"
+              @keyup.enter="handleQuery"
+            />
+          </n-form-item>
+          <n-form-item label="用户昵称" path="nickname">
+            <n-input
+              v-model:value="queryParams.nickname"
+              class="!w-240px"
+              clearable
+              placeholder="请输入用户昵称"
+              @keyup.enter="handleQuery"
+            />
+          </n-form-item>
+          <n-form-item label="手机号码" path="mobile">
+            <n-input
+              v-model:value="queryParams.mobile"
+              class="!w-240px"
+              clearable
+              placeholder="请输入手机号码"
+              @keyup.enter="handleQuery"
+            />
+          </n-form-item>
+          <n-form-item label="状态" path="status">
+            <n-select
+              v-model:value="queryParams.status"
+              class="!w-240px"
+              clearable
+              placeholder="请选择用户状态"
+              :options="DictOptions"
+            />
+          </n-form-item>
+          <n-form-item label="创建时间" path="createTime">
+            <n-date-picker
+              v-model:value="queryParams.createTime"
+              type="daterange"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              clearable
+              :default-time="['00:00:00', '23:59:59']"
+              class="!w-340px"
+            />
+          </n-form-item>
+        </n-form>
+        <n-space class="m2">
+          <!-- 搜索按钮 -->
+          <n-button class="mr3" @click="handleQuery">
+            <template #icon>
+              <icon-uil-search class="text-20px" />
+            </template>
+            搜索
+          </n-button>
+          <n-button class="mr3" @click="resetQuery">
+            <template #icon>
+              <icon-iconamoon:restart-bold class="text-20px" />
+            </template>
+            重置
+          </n-button>
+          <n-button class="mr3" plain type="primary" @click="openForm('create')">
+            <template #icon>
+              <icon-fluent:add-12-regular class="text-20px" />
+            </template>
+            新增
+          </n-button>
+          <n-button plain class="mr3" type="success" @click="handleExport">
+            <template #icon>
+              <icon-uil:import class="text-20px" />
+            </template>
+            导出
+          </n-button>
+          <n-button plain class="mr3" type="warning" @click="handleImport">
+            <template #icon>
+              <icon-ep:upload class="text-20px" />
+            </template>
+            导入
+          </n-button>
+        </n-space>
+      </n-card>
+      <n-card :bordered="false" class="h-full rounded-8px shadow-sm" hoverable style="width: 1330px">
+        <n-data-table
+          :loading="loading"
+          remote
+          :data="list"
+          :row-key="rowKey"
+          :columns="columns"
+          :pagination="pagination"
+          :scroll-x="1650"
+        />
+      </n-card>
+    </n-space>
+  </n-space>
+  <n-modal v-model:show="formShow" transform-origin="center">
+    <n-card style="width: 600px" title="用户信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
+      <n-form
+        ref="formRef"
+        v-loading="formLoading"
+        :rules="rules"
+        :model="formData"
+        label-placement="left"
+        label-width="93px"
+      >
+        <n-grid :cols="24" :x-gap="4">
+          <n-form-item-gi :span="12" label="用户昵称" path="nickname" required>
+            <n-input v-model:value="formData.nickname" placeholder="请输入用户昵称" />
+          </n-form-item-gi>
+          <n-form-item-gi v-if="formData.id === undefined" :span="12" label="用户名称" path="username" required>
+            <n-input v-model:value="formData.username" placeholder="请输入用户名称/学号" />
+          </n-form-item-gi>
+          <n-form-item-gi :span="12" label="归属部门" path="deptId">
+            <n-tree-select
+              v-model:value="formData.deptId"
+              filterable
+              :options="deptList"
+              label-field="name"
+              key-field="id"
+              children-field="children"
+              clearable
+              placeholder="请选择上级部门"
+            />
+          </n-form-item-gi>
+          <n-form-item-gi :span="12" label="手机号码" path="mobile">
+            <n-input v-model:value="formData.mobile" placeholder="请输入手机号码" />
+          </n-form-item-gi>
+          <n-form-item-gi :span="12" label="邮箱" path="email">
+            <n-input v-model:value="formData.email" placeholder="请输入用户邮箱" />
+          </n-form-item-gi>
+          <n-form-item-gi v-if="formData.id === undefined" :span="12" label="用户密码" required path="password">
+            <n-input
+              v-model:value="formData.password"
+              show-password-on="click"
+              type="password"
+              placeholder="请输入用户密码"
+            />
+          </n-form-item-gi>
+          <n-form-item-gi :span="8" label="用户性别" path="sex" required>
+            <n-select v-model:value="formData.sex" :options="SexDictOptions" />
+          </n-form-item-gi>
+          <n-form-item-gi :span="16" label="归属班级" path="classId">
+            <n-tree-select
+              v-model:value="formData.classId"
+              :options="classList"
+              filterable
+              label-field="name"
+              key-field="id"
+              children-field="children"
+              clearable
+              placeholder="请选择所属班级"
+              default-expand-all
+            />
+          </n-form-item-gi>
+          <n-form-item-gi :span="24" label="岗位">
+            <n-select
+              v-model:value="formData.postIds"
+              multiple
+              label-field="name"
+              value-field="id"
+              :options="postList"
+              placeholder="请选择所属岗位"
+            />
+          </n-form-item-gi>
+          <n-form-item-gi :span="24" label="备注">
+            <n-input
+              v-model:value="formData.remark"
+              show-count
+              :autosize="{
                 minRows: 3,
                 maxRows: 5
               }"
-							type="textarea"
-							placeholder="请输入内容"
-						/>
-					</n-form-item-gi>
-				</n-grid>
-			</n-form>
-			<template #footer>
-				<n-space style="float: right">
-					<n-button type="primary" @click="submitFrom">确 定</n-button>
-					<n-button @click="close">取 消</n-button>
-				</n-space>
-			</template>
-		</n-card>
-	</n-modal>
-	<n-modal v-model:show="fromRoleShow" transform-origin="center">
-		<n-card style="width: 600px" title="角色信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
-			<n-form ref="formRoleRef" v-loading="formLoading" :model="formRoleData" label-placement="left" label-width="80px">
-				<n-form-item label="用户名称" path="username">
-					<t-tag theme="primary">{{ formRoleData.username }}</t-tag>
-				</n-form-item>
-				<n-form-item label="用户昵称" path="nickname">
-					<t-tag theme="primary">{{ formRoleData.nickname }}</t-tag>
-				</n-form-item>
-				<n-form-item label="角色">
-					<n-select
-						v-model:value="formRoleData.roleIds"
-						multiple
-						label-field="name"
-						key-filed="id"
-						value-field="id"
-						:options="roleList"
-						placeholder="请选择角色"
-					/>
-				</n-form-item>
-			</n-form>
-			<template #footer>
-				<n-space style="float: right">
-					<n-button type="primary" @click="submitRole">确 定</n-button>
-					<n-button @click="closeRole">取 消</n-button>
-				</n-space>
-			</template>
-		</n-card>
-	</n-modal>
+              type="textarea"
+              placeholder="请输入内容"
+            />
+          </n-form-item-gi>
+        </n-grid>
+      </n-form>
+      <template #footer>
+        <n-space style="float: right">
+          <n-button type="primary" @click="submitFrom">确 定</n-button>
+          <n-button @click="close">取 消</n-button>
+        </n-space>
+      </template>
+    </n-card>
+  </n-modal>
+  <n-modal v-model:show="fromRoleShow" transform-origin="center">
+    <n-card style="width: 600px" title="角色信息" :bordered="false" size="huge" role="dialog" aria-modal="true">
+      <n-form ref="formRoleRef" v-loading="formLoading" :model="formRoleData" label-placement="left" label-width="80px">
+        <n-form-item label="用户名称" path="username">
+          <t-tag theme="primary">{{ formRoleData.username }}</t-tag>
+        </n-form-item>
+        <n-form-item label="用户昵称" path="nickname">
+          <t-tag theme="primary">{{ formRoleData.nickname }}</t-tag>
+        </n-form-item>
+        <n-form-item label="角色">
+          <n-select
+            v-model:value="formRoleData.roleIds"
+            multiple
+            label-field="name"
+            key-filed="id"
+            value-field="id"
+            :options="roleList"
+            placeholder="请选择角色"
+          />
+        </n-form-item>
+      </n-form>
+      <template #footer>
+        <n-space style="float: right">
+          <n-button type="primary" @click="submitRole">确 定</n-button>
+          <n-button @click="closeRole">取 消</n-button>
+        </n-space>
+      </template>
+    </n-card>
+  </n-modal>
 </template>
 <script setup lang="tsx">
 /* eslint-disable */
@@ -258,7 +258,7 @@
 defineOptions({name: 'MainPart'});
 // 引入需要的 Vue 3 模块和组件
 import {reactive, ref, onMounted} from 'vue';
-import {NSpace, NButton, NAvatar, NDropdown, NInput, NModal, NDescriptions, NDescriptionsItem} from 'naive-ui';
+import {NSpace, NButton, NAvatar, NDropdown, NInput, NModal, NDescriptions, NDescriptionsItem, NSwitch} from 'naive-ui';
 import type {DataTableColumns, FormRules, FormInst} from 'naive-ui';
 import {formatDate} from '@/utils/common/formatTime';
 import download from '@/utils/common/download';
@@ -427,7 +427,7 @@ const columns: DataTableColumns<RowData> = [
 		title: '状态',
 		align: 'center',
 		render(row) {
-			return <n-switch value={row.status === 0} onChange={(value: boolean) => handleStatusChange(row, value)}/>
+			return <NSwitch value={row.status === 0} onChange={(value: boolean) => handleStatusChange(row, value)}/>
 		}
 	},
 	{key: 'email', title: '电子邮箱', align: 'center', width: 185},

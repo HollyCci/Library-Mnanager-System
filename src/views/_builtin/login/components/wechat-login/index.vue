@@ -36,99 +36,104 @@ const weChatTicket = ref<string>();
 
 const showQrCodeUrl = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=";
 const loginSrc = () => {
-  return `${showQrCodeUrl}${weChatTicket.value}`;
+	return `${showQrCodeUrl}${weChatTicket.value}`;
 };
 
 const pollStatusEnum = {
-  // 初始化二维码(未扫码)
-  init: 0,
-  // 扫码成功
-  scanSuccess: 1,
-  // 登录成功
-  loginSuccess: 2,
-  // 未绑定平台
-  unBind: 3,
-  // 二维码失效
-  invalid: 4,
+	// 初始化二维码(未扫码)
+	init: 0,
+	// 扫码成功
+	scanSuccess: 1,
+	// 登录成功
+	loginSuccess: 2,
+	// 未绑定平台
+	unBind: 3,
+	// 二维码失效
+	invalid: 4,
 };
 
 const sleep = (time: number) =>
-  new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
+	new Promise((resolve) => {
+		setTimeout(resolve, time);
+	});
 
 const pollFlag = ref<boolean>(false); // 轮询标志
 let retryCount = 0; // 失败轮询次数
-const MAX_RETRY_COUNT = 5; // 失败轮询次数
+const MAX_RETRY_COUNT = 2; // 失败轮询次数
 const UNBIND_CODE = 1002000011; // 未绑定平台code
 // 轮训微信QR状态
 const pollWeChatLogin = async () => {
-  try {
-    // 如果轮询标志为真，则开始轮训
-    if (!pollFlag.value) {
-      return;
-    }
+	try {
+		// 如果轮询标志为真，则开始轮训
+		if (!pollFlag.value) {
+			return;
+		}
 
-    const data = await fetchWeChatPoll({ uuid: pollId.value });
+		const data = await fetchWeChatPoll({ uuid: pollId.value });
 
-    if (data.error != null && data.error?.code !== 200) {
-      retryCount += 1;
+		if (data.error != null && data.error?.code !== 200) {
+			retryCount += 1;
 
-      // 未绑定平台
-      if (data.error?.code === UNBIND_CODE) {
-        localStg.set("pollId", pollId.value);
-        toLoginModule(BIND_USER);
-        pollFlag.value = false;
-      }
+			// 未绑定平台
+			if (data.error?.code === UNBIND_CODE) {
+				localStg.set("pollId", pollId.value);
+				toLoginModule(BIND_USER);
+				pollFlag.value = false;
+			}
 
-      // 异常时轮训次数超过最大次数
-      if (retryCount > MAX_RETRY_COUNT) {
-        pollFlag.value = false;
-        return;
-      }
-    }
+			// 异常时轮训次数超过最大次数
+			if (retryCount > MAX_RETRY_COUNT) {
+				pollFlag.value = false;
+				return;
+			}
+		}
 
-    // 扫码成功
-    if (data.data?.status === pollStatusEnum.loginSuccess) {
-      const { accessToken, refreshToken, userId } = data.data;
-      await auth.handleActionAfterLogin({
-        accessToken,
-        refreshToken,
-        userId,
-      });
-      resetRouteStore();
-      initAuthRoute();
-    } else {
-      await sleep(1000);
-      pollWeChatLogin();
-    }
-  } catch (error) {
-    message.error(`${error}`);
-  }
+		// 扫码成功
+		if (data.data?.status === pollStatusEnum.loginSuccess) {
+			const { accessToken, refreshToken, userId } = data.data;
+			await auth.handleActionAfterLogin({
+				accessToken,
+				refreshToken,
+				userId,
+			});
+			pollFlag.value = false;
+			resetRouteStore();
+			initAuthRoute();
+		} else {
+			await sleep(1000);
+			pollWeChatLogin();
+		}
+	} catch (error) {
+		message.error(`${error}`);
+	}
 };
 /**
  * 获取登录二维码
  */
 const initWeChatTicket = async () => {
-  try {
-    const response = await fetchWeChatTicket();
-    if (response.data) {
-      pollId.value = response.data?.uuid;
-      weChatTicket.value = response.data?.ticket;
-    }
+	try {
+		const response = await fetchWeChatTicket();
+		if (response.data) {
+			pollId.value = response.data?.uuid;
+			weChatTicket.value = response.data?.ticket;
+		}
 
-    // 轮训
-    pollFlag.value = true;
-    pollWeChatLogin();
-  } catch (e) {
-    message.error(`${e}`);
-  }
+		// 轮训
+		pollFlag.value = true;
+		pollWeChatLogin();
+
+		// 两分钟后停止轮询并弹框
+		setTimeout(() => {
+			pollFlag.value = false;
+		}, 120000); // 两分钟，单位毫秒
+	} catch (e) {
+		message.error(`${e}`);
+	}
 };
 
 onMounted(() => {
-  initWeChatTicket();
+	initWeChatTicket();
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
