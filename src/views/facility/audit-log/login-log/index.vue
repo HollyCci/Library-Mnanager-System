@@ -1,7 +1,7 @@
 <template>
   <n-space :vertical="true" :size="16">
     <n-card>
-      <n-form ref="queryFormRef" inline label-placement="left" :model="queryParams">
+      <n-form inline label-placement="left" :model="queryParams">
         <n-form-item label="用户名称">
           <n-input
             v-model:value="queryParams.username"
@@ -103,8 +103,6 @@ import * as LoginLogApi from '@/service/api/loginLog';
 import { formatDate } from '@/utils/common/formatTime';
 import download from '@/utils/common/download';
 
-
-const rowInfo:any = ref()
 
 /**
  * 搜索表单变量
@@ -214,7 +212,6 @@ const getList = async () => {
 		pagination.pageSize = queryParams.pageSize;
 		pagination.itemCount = data.total;
 		pageCount.value = Math.ceil(pagination.itemCount / pagination.pageSize);
-		console.log(pageCount.value)
 	} catch (error) {
 		console.log(error);
 	} finally {
@@ -250,7 +247,6 @@ const pagination = reactive({
 
 
 
-const queryFormRef = ref(); // 搜索的表单
 /**
  * 搜索按钮操作
  */
@@ -303,9 +299,11 @@ const handleExport = async () => {
 
 
 
-
+/**
+ * 详情页面
+ */
 const formShow = ref(false); // 表单的显示状态
-
+const rowInfo:any = ref()
 async function openForm(row?: any) {
 	formShow.value = true; // 打开表单弹窗
 	rowInfo.value = row;
