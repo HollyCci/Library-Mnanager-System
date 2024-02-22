@@ -5,12 +5,13 @@
     selectable
     :font-size="14"
     :line-height="16"
-    :width="292"
+    :width="392"
     :height="228"
-    :font-weight="200"
+    :font-weight="100"
     :x-offset="12"
     :y-offset="28"
     :rotate="-14"
+    class="h-full"
   >
     <router-view v-slot="{ Component, route }">
       <transition
