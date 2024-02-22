@@ -12,6 +12,7 @@ export function getUserInfo() {
     roles: [],
     user: {
       id: 0,
+      username: '',
       avatar: '',
       nickname: ''
     }

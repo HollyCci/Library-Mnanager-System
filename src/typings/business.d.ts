@@ -28,6 +28,8 @@ declare namespace Auth {
     avatar: string;
     /** 用户姓名 */
     nickname: string;
+    /** 用户账号/学号 */
+    username: string;
   }
 
   /** 用户基本信息 */
