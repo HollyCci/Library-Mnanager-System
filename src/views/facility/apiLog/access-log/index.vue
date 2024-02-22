@@ -1,13 +1,13 @@
 <template>
   <n-space :vertical="true" :size="16">
     <n-card :bordered="false" size="small" class="rounded-8px shadow-sm" hoverable>
-      <n-form inline label-width="68px" label-placement="left" :model="queryParams">
-        <n-grid :x-gap="12" :y-gap="8" :cols="4" :collapsed-rows="1">
+      <n-form inline label-placement="left" :model="queryParams">
+        <n-grid :x-gap="12" :y-gap="8" :cols="4">
           <n-form-item-gi label="用户编号">
             <n-input
               v-model:value="queryParams.userId"
               placeholder="请输入用户编号"
-              class="w-200px"
+              class="w-240px"
               @keyup.enter="handleQuery"
             />
           </n-form-item-gi>
@@ -15,7 +15,7 @@
             <n-select
               v-model:value="queryParams.userType"
               placeholder="请选择用户类型"
-              class="w-200px"
+              class="w-240px"
               clearable
               :options="userTypeOptions"
               @update:value="handleQuery"
@@ -25,7 +25,7 @@
             <n-input
               v-model:value="queryParams.applicationName"
               placeholder="请输入应用名"
-              class="w-200px"
+              class="w-240px"
               @keyup.enter="handleQuery"
             />
           </n-form-item-gi>
@@ -45,7 +45,7 @@
             <n-input
               v-model:value="queryParams.duration"
               placeholder="请输入执行时长"
-              class="w-200px"
+              class="w-240px"
               @keyup.enter="handleQuery"
             />
           </n-form-item-gi>
@@ -53,7 +53,7 @@
             <n-input
               v-model:value="queryParams.resultCode"
               placeholder="请输入结果码"
-              class="w-200px"
+              class="w-240px"
               @keyup.enter="handleQuery"
             />
           </n-form-item-gi>
