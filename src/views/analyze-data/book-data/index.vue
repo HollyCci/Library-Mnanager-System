@@ -1,100 +1,100 @@
 <template>
-	<div>
-		<n-grid cols="s:1 m:2 l:4" responsive="screen" :x-gap="16" :y-gap="16">
-			<n-gi>
-				<gradient-bg class="h-100px" :start-color="cardData[0].colors[0]" :end-color="cardData[0].colors[1]">
-					<h3 class="text-18px">{{ cardData[0].title }}</h3>
-					<div class="flex justify-between pt-12px">
-						<svg-icon :icon="cardData[0].icon" class="text-32px"/>
-						<count-to
-							:prefix="cardData[0].unit"
-							:start-value="1"
-							:end-value="remoteData.bookSkuCount"
-							class="text-30px text-white dark:text-dark"
-						/>
-					</div>
-				</gradient-bg>
-			</n-gi>
-			<n-gi>
-				<gradient-bg class="h-100px" :start-color="cardData[1].colors[0]" :end-color="cardData[1].colors[1]">
-					<h3 class="text-18px">{{ cardData[1].title }}</h3>
-					<div class="flex justify-between pt-12px">
-						<svg-icon :icon="cardData[1].icon" class="text-32px"/>
-						<count-to
-							:prefix="cardData[1].unit"
-							:start-value="1"
-							:end-value="remoteData.inventoryCount"
-							class="text-30px text-white dark:text-dark"
-						/>
-					</div>
-				</gradient-bg>
-			</n-gi>
-			<n-gi>
-				<gradient-bg class="h-100px" :start-color="cardData[2].colors[0]" :end-color="cardData[2].colors[1]">
-					<h3 class="text-18px">{{ cardData[2].title }}</h3>
-					<div class="flex justify-between pt-12px">
-						<svg-icon :icon="cardData[2].icon" class="text-32px"/>
-						<count-to
-							:prefix="cardData[2].unit"
-							:start-value="1"
-							:end-value="remoteData.categoryCount"
-							class="text-30px text-white dark:text-dark"
-						/>
-					</div>
-				</gradient-bg>
-			</n-gi>
-			<n-gi>
-				<gradient-bg class="h-100px" :start-color="cardData[3].colors[0]" :end-color="cardData[3].colors[1]">
-					<h3 class="text-18px">{{ cardData[3].title }}</h3>
-					<div class="flex justify-between pt-12px">
-						<svg-icon :icon="cardData[3].icon" class="text-32px"/>
-						<count-to
-							:prefix="cardData[3].unit"
-							:start-value="1"
-							:end-value="remoteData.subjectCount"
-							class="text-30px text-white dark:text-dark"
-						/>
-					</div>
-				</gradient-bg>
-			</n-gi>
-		</n-grid>
+  <div>
+    <n-grid cols="s:1 m:2 l:4" responsive="screen" :x-gap="16" :y-gap="16">
+      <n-gi>
+        <gradient-bg class="h-100px" :start-color="cardData[0].colors[0]" :end-color="cardData[0].colors[1]">
+          <h3 class="text-18px">{{ cardData[0].title }}</h3>
+          <div class="flex justify-between pt-12px">
+            <svg-icon :icon="cardData[0].icon" class="text-32px" />
+            <count-to
+              :prefix="cardData[0].unit"
+              :start-value="1"
+              :end-value="remoteData.bookSkuCount"
+              class="text-30px text-white dark:text-dark"
+            />
+          </div>
+        </gradient-bg>
+      </n-gi>
+      <n-gi>
+        <gradient-bg class="h-100px" :start-color="cardData[1].colors[0]" :end-color="cardData[1].colors[1]">
+          <h3 class="text-18px">{{ cardData[1].title }}</h3>
+          <div class="flex justify-between pt-12px">
+            <svg-icon :icon="cardData[1].icon" class="text-32px" />
+            <count-to
+              :prefix="cardData[1].unit"
+              :start-value="1"
+              :end-value="remoteData.inventoryCount"
+              class="text-30px text-white dark:text-dark"
+            />
+          </div>
+        </gradient-bg>
+      </n-gi>
+      <n-gi>
+        <gradient-bg class="h-100px" :start-color="cardData[2].colors[0]" :end-color="cardData[2].colors[1]">
+          <h3 class="text-18px">{{ cardData[2].title }}</h3>
+          <div class="flex justify-between pt-12px">
+            <svg-icon :icon="cardData[2].icon" class="text-32px" />
+            <count-to
+              :prefix="cardData[2].unit"
+              :start-value="1"
+              :end-value="remoteData.categoryCount"
+              class="text-30px text-white dark:text-dark"
+            />
+          </div>
+        </gradient-bg>
+      </n-gi>
+      <n-gi>
+        <gradient-bg class="h-100px" :start-color="cardData[3].colors[0]" :end-color="cardData[3].colors[1]">
+          <h3 class="text-18px">{{ cardData[3].title }}</h3>
+          <div class="flex justify-between pt-12px">
+            <svg-icon :icon="cardData[3].icon" class="text-32px" />
+            <count-to
+              :prefix="cardData[3].unit"
+              :start-value="1"
+              :end-value="remoteData.subjectCount"
+              class="text-30px text-white dark:text-dark"
+            />
+          </div>
+        </gradient-bg>
+      </n-gi>
+    </n-grid>
 
-		<n-grid :x-gap="16" :y-gap="16" :item-responsive="true" class="mt4">
-			<n-grid-item span="0:24 640:24 1024:10">
-				<n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
-					<category-data class="h-330px" :category-list="remoteData.subjectList"/>
-				</n-card>
-			</n-grid-item>
-			<n-grid-item span="0:24 640:240 1024:6	">
-				<n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
-					<subject-data class="h-330px" :subject-list="remoteData.subjectList"/>
-				</n-card>
-			</n-grid-item>
-			<n-grid-item span="0:24 640:240 1024:8	">
-				<n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
-					<div ref="pubRef" class="h-330px"></div>
-				</n-card>
-			</n-grid-item>
-		</n-grid>
+    <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" class="mt4">
+      <n-grid-item span="0:24 640:24 1024:10">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
+          <category-data class="h-330px" :category-list="remoteData.categoryList" />
+        </n-card>
+      </n-grid-item>
+      <n-grid-item span="0:24 640:240 1024:6	">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
+          <subject-data class="h-330px" :subject-list="remoteData.subjectList" />
+        </n-card>
+      </n-grid-item>
+      <n-grid-item span="0:24 640:240 1024:8	">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
+          <div ref="pubRef" class="h-330px"></div>
+        </n-card>
+      </n-grid-item>
+    </n-grid>
 
-		<n-grid :x-gap="16" :y-gap="16" :item-responsive="true" class="mt4">
-			<n-grid-item span="0:24 640:24 1024:8">
-				<n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
-					<div ref="bookTopRef" class="h-450px"></div>
-				</n-card>
-			</n-grid-item>
-			<n-grid-item span="0:24 640:240 1024:8">
-				<n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
-					<div ref="renewTopRef" class="h-450px"></div>
-				</n-card>
-			</n-grid-item>
-			<n-grid-item span="0:24 640:240 1024:8	">
-				<n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
-					<div ref="searchTopRef" class="h-450px"></div>
-				</n-card>
-			</n-grid-item>
-		</n-grid>
-	</div>
+    <n-grid :x-gap="16" :y-gap="16" :item-responsive="true" class="mt4">
+      <n-grid-item span="0:24 640:24 1024:8">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
+          <div ref="bookTopRef" class="h-450px"></div>
+        </n-card>
+      </n-grid-item>
+      <n-grid-item span="0:24 640:240 1024:8">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
+          <div ref="renewTopRef" class="h-450px"></div>
+        </n-card>
+      </n-grid-item>
+      <n-grid-item span="0:24 640:240 1024:8	">
+        <n-card :bordered="false" class="rounded-8px shadow-sm" hoverable style="background-color: #383546">
+          <div ref="searchTopRef" class="h-450px"></div>
+        </n-card>
+      </n-grid-item>
+    </n-grid>
+  </div>
 </template>
 <script setup lang="ts">
 /* eslint-disable */

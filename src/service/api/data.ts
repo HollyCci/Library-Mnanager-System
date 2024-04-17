@@ -23,3 +23,11 @@ export function getAnalysisMidData() {
 export function getCommonBookData() {
   return request.get('/library/data/common/get-book-data');
 }
+
+/**
+ * 获取可视化界面-借阅数据
+ * @returns 借阅数据
+ */
+export function getCommonBorrowData() {
+  return request.get('/library/data/common/get-borrow-data');
+}
