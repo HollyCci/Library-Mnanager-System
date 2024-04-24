@@ -9,9 +9,9 @@
         {{ loginModuleLabels['pwd-login'] }}
       </n-button>
       <div class="w-12px"></div>
-      <n-button class="flex-1" :block="true" @click="toLoginModule('code-login')">
-        {{ loginModuleLabels['code-login'] }}
-      </n-button>
+      <!--      <n-button class="flex-1" :block="true" @click="toLoginModule('code-login')">-->
+      <!--        {{ loginModuleLabels['code-login'] }}-->
+      <!--      </n-button>-->
     </div>
   </n-space>
 </template>

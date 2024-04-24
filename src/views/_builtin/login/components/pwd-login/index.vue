@@ -66,14 +66,14 @@
         <n-button type="primary" class="flex-1" :block="true" @click="toLoginModule('wechat-login')">
           {{ loginModuleLabels['wechat-login'] }}
         </n-button>
-        <div class="w-12px"></div>
-        <n-button class="flex-1" :block="true" @click="toLoginModule('code-login')">
-          {{ loginModuleLabels['code-login'] }}
-        </n-button>
-        <div class="w-12px"></div>
-        <n-button class="flex-1" :block="true" @click="toLoginModule('register')">
-          {{ loginModuleLabels.register }}
-        </n-button>
+        <!--        <div class="w-12px"></div>-->
+        <!--        <n-button class="flex-1" :block="true" @click="toLoginModule('code-login')">-->
+        <!--          {{ loginModuleLabels['code-login'] }}-->
+        <!--        </n-button>-->
+        <!--        <div class="w-12px"></div>-->
+        <!--        <n-button class="flex-1" :block="true" @click="toLoginModule('register')">-->
+        <!--          {{ loginModuleLabels.register }}-->
+        <!--        </n-button>-->
       </div>
     </n-space>
     <!-- <other-account @login="handleLoginOtherAccount" /> -->
